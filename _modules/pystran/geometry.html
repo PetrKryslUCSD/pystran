@@ -1,0 +1,656 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pystran.geometry &#8212; pystran 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pystran/geometry';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pystran 0.1.0 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../modules.html">
+    pystran
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../modules.html">
+    pystran
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pystran.geometry</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pystran.geometry</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Simple geometry utilities.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">dot</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">norm</span><span class="p">,</span> <span class="n">cross</span>
+
+
+<div class="viewcode-block" id="delt">
+<a class="viewcode-back" href="../../pystran.geometry.html#pystran.geometry.delt">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">delt</span><span class="p">(</span><span class="n">ci</span><span class="p">,</span> <span class="n">cj</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute oriented vector from the first to the second location.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ci</span>
+<span class="sd">        Coordinates of the first point.</span>
+<span class="sd">    cj</span>
+<span class="sd">        Coordinates of the second point.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">cj</span> <span class="o">-</span> <span class="n">ci</span></div>
+
+
+
+<div class="viewcode-block" id="vlen">
+<a class="viewcode-back" href="../../pystran.geometry.html#pystran.geometry.vlen">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">vlen</span><span class="p">(</span><span class="n">ci</span><span class="p">,</span> <span class="n">cj</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute distance from the first to the second point.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ci</span>
+<span class="sd">        Coordinates of the first point.</span>
+<span class="sd">    cj</span>
+<span class="sd">        Coordinates of the second point.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        This is :math:`\| c_j - c_i \|`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">norm</span><span class="p">(</span><span class="n">delt</span><span class="p">(</span><span class="n">ci</span><span class="p">,</span> <span class="n">cj</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="lin_basis">
+<a class="viewcode-back" href="../../pystran.geometry.html#pystran.geometry.lin_basis">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">lin_basis</span><span class="p">(</span><span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute linear basis functions for an interval :math:`-1\le\xi\le+1`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (from -1 to +1) from the first joint to the</span>
+<span class="sd">        second.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        The matrix of basis functions (i.e. :math:`[N_1(\xi), N_2(\xi)]`).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">array</span><span class="p">([(</span><span class="n">xi</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">xi</span> <span class="o">-</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="o">-</span><span class="mi">1</span><span class="p">)])</span></div>
+
+
+
+<div class="viewcode-block" id="interpolate">
+<a class="viewcode-back" href="../../pystran.geometry.html#pystran.geometry.interpolate">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">interpolate</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Interpolate linearly between two quantities.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (from -1 to +1) from the first joint to the</span>
+<span class="sd">        second.</span>
+<span class="sd">    q1</span>
+<span class="sd">        The quantity at :math:`\xi=-1`.</span>
+<span class="sd">    q2</span>
+<span class="sd">        The quantity at :math:`\xi=+1`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">lin_basis</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">N</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">q1</span> <span class="o">+</span> <span class="n">N</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">q2</span></div>
+
+
+
+<div class="viewcode-block" id="herm_basis">
+<a class="viewcode-back" href="../../pystran.geometry.html#pystran.geometry.herm_basis">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">herm_basis</span><span class="p">(</span><span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the cubic Hermite basis functions for an interval :math:`-1\le\xi\le+1`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (from -1 to +1) from the first joint to the</span>
+<span class="sd">        second.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        An array of basis function values is returned (i.e. :math:`[N_1(\xi), ..., N_4(\xi)]`).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">xi</span> <span class="o">+</span> <span class="n">xi</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">xi</span> <span class="o">+</span> <span class="n">xi</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">xi</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">xi</span> <span class="o">-</span> <span class="n">xi</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="p">(</span><span class="o">+</span><span class="mi">1</span> <span class="o">+</span> <span class="n">xi</span> <span class="o">-</span> <span class="n">xi</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">xi</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="herm_basis_xi">
+<a class="viewcode-back" href="../../pystran.geometry.html#pystran.geometry.herm_basis_xi">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">herm_basis_xi</span><span class="p">(</span><span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the first derivative wrt :math:`\xi` of the Hermite basis functions.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (from -1 to +1) from the first joint to the</span>
+<span class="sd">        second.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        An array of first derivatives of shape functions is returned (i.e.</span>
+<span class="sd">        :math:`[dN_1(\xi)/d\xi, ..., dN_4(\xi)/d\xi]`).</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`herm_basis`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="o">-</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">xi</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="p">(</span><span class="o">+</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">xi</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">xi</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="p">(</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">xi</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="p">(</span><span class="o">+</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">xi</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">xi</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="herm_basis_xi2">
+<a class="viewcode-back" href="../../pystran.geometry.html#pystran.geometry.herm_basis_xi2">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">herm_basis_xi2</span><span class="p">(</span><span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the second derivative wrt :math:`\xi` of the Hermite basis functions.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (from -1 to +1) from the first joint to the</span>
+<span class="sd">        second.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        An array of second derivatives of shape functions is returned (i.e.</span>
+<span class="sd">        :math:`[d^2N_1(\xi)/d\xi^2, ..., d^2N_4(\xi)/d\xi^2]`).</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`herm_basis`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">array</span><span class="p">([(</span><span class="mi">6</span> <span class="o">*</span> <span class="n">xi</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">xi</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">6</span> <span class="o">*</span> <span class="n">xi</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">xi</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">])</span></div>
+
+
+
+<div class="viewcode-block" id="herm_basis_xi3">
+<a class="viewcode-back" href="../../pystran.geometry.html#pystran.geometry.herm_basis_xi3">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">herm_basis_xi3</span><span class="p">(</span><span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the third derivative wrt :math:`\xi` of the Hermite basis functions.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (from -1 to +1) from the first joint to the</span>
+<span class="sd">        second.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        An array of third derivatives of shape functions is returned (i.e.</span>
+<span class="sd">        :math:`[d^3N_1(\xi)/d\xi^3, ..., d^3N_4(\xi)/d\xi^3]`).</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`herm_basis`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">array</span><span class="p">([(</span><span class="mi">6</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">])</span></div>
+
+
+
+<div class="viewcode-block" id="member_2d_geometry">
+<a class="viewcode-back" href="../../pystran.geometry.html#pystran.geometry.member_2d_geometry">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">member_2d_geometry</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute 2d member geometry.</span>
+
+<span class="sd">    A local coordinate system is attached to the member such that the :math:`x`</span>
+<span class="sd">    axis is along the member axis. The deformation of the member is considered</span>
+<span class="sd">    in the :math:`x-z` plane.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    i</span>
+<span class="sd">        Dictionary holding data for first joint.</span>
+<span class="sd">    j</span>
+<span class="sd">        Dictionary holding data for second joint.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple of e_x, e_z, h</span>
+<span class="sd">        Vector :math:`e_x` is the direction vector along the axis of the</span>
+<span class="sd">        member. :math:`e_z` is the direction vector perpendicular to the axis</span>
+<span class="sd">        of the member. These two vectors form a left-handed coordinate system</span>
+<span class="sd">        (consistent with the sign convention in the book): The deflection</span>
+<span class="sd">        :math:`w` is measured positive downwards, while the :math:`x`</span>
+<span class="sd">        coordinate is measured left to right. So in two dimensions :math:`e_x`</span>
+<span class="sd">        and :math:`e_z` form a left-handed coordinate system. In reality, the</span>
+<span class="sd">        complete coordinate system is right-handed, as the not-used basis</span>
+<span class="sd">        vector is :math:`e_y`, which points out of the plane of the screen (page).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">e_x</span> <span class="o">=</span> <span class="n">delt</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">],</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">])</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">vlen</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">],</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">h</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ZeroDivisionError</span><span class="p">(</span><span class="s2">&quot;Length of element must be positive&quot;</span><span class="p">)</span>
+    <span class="n">e_x</span> <span class="o">/=</span> <span class="n">h</span>
+    <span class="n">e_z</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">e_x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">e_x</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">e_x</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span></div>
+
+
+
+<div class="viewcode-block" id="member_3d_geometry">
+<a class="viewcode-back" href="../../pystran.geometry.html#pystran.geometry.member_3d_geometry">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">member_3d_geometry</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">xz_vector</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute 3d member geometry.</span>
+
+<span class="sd">    A local coordinate system is attached to the member such that the :math:`x`</span>
+<span class="sd">    axis is along the member axis. The deformation of the member is considered</span>
+<span class="sd">    in the three dimensional space.</span>
+
+<span class="sd">    The plane :math:`x-z` is defined by the vector ``xz_vector`` and the member</span>
+<span class="sd">    axis (i.e. :math:`e_x`), in other words :math:`e_x` is given by the axis of</span>
+<span class="sd">    the member, and the vector :math:`e_y` is the normalized cross product of the</span>
+<span class="sd">    ``xz_vector`` and :math:`e_x`. Therefore, the vector ``xz_vector`` must</span>
+<span class="sd">    not be parallel to the member axis.</span>
+
+<span class="sd">    The third vector, :math:`e_z`, completes the Cartesian basis.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    i</span>
+<span class="sd">        Dictionary holding data for first joint.</span>
+<span class="sd">    j</span>
+<span class="sd">        Dictionary holding data for second joint.</span>
+<span class="sd">    xz_vector</span>
+<span class="sd">        The vector that defines the :math:`x-z` plane of the member-local</span>
+<span class="sd">        coordinate system. It does not need to be of unit length, but it must</span>
+<span class="sd">        not be parallel to the member axis. This vector is not defined for a</span>
+<span class="sd">        truss member, and will be passed in as empty. Heuristics will be then</span>
+<span class="sd">        used to orient the planes.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple of e_x, e_y, e_z, h</span>
+<span class="sd">        Vector :math:`e_x` is the direction vector along the axis of the</span>
+<span class="sd">        member, and  :math:`e_y` and :math:`e_z` are the direction vectors</span>
+<span class="sd">        perpendicular to the axis of the member. These three vectors form a</span>
+<span class="sd">        right-handed Cartesian coordinate system. :math:`h` is the length of</span>
+<span class="sd">        the member.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">e_x</span> <span class="o">=</span> <span class="n">delt</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">],</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">])</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">vlen</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">],</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">h</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ZeroDivisionError</span><span class="p">(</span><span class="s2">&quot;Length of element must be positive&quot;</span><span class="p">)</span>
+    <span class="n">e_x</span> <span class="o">/=</span> <span class="n">h</span>  <span class="c1"># normalize the unit length</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">xz_vector</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">xz_vector</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">xz_vector</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mf">0.99</span> <span class="o">*</span> <span class="n">norm</span><span class="p">(</span><span class="n">xz_vector</span><span class="p">):</span>
+            <span class="n">xz_vector</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">xz_vector</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mf">0.99</span> <span class="o">*</span> <span class="n">norm</span><span class="p">(</span><span class="n">xz_vector</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ZeroDivisionError</span><span class="p">(</span><span class="s2">&quot;xz_vector must not be parallel to the beam axis&quot;</span><span class="p">)</span>
+    <span class="n">e_y</span> <span class="o">=</span> <span class="n">cross</span><span class="p">(</span><span class="n">xz_vector</span><span class="p">,</span> <span class="n">e_x</span><span class="p">)</span>
+    <span class="n">e_y</span> <span class="o">=</span> <span class="n">e_y</span> <span class="o">/</span> <span class="n">norm</span><span class="p">(</span><span class="n">e_y</span><span class="p">)</span>
+    <span class="n">e_z</span> <span class="o">=</span> <span class="n">cross</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">e_y</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">e_x</span><span class="p">,</span> <span class="n">e_y</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Petr Krysl.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

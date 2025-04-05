@@ -1,0 +1,7 @@
+pystran.freedoms module
+=======================
+
+.. automodule:: pystran.freedoms
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+pystran.section module
+======================
+
+.. automodule:: pystran.section
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+pystran.beam module
+===================
+
+.. automodule:: pystran.beam
+   :members:
+   :undoc-members:
+   :show-inheritance:

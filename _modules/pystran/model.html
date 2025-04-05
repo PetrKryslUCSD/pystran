@@ -1,0 +1,1410 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pystran.model &#8212; pystran 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pystran/model';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pystran 0.1.0 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../modules.html">
+    pystran
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../modules.html">
+    pystran
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pystran.model</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pystran.model</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Define the functions for defining and manipulating a model.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">sqrt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">dot</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">concatenate</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pystran</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pystran</span><span class="w"> </span><span class="kn">import</span> <span class="n">freedoms</span>
+
+
+<div class="viewcode-block" id="create">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.create">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a new model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dim</span>
+<span class="sd">        Supply the dimension of the model (2 or 3).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">&quot;dim&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dim</span>  <span class="c1"># Dimension of the model</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># Depending on the number of space dimensions, a set of degrees of freedom</span>
+    <span class="c1"># will consist of either two translations and one rotation, or three</span>
+    <span class="c1"># translations and three rotations.</span>
+    <span class="k">if</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;dim&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">freedoms</span><span class="o">.</span><span class="n">U1</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">freedoms</span><span class="o">.</span><span class="n">U2</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">freedoms</span><span class="o">.</span><span class="n">UR3</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">freedoms</span><span class="o">.</span><span class="n">U3</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1000</span>  <span class="c1"># invalid</span>
+        <span class="n">freedoms</span><span class="o">.</span><span class="n">UR1</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1000</span>  <span class="c1"># invalid</span>
+        <span class="n">freedoms</span><span class="o">.</span><span class="n">UR2</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1000</span>  <span class="c1"># invalid</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">freedoms</span><span class="o">.</span><span class="n">U1</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">freedoms</span><span class="o">.</span><span class="n">U2</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">freedoms</span><span class="o">.</span><span class="n">U3</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">freedoms</span><span class="o">.</span><span class="n">UR1</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">freedoms</span><span class="o">.</span><span class="n">UR2</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="n">freedoms</span><span class="o">.</span><span class="n">UR3</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+
+<div class="viewcode-block" id="add_joint">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.add_joint">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_joint</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">jid</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">,</span> <span class="n">dof</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add a joint to the model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m</span>
+<span class="sd">        Model.</span>
+<span class="sd">    jid</span>
+<span class="sd">        The joint identifier, which must be unique, but can be anything</span>
+<span class="sd">        that is a legal dictionary key (integer, string, ...),</span>
+<span class="sd">    coordinates</span>
+<span class="sd">        The list (or a tuple) of coordinates of the joint; the</span>
+<span class="sd">        input is converted to an array.</span>
+<span class="sd">    dof</span>
+<span class="sd">        Optional: the degrees of freedom of the joint as a list (or a</span>
+<span class="sd">        tuple). If provided, do not use :func:`number_dofs` later on.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Newly created joint.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">jid</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Joint already exists&quot;</span><span class="p">)</span>
+    <span class="n">coordinates</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">coordinates</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s2">&quot;dim&quot;</span><span class="p">],):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Coordinate dimension mismatch&quot;</span><span class="p">)</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">][</span><span class="n">jid</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;jid&quot;</span><span class="p">:</span> <span class="n">jid</span><span class="p">,</span> <span class="s2">&quot;coordinates&quot;</span><span class="p">:</span> <span class="n">coordinates</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">dof</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">][</span><span class="n">jid</span><span class="p">][</span><span class="s2">&quot;dof&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">dof</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">][</span><span class="n">jid</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="add_truss_member">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.add_truss_member">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_truss_member</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">connectivity</span><span class="p">,</span> <span class="n">sect</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add a truss member to the model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m</span>
+<span class="sd">        Model.</span>
+<span class="sd">    mid</span>
+<span class="sd">        The member identifier, which must be unique, but can be anything</span>
+<span class="sd">        that is a legal dictionary key (integer, string, ...).</span>
+<span class="sd">    connectivity</span>
+<span class="sd">        The list (or a tuple) of the joint identifiers.</span>
+<span class="sd">    sect</span>
+<span class="sd">        Section of appropriate type (i.e. a truss section).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Newly created member.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;truss_members&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span>
+        <span class="n">m</span><span class="p">[</span><span class="s2">&quot;truss_members&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">mid</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;truss_members&quot;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Truss member already exists&quot;</span><span class="p">)</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">&quot;truss_members&quot;</span><span class="p">][</span><span class="n">mid</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;mid&quot;</span><span class="p">:</span> <span class="n">mid</span><span class="p">,</span>
+        <span class="s2">&quot;connectivity&quot;</span><span class="p">:</span> <span class="n">connectivity</span><span class="p">,</span>
+        <span class="s2">&quot;section&quot;</span><span class="p">:</span> <span class="n">sect</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;truss_members&quot;</span><span class="p">][</span><span class="n">mid</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="add_beam_member">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.add_beam_member">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_beam_member</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">connectivity</span><span class="p">,</span> <span class="n">sect</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add a beam member to the model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m</span>
+<span class="sd">        Model.</span>
+<span class="sd">    mid</span>
+<span class="sd">        The member identifier, which must be unique, but can be anything</span>
+<span class="sd">        that is a legal dictionary key (integer, string, ...).</span>
+<span class="sd">    connectivity</span>
+<span class="sd">        The list (or a tuple) of the joint identifiers.</span>
+<span class="sd">    sect</span>
+<span class="sd">        Section of appropriate type (2d or 3d beam section).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Newly created member.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`section.beam_2d_section`</span>
+<span class="sd">    :func:`section.beam_3d_section`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;beam_members&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span>
+        <span class="n">m</span><span class="p">[</span><span class="s2">&quot;beam_members&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">mid</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;beam_members&quot;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Beam member already exists&quot;</span><span class="p">)</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">&quot;beam_members&quot;</span><span class="p">][</span><span class="n">mid</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;mid&quot;</span><span class="p">:</span> <span class="n">mid</span><span class="p">,</span>
+        <span class="s2">&quot;connectivity&quot;</span><span class="p">:</span> <span class="n">connectivity</span><span class="p">,</span>
+        <span class="s2">&quot;section&quot;</span><span class="p">:</span> <span class="n">sect</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;beam_members&quot;</span><span class="p">][</span><span class="n">mid</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="add_rigid_link_member">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.add_rigid_link_member">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_rigid_link_member</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">connectivity</span><span class="p">,</span> <span class="n">sect</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add a rigid link member to the model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m</span>
+<span class="sd">        Model.</span>
+<span class="sd">    mid</span>
+<span class="sd">        The member identifier, which must be unique, but can be anything</span>
+<span class="sd">        that is a legal dictionary key (integer, string, ...),</span>
+<span class="sd">    connectivity</span>
+<span class="sd">        The list (or a tuple) of the joint identifiers; the</span>
+<span class="sd">        first is the *master* (its motion determines the motion of the</span>
+<span class="sd">        subordinate), the second is the *subordinate* (its motion follows that of</span>
+<span class="sd">        the master).</span>
+<span class="sd">    sect</span>
+<span class="sd">        Section of appropriate type (i.e. rigid link section).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Newly created member.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`rigid_link_section`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;rigid_link_members&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span>
+        <span class="n">m</span><span class="p">[</span><span class="s2">&quot;rigid_link_members&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">mid</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;rigid_link_members&quot;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Rigid link member already exists&quot;</span><span class="p">)</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">&quot;rigid_link_members&quot;</span><span class="p">][</span><span class="n">mid</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;mid&quot;</span><span class="p">:</span> <span class="n">mid</span><span class="p">,</span>
+        <span class="s2">&quot;connectivity&quot;</span><span class="p">:</span> <span class="n">connectivity</span><span class="p">,</span>
+        <span class="s2">&quot;section&quot;</span><span class="p">:</span> <span class="n">sect</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;rigid_link_members&quot;</span><span class="p">][</span><span class="n">mid</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="add_spring_member">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.add_spring_member">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_spring_member</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">connectivity</span><span class="p">,</span> <span class="n">sect</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add a spring member to the model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m</span>
+<span class="sd">        Model.</span>
+<span class="sd">    mid</span>
+<span class="sd">        The member identifier, which must be unique, but can be anything</span>
+<span class="sd">        that is a legal dictionary key (integer, string, ...),</span>
+<span class="sd">    connectivity</span>
+<span class="sd">        The list (or a tuple) of the joint identifiers.</span>
+<span class="sd">    sect</span>
+<span class="sd">        Section of appropriate type (i.e. a spring section).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Newly created member.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`spring_section`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;spring_members&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span>
+        <span class="n">m</span><span class="p">[</span><span class="s2">&quot;spring_members&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">mid</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;spring_members&quot;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Spring member already exists&quot;</span><span class="p">)</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">&quot;spring_members&quot;</span><span class="p">][</span><span class="n">mid</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;mid&quot;</span><span class="p">:</span> <span class="n">mid</span><span class="p">,</span>
+        <span class="s2">&quot;connectivity&quot;</span><span class="p">:</span> <span class="n">connectivity</span><span class="p">,</span>
+        <span class="s2">&quot;section&quot;</span><span class="p">:</span> <span class="n">sect</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;spring_members&quot;</span><span class="p">][</span><span class="n">mid</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="add_support">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.add_support">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_support</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">dof</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add a support to a joint.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    j</span>
+<span class="sd">        The joint (obtained from the model as ``m[&quot;joints&quot;][jid]``).</span>
+<span class="sd">    dof</span>
+<span class="sd">        The degree of freedom (0, 1, ...). Refer to the module ``freedoms``.</span>
+<span class="sd">    value</span>
+<span class="sd">        The signed magnitude of the support motion (default is zero).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    `pystran.freedoms`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;supports&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">j</span><span class="p">:</span>
+        <span class="n">j</span><span class="p">[</span><span class="s2">&quot;supports&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">freedoms</span><span class="o">.</span><span class="n">prescribed_dofs_and_values</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">dof</span><span class="p">,</span> <span class="n">value</span><span class="p">)):</span>
+        <span class="n">j</span><span class="p">[</span><span class="s2">&quot;supports&quot;</span><span class="p">][</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span></div>
+
+
+
+<div class="viewcode-block" id="add_load">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.add_load">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_load</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">dof</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add a load to a joint.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    j</span>
+<span class="sd">        The joint (obtained from the model as ``m[&quot;joints&quot;][jid]``).</span>
+<span class="sd">    dof</span>
+<span class="sd">        The degree of freedom (0, 1, ...).</span>
+<span class="sd">    value</span>
+<span class="sd">        The signed magnitude of the load.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    `pystran.freedoms`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;loads&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">j</span><span class="p">:</span>
+        <span class="n">j</span><span class="p">[</span><span class="s2">&quot;loads&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">dof</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;loads&quot;</span><span class="p">]:</span>
+        <span class="n">j</span><span class="p">[</span><span class="s2">&quot;loads&quot;</span><span class="p">][</span><span class="n">dof</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">j</span><span class="p">[</span><span class="s2">&quot;loads&quot;</span><span class="p">][</span><span class="n">dof</span><span class="p">]</span> <span class="o">+=</span> <span class="n">value</span></div>
+
+
+
+<div class="viewcode-block" id="add_mass">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.add_mass">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_mass</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">dof</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add a mass to a joint.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    j</span>
+<span class="sd">        The joint (obtained from the model as ``m[&quot;joints&quot;][jid]``).</span>
+<span class="sd">    dof</span>
+<span class="sd">        The degree of freedom (0, 1, ...). Refer to the module ``freedoms``.</span>
+<span class="sd">    value</span>
+<span class="sd">        The magnitude of the added mass.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    `pystran.freedoms`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;masses&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">j</span><span class="p">:</span>
+        <span class="n">j</span><span class="p">[</span><span class="s2">&quot;masses&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">j</span><span class="p">[</span><span class="s2">&quot;masses&quot;</span><span class="p">][</span><span class="n">dof</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
+
+
+
+<div class="viewcode-block" id="add_dof_links">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.add_dof_links">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_dof_links</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">jids</span><span class="p">,</span> <span class="n">dof</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add degree-of-freedom links between all joints in the list ``jids`` in the</span>
+<span class="sd">    direction ``dof``.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m</span>
+<span class="sd">        The model.</span>
+<span class="sd">    jids</span>
+<span class="sd">        The list of joint identifiers.</span>
+<span class="sd">    dof</span>
+<span class="sd">        The degree of freedom at which the joints are to be linked.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    `pystran.freedoms`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Now add the mutual links between the joints</span>
+    <span class="k">for</span> <span class="n">jid1</span> <span class="ow">in</span> <span class="n">jids</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">jid2</span> <span class="ow">in</span> <span class="n">jids</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">jid1</span> <span class="o">!=</span> <span class="n">jid2</span><span class="p">:</span>
+                <span class="n">j1</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">][</span><span class="n">jid1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="s2">&quot;links&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">j1</span><span class="p">:</span>
+                    <span class="n">j1</span><span class="p">[</span><span class="s2">&quot;links&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="k">if</span> <span class="n">jid2</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">j1</span><span class="p">[</span><span class="s2">&quot;links&quot;</span><span class="p">]:</span>
+                    <span class="n">j1</span><span class="p">[</span><span class="s2">&quot;links&quot;</span><span class="p">][</span><span class="n">jid2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                    <span class="o">*</span><span class="n">freedoms</span><span class="o">.</span><span class="n">prescribed_dofs_and_values</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s2">&quot;dim&quot;</span><span class="p">],</span> <span class="n">dof</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+                <span class="p">):</span>
+                    <span class="n">j1</span><span class="p">[</span><span class="s2">&quot;links&quot;</span><span class="p">][</span><span class="n">jid2</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="bounding_box">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.bounding_box">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">bounding_box</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the bounding box of the model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m</span>
+<span class="sd">        The model.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        Array of the lower and upper ranges (i.e. the bounding box that</span>
+<span class="sd">        encloses all the joints).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dim</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;dim&quot;</span><span class="p">]</span>
+    <span class="n">box</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="n">concatenate</span><span class="p">([[</span><span class="n">numpy</span><span class="o">.</span><span class="n">inf</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">)],</span> <span class="p">[</span><span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">inf</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">)]])</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">cj</span> <span class="o">=</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cj</span><span class="p">):</span>
+            <span class="n">box</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">box</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">box</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">dim</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">box</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">dim</span><span class="p">],</span> <span class="n">v</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">box</span></div>
+
+
+
+<div class="viewcode-block" id="characteristic_dimension">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.characteristic_dimension">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">characteristic_dimension</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the characteristic dimension of the model.</span>
+
+<span class="sd">    This is the average of the dimensions of the bounding box.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m</span>
+<span class="sd">        The model.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Characteristic dimension.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dim</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;dim&quot;</span><span class="p">]</span>
+    <span class="n">box</span> <span class="o">=</span> <span class="n">bounding_box</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">dl</span> <span class="o">=</span> <span class="p">[</span><span class="n">box</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">dim</span><span class="p">]</span> <span class="o">-</span> <span class="n">box</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">mean</span><span class="p">(</span><span class="n">array</span><span class="p">(</span><span class="n">dl</span><span class="p">))</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_copy_dof_num_to_linked</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s2">&quot;links&quot;</span> <span class="ow">in</span> <span class="n">j</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;links&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">o</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">][</span><span class="n">k</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">o</span><span class="p">[</span><span class="s2">&quot;links&quot;</span><span class="p">][</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;jid&quot;</span><span class="p">]]:</span>
+                <span class="n">o</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">][</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_have_rotations</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="n">with_rotations</span> <span class="o">=</span> <span class="s2">&quot;beam_members&quot;</span> <span class="ow">in</span> <span class="n">m</span> <span class="ow">and</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;beam_members&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">with_rotations</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s2">&quot;supports&quot;</span> <span class="ow">in</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;supports&quot;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">dof</span> <span class="ow">in</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;supports&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">dof</span> <span class="o">==</span> <span class="n">freedoms</span><span class="o">.</span><span class="n">UR1</span> <span class="ow">or</span> <span class="n">dof</span> <span class="o">==</span> <span class="n">freedoms</span><span class="o">.</span><span class="n">UR2</span> <span class="ow">or</span> <span class="n">dof</span> <span class="o">==</span> <span class="n">freedoms</span><span class="o">.</span><span class="n">UR3</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+
+<div class="viewcode-block" id="ndof_per_joint">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.ndof_per_joint">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">ndof_per_joint</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    How many degrees of freedom are there per joint?</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m</span>
+<span class="sd">        The model.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    int</span>
+<span class="sd">        Number of the degrees of freedom per joint. Depends on the space</span>
+<span class="sd">        dimension of the model and the presence or absence of beams.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ndpn</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;dim&quot;</span><span class="p">]</span>
+    <span class="n">with_rotations</span> <span class="o">=</span> <span class="n">_have_rotations</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">with_rotations</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;dim&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">ndpn</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ndpn</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="k">return</span> <span class="n">ndpn</span></div>
+
+
+
+<div class="viewcode-block" id="number_dofs">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.number_dofs">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">number_dofs</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Number degrees of freedom.</span>
+
+<span class="sd">    All current information about degrees of freedom will be replaced when this</span>
+<span class="sd">    function is done.</span>
+
+<span class="sd">    After this function returns, ``m[&quot;nfreedof&quot;]`` will be the number of free</span>
+<span class="sd">    degrees of freedom, and ``m[&quot;ntotaldof&quot;]`` will be the total number of degrees</span>
+<span class="sd">    of freedom.</span>
+
+<span class="sd">    The degrees of freedom are numbered in the order of free and then</span>
+<span class="sd">    prescribed.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m</span>
+<span class="sd">        The model.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Determine the number of degrees of freedom per joint</span>
+    <span class="n">ndpn</span> <span class="o">=</span> <span class="n">ndof_per_joint</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="c1"># Generate arrays for storing the degrees of freedom</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s2">&quot;dof&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">j</span><span class="p">:</span>
+            <span class="n">j</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="n">ndpn</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+        <span class="n">j</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">][:]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># -1 means not yet numbered</span>
+    <span class="c1"># For each linked pair of joints, make sure they share the same supports</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s2">&quot;links&quot;</span> <span class="ow">in</span> <span class="n">j</span> <span class="ow">and</span> <span class="s2">&quot;supports&quot;</span> <span class="ow">in</span> <span class="n">j</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;links&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">o</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">][</span><span class="n">k</span><span class="p">]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;supports&quot;</span> <span class="ow">in</span> <span class="n">o</span><span class="p">:</span>
+                    <span class="n">o</span><span class="p">[</span><span class="s2">&quot;supports&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;supports&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">o</span><span class="p">[</span><span class="s2">&quot;supports&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;supports&quot;</span><span class="p">]:</span>
+                    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Linked joints must have the same supports&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Number the free degrees of freedom first</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndpn</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="s2">&quot;supports&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">j</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">d</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;supports&quot;</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">][</span><span class="n">d</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">j</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">][</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>
+                    <span class="n">_copy_dof_num_to_linked</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+                    <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">&quot;nfreedof&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="c1"># Number all prescribed degrees of freedom</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndpn</span><span class="p">):</span>
+            <span class="k">if</span> <span class="s2">&quot;supports&quot;</span> <span class="ow">in</span> <span class="n">j</span> <span class="ow">and</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;supports&quot;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">][</span><span class="n">d</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">j</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">][</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span>
+                    <span class="n">_copy_dof_num_to_linked</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+                    <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">&quot;ntotaldof&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_build_stiffness_matrix</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="n">nt</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;ntotaldof&quot;</span><span class="p">]</span>
+    <span class="c1"># Assemble global stiffness matrix and mass matrix</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="n">nt</span><span class="p">,</span> <span class="n">nt</span><span class="p">))</span>
+    <span class="k">if</span> <span class="s2">&quot;truss_members&quot;</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;truss_members&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">connectivity</span> <span class="o">=</span> <span class="n">member</span><span class="p">[</span><span class="s2">&quot;connectivity&quot;</span><span class="p">]</span>
+            <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">][</span><span class="n">connectivity</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">][</span><span class="n">connectivity</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+            <span class="n">pystran</span><span class="o">.</span><span class="n">truss</span><span class="o">.</span><span class="n">assemble_stiffness</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;beam_members&quot;</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;beam_members&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">connectivity</span> <span class="o">=</span> <span class="n">member</span><span class="p">[</span><span class="s2">&quot;connectivity&quot;</span><span class="p">]</span>
+            <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">][</span><span class="n">connectivity</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">][</span><span class="n">connectivity</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+            <span class="n">pystran</span><span class="o">.</span><span class="n">beam</span><span class="o">.</span><span class="n">assemble_stiffness</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;rigid_link_members&quot;</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;rigid_link_members&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">connectivity</span> <span class="o">=</span> <span class="n">member</span><span class="p">[</span><span class="s2">&quot;connectivity&quot;</span><span class="p">]</span>
+            <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">][</span><span class="n">connectivity</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">][</span><span class="n">connectivity</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+            <span class="n">pystran</span><span class="o">.</span><span class="n">rigid</span><span class="o">.</span><span class="n">assemble_stiffness</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;spring_members&quot;</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;spring_members&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">connectivity</span> <span class="o">=</span> <span class="n">member</span><span class="p">[</span><span class="s2">&quot;connectivity&quot;</span><span class="p">]</span>
+            <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">][</span><span class="n">connectivity</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">][</span><span class="n">connectivity</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+            <span class="n">pystran</span><span class="o">.</span><span class="n">spring</span><span class="o">.</span><span class="n">assemble_stiffness</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">K</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_build_mass_matrix</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="n">nt</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;ntotaldof&quot;</span><span class="p">]</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="n">nt</span><span class="p">,</span> <span class="n">nt</span><span class="p">))</span>
+    <span class="k">if</span> <span class="s2">&quot;truss_members&quot;</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;truss_members&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">connectivity</span> <span class="o">=</span> <span class="n">member</span><span class="p">[</span><span class="s2">&quot;connectivity&quot;</span><span class="p">]</span>
+            <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">][</span><span class="n">connectivity</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">][</span><span class="n">connectivity</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+            <span class="n">pystran</span><span class="o">.</span><span class="n">truss</span><span class="o">.</span><span class="n">assemble_mass</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;beam_members&quot;</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;beam_members&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">connectivity</span> <span class="o">=</span> <span class="n">member</span><span class="p">[</span><span class="s2">&quot;connectivity&quot;</span><span class="p">]</span>
+            <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">][</span><span class="n">connectivity</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">][</span><span class="n">connectivity</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+            <span class="n">pystran</span><span class="o">.</span><span class="n">beam</span><span class="o">.</span><span class="n">assemble_mass</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s2">&quot;masses&quot;</span> <span class="ow">in</span> <span class="n">j</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">dof</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;masses&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">gr</span> <span class="o">=</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">][</span><span class="n">dof</span><span class="p">]</span>
+                <span class="n">M</span><span class="p">[</span><span class="n">gr</span><span class="p">,</span> <span class="n">gr</span><span class="p">]</span> <span class="o">+=</span> <span class="n">value</span>
+    <span class="k">return</span> <span class="n">M</span>
+
+
+<div class="viewcode-block" id="solve_statics">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.solve_statics">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">solve_statics</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Solve the static equilibrium of the discrete model.</span>
+
+<span class="sd">    :func:`number_dofs` must be called before this function.</span>
+
+<span class="sd">    This function solves the equation of static equilibrium</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        K \cdot U = F </span>
+
+<span class="sd">    Here :math:`K` is the stiffness matrix, :math:`U` is the displacement</span>
+<span class="sd">    vector, and :math:`F` is the vector of forces acting on the joints.</span>
+
+<span class="sd">    Note that the degrees of freedom can be partitioned into &#39;free&#39; and</span>
+<span class="sd">    prescribed (given as &#39;data&#39;).</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \left[ \begin{array}{cc} </span>
+<span class="sd">        K_{ff} &amp; K_{fd} \\</span>
+<span class="sd">        K_{df} &amp; K_{dd} \\</span>
+<span class="sd">        \end{array}\right] \cdot \left[ \begin{array}{cc} </span>
+<span class="sd">        U_{f} \\</span>
+<span class="sd">        U_{d} \\</span>
+<span class="sd">        \end{array}\right] = \left[ \begin{array}{cc} </span>
+<span class="sd">        L_{f} \\</span>
+<span class="sd">        L_{d} + R\\</span>
+<span class="sd">        \end{array}\right] </span>
+<span class="sd">    </span>
+
+<span class="sd">    Here :math:`L_f` is the vector of active loads applied to the free degrees of</span>
+<span class="sd">    freedom, and :math:`L_d`  is the vector of active loads applied to the data</span>
+<span class="sd">    degrees of freedom. The reactions :math:`R` due to supports act on the prescribed</span>
+<span class="sd">    (data) degrees of freedom.</span>
+
+<span class="sd">    The system of equations is solved for the free degrees of freedom as</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        K_{ff} \cdot U_{f} = -K_{fd} \cdot U_{d} +L_{f} </span>
+<span class="sd">    </span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m</span>
+<span class="sd">        The model.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`number_dofs`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nt</span><span class="p">,</span> <span class="n">nf</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;ntotaldof&quot;</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;nfreedof&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">nt</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;No degrees of freedom&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">nf</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;No free degrees of freedom&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Assemble global stiffness matrix</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">_build_stiffness_matrix</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+    <span class="n">m</span><span class="p">[</span><span class="s2">&quot;K&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">K</span>
+
+    <span class="c1"># Compute the active load vector</span>
+    <span class="n">F</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">nt</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">joint</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s2">&quot;loads&quot;</span> <span class="ow">in</span> <span class="n">joint</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">dof</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">joint</span><span class="p">[</span><span class="s2">&quot;loads&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">gr</span> <span class="o">=</span> <span class="n">joint</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">][</span><span class="n">dof</span><span class="p">]</span>
+                <span class="n">F</span><span class="p">[</span><span class="n">gr</span><span class="p">]</span> <span class="o">+=</span> <span class="n">value</span>
+
+    <span class="n">m</span><span class="p">[</span><span class="s2">&quot;F&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">F</span>
+
+    <span class="n">U</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s2">&quot;ntotaldof&quot;</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">joint</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s2">&quot;supports&quot;</span> <span class="ow">in</span> <span class="n">joint</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">dof</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">joint</span><span class="p">[</span><span class="s2">&quot;supports&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">value</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">:</span>
+                    <span class="n">gr</span> <span class="o">=</span> <span class="n">joint</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">][</span><span class="n">dof</span><span class="p">]</span>
+                    <span class="n">U</span><span class="p">[</span><span class="n">gr</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="c1"># # Solve for displacements</span>
+    <span class="n">U</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nf</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nf</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">nf</span><span class="p">],</span> <span class="n">F</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nf</span><span class="p">]</span> <span class="o">-</span> <span class="n">dot</span><span class="p">(</span><span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nf</span><span class="p">,</span> <span class="n">nf</span><span class="p">:</span><span class="n">nt</span><span class="p">],</span> <span class="n">U</span><span class="p">[</span><span class="n">nf</span><span class="p">:</span><span class="n">nt</span><span class="p">]))</span>
+
+    <span class="n">m</span><span class="p">[</span><span class="s2">&quot;U&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">U</span>
+
+    <span class="c1"># # Assign displacements back to joints</span>
+    <span class="k">for</span> <span class="n">joint</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">joint</span><span class="p">[</span><span class="s2">&quot;displacements&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">U</span><span class="p">[</span><span class="n">joint</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">]]</span></div>
+
+
+
+<div class="viewcode-block" id="statics_reactions">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.statics_reactions">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">statics_reactions</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the reactions in the static equilibrium of the discrete model.</span>
+
+<span class="sd">    The partitioned system of balanced equations reads</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \left[ \begin{array}{cc} </span>
+<span class="sd">        K_{ff} &amp; K_{fd} \\</span>
+<span class="sd">        K_{df} &amp; K_{dd} \\</span>
+<span class="sd">        \end{array}\right] \cdot \left[ \begin{array}{cc} </span>
+<span class="sd">        U_{f} \\</span>
+<span class="sd">        U_{d} \\</span>
+<span class="sd">        \end{array}\right] = \left[ \begin{array}{cc} </span>
+<span class="sd">        L_{f} \\</span>
+<span class="sd">        L_{d} + R\\</span>
+<span class="sd">        \end{array}\right] </span>
+<span class="sd">    </span>
+
+<span class="sd">    Here :math:`L_f` is the vector of active loads applied to the free degrees</span>
+<span class="sd">    of freedom, and :math:`L_d`  is the vector of active loads applied to the</span>
+<span class="sd">    data degrees of freedom. The reactions :math:`R` due to supports act on the</span>
+<span class="sd">    prescribed (data) degrees of freedom.</span>
+
+<span class="sd">    The system of equations is solved for the reactions as</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        R = K_{ff} \cdot U_{f} + K_{fd} \cdot U_{d} -L_{d} </span>
+<span class="sd">    </span>
+<span class="sd">    once :math:`U_f` has been solved for in the :func:`solve_statics` step.</span>
+
+<span class="sd">    The reactions are distributed to the joints, and can be retrieved from</span>
+<span class="sd">    individual joint dictionaries ``j`` as ``j[&#39;reactions&#39;]``.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m</span>
+<span class="sd">        The model.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`solve_statics`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;K&quot;</span><span class="p">]</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;U&quot;</span><span class="p">]</span>
+    <span class="n">F</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;F&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Compute reactions from the partitioned stiffness matrix and the</span>
+    <span class="c1"># partitioned displacement vector</span>
+    <span class="c1"># R = dot(K[nf:nt, 0:nf], U[0:nf]) + dot(K[nf:nt, nf:nt], U[nf:nt]) - F[nf:nt]</span>
+    <span class="c1"># For convenience when working</span>
+    <span class="c1"># with degrees of freedom, we compute this product and only use the rows</span>
+    <span class="c1"># corresponding to fixed the degrees of freedom.</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">U</span><span class="p">)</span> <span class="o">-</span> <span class="n">F</span>
+
+    <span class="k">for</span> <span class="n">joint</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s2">&quot;supports&quot;</span> <span class="ow">in</span> <span class="n">joint</span><span class="p">:</span>
+            <span class="n">reactions</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">dof</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">joint</span><span class="p">[</span><span class="s2">&quot;supports&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">gr</span> <span class="o">=</span> <span class="n">joint</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">][</span><span class="n">dof</span><span class="p">]</span>
+                <span class="n">reactions</span><span class="p">[</span><span class="n">dof</span><span class="p">]</span> <span class="o">=</span> <span class="n">R</span><span class="p">[</span><span class="n">gr</span><span class="p">]</span>
+            <span class="n">joint</span><span class="p">[</span><span class="s2">&quot;reactions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reactions</span></div>
+
+
+
+<div class="viewcode-block" id="solve_free_vibration">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.solve_free_vibration">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">solve_free_vibration</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Solve the free vibration of the discrete model.</span>
+
+<span class="sd">    The free vibration eigenvalue problem is solved for the eigenvalues and</span>
+<span class="sd">    eigenvectors (can be retrieved as  ``m[&quot;eigvals&quot;]`` and ``m[&quot;eigvecs&quot;]``). The</span>
+<span class="sd">    frequencies are computed from the eigenvalues (can be retrieved as</span>
+<span class="sd">    ``m[&quot;frequencies&quot;]``).</span>
+
+<span class="sd">    The equation of free vibration is</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        K \cdot V = \omega^2 M \cdot V</span>
+
+<span class="sd">    where :math:`M` is the mass matrix, :math:`V` is the eigenvector, and</span>
+<span class="sd">    :math:`\omega` is the angular frequency.</span>
+
+<span class="sd">    :func:`number_dofs` must be called before this function.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m</span>
+<span class="sd">        The model.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`number_dofs`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nf</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;nfreedof&quot;</span><span class="p">]</span>
+    <span class="c1"># Assemble global stiffness matrix and mass matrix</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">_build_stiffness_matrix</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">_build_mass_matrix</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+    <span class="n">m</span><span class="p">[</span><span class="s2">&quot;K&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">K</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">&quot;M&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">M</span>
+
+    <span class="n">U</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s2">&quot;ntotaldof&quot;</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">joint</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s2">&quot;supports&quot;</span> <span class="ow">in</span> <span class="n">joint</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">dof</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">joint</span><span class="p">[</span><span class="s2">&quot;supports&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">gr</span> <span class="o">=</span> <span class="n">joint</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">][</span><span class="n">dof</span><span class="p">]</span>
+                <span class="n">U</span><span class="p">[</span><span class="n">gr</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">&quot;U&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">U</span>
+
+    <span class="c1"># Solved the eigenvalue problem</span>
+    <span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nf</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">nf</span><span class="p">],</span> <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nf</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">nf</span><span class="p">])</span>
+
+    <span class="n">m</span><span class="p">[</span><span class="s2">&quot;eigvals&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">eigvals</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">&quot;frequencies&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">sqrt</span><span class="p">(</span><span class="n">ev</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span> <span class="k">for</span> <span class="n">ev</span> <span class="ow">in</span> <span class="n">eigvals</span><span class="p">]</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">&quot;eigvecs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">eigvecs</span>
+
+    <span class="k">return</span></div>
+
+
+
+<div class="viewcode-block" id="set_solution">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.set_solution">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_solution</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">V</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set the displacement solution from a vector.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m</span>
+<span class="sd">        The model.</span>
+<span class="sd">    V</span>
+<span class="sd">        The displacement vector. Either of length ``m[&quot;nfreedof&quot;]`` for only the</span>
+<span class="sd">        free degrees of freedom, or of length ``m[&quot;ntotaldof&quot;]`` for the total</span>
+<span class="sd">        number of degrees of freedom.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`number_dofs`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nf</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;nfreedof&quot;</span><span class="p">]</span>
+    <span class="n">nt</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;ntotaldof&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">)</span> <span class="o">==</span> <span class="n">nf</span><span class="p">:</span>
+        <span class="n">m</span><span class="p">[</span><span class="s2">&quot;U&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="n">nf</span><span class="p">]</span> <span class="o">=</span> <span class="n">V</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">)</span> <span class="o">==</span> <span class="n">nt</span><span class="p">:</span>
+        <span class="n">m</span><span class="p">[</span><span class="s2">&quot;U&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="n">nt</span><span class="p">]</span> <span class="o">=</span> <span class="n">V</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Invalid vector length&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">joint</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">joint</span><span class="p">[</span><span class="s2">&quot;displacements&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;U&quot;</span><span class="p">][</span><span class="n">joint</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">]]</span></div>
+
+
+
+<div class="viewcode-block" id="free_body_check">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.free_body_check">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">free_body_check</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check the balance of the structure as a free body.</span>
+
+<span class="sd">    All the active forces and moments together with the reactions at all the</span>
+<span class="sd">    supports should sum to zero.</span>
+
+<span class="sd">    :func:`statics_reactions` must be called before this function as this calculation</span>
+<span class="sd">    relies on the presence of reactions at the joints.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m</span>
+<span class="sd">        The model.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        Array of resultant forces and moments.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`statics_reactions`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;dim&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">nrbm</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># Number of rigid body modes: assume 2 translations, 1 rotation</span>
+        <span class="n">MZ</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">allforces</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">nrbm</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">joint</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">joint</span><span class="p">[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">]</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s2">&quot;loads&quot;</span> <span class="ow">in</span> <span class="n">joint</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">dof</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">joint</span><span class="p">[</span><span class="s2">&quot;loads&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">dof</span> <span class="o">&lt;</span> <span class="n">MZ</span><span class="p">:</span>
+                        <span class="c1"># Add contributions of forces to the moment</span>
+                        <span class="k">if</span> <span class="n">dof</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="n">allforces</span><span class="p">[</span><span class="n">MZ</span><span class="p">]</span> <span class="o">+=</span> <span class="o">-</span><span class="n">value</span> <span class="o">*</span> <span class="n">y</span>
+                        <span class="k">elif</span> <span class="n">dof</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="n">allforces</span><span class="p">[</span><span class="n">MZ</span><span class="p">]</span> <span class="o">+=</span> <span class="o">+</span><span class="n">value</span> <span class="o">*</span> <span class="n">x</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># Add contributions of forces and moments</span>
+                        <span class="n">allforces</span><span class="p">[</span><span class="n">dof</span><span class="p">]</span> <span class="o">+=</span> <span class="n">value</span>
+            <span class="k">if</span> <span class="s2">&quot;reactions&quot;</span> <span class="ow">in</span> <span class="n">joint</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">dof</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">joint</span><span class="p">[</span><span class="s2">&quot;reactions&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">dof</span> <span class="o">&lt;</span> <span class="n">MZ</span><span class="p">:</span>
+                        <span class="c1"># Add contributions of forces to the moment</span>
+                        <span class="k">if</span> <span class="n">dof</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="n">allforces</span><span class="p">[</span><span class="n">MZ</span><span class="p">]</span> <span class="o">+=</span> <span class="o">-</span><span class="n">value</span> <span class="o">*</span> <span class="n">y</span>
+                        <span class="k">elif</span> <span class="n">dof</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="n">allforces</span><span class="p">[</span><span class="n">MZ</span><span class="p">]</span> <span class="o">+=</span> <span class="o">+</span><span class="n">value</span> <span class="o">*</span> <span class="n">x</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># Add contributions of forces and moments</span>
+                        <span class="n">allforces</span><span class="p">[</span><span class="n">dof</span><span class="p">]</span> <span class="o">+=</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">allforces</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">nrbm</span> <span class="o">=</span> <span class="mi">6</span>  <span class="c1"># Number of rigid body modes: assume 3 translations, 3 rotations</span>
+        <span class="n">MX</span><span class="p">,</span> <span class="n">MY</span><span class="p">,</span> <span class="n">MZ</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span>
+        <span class="n">allforces</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">nrbm</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">joint</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">joint</span><span class="p">[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">]</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s2">&quot;loads&quot;</span> <span class="ow">in</span> <span class="n">joint</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">dof</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">joint</span><span class="p">[</span><span class="s2">&quot;loads&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">dof</span> <span class="o">&lt;</span> <span class="n">MX</span><span class="p">:</span>
+                        <span class="c1"># Add contributions of forces to the moment</span>
+                        <span class="k">if</span> <span class="n">dof</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="n">allforces</span><span class="p">[</span><span class="n">MY</span><span class="p">]</span> <span class="o">+=</span> <span class="o">+</span><span class="n">value</span> <span class="o">*</span> <span class="n">z</span>
+                            <span class="n">allforces</span><span class="p">[</span><span class="n">MZ</span><span class="p">]</span> <span class="o">+=</span> <span class="o">-</span><span class="n">value</span> <span class="o">*</span> <span class="n">y</span>
+                        <span class="k">elif</span> <span class="n">dof</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="n">allforces</span><span class="p">[</span><span class="n">MX</span><span class="p">]</span> <span class="o">+=</span> <span class="o">-</span><span class="n">value</span> <span class="o">*</span> <span class="n">z</span>
+                            <span class="n">allforces</span><span class="p">[</span><span class="n">MZ</span><span class="p">]</span> <span class="o">+=</span> <span class="o">+</span><span class="n">value</span> <span class="o">*</span> <span class="n">x</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">allforces</span><span class="p">[</span><span class="n">MY</span><span class="p">]</span> <span class="o">+=</span> <span class="o">-</span><span class="n">value</span> <span class="o">*</span> <span class="n">x</span>
+                            <span class="n">allforces</span><span class="p">[</span><span class="n">MX</span><span class="p">]</span> <span class="o">+=</span> <span class="o">+</span><span class="n">value</span> <span class="o">*</span> <span class="n">y</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># Add contributions of forces and moments</span>
+                        <span class="n">allforces</span><span class="p">[</span><span class="n">dof</span><span class="p">]</span> <span class="o">+=</span> <span class="n">value</span>
+            <span class="k">if</span> <span class="s2">&quot;reactions&quot;</span> <span class="ow">in</span> <span class="n">joint</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">dof</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">joint</span><span class="p">[</span><span class="s2">&quot;reactions&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">dof</span> <span class="o">&lt;</span> <span class="n">MX</span><span class="p">:</span>
+                        <span class="c1"># Add contributions of forces to the moment</span>
+                        <span class="k">if</span> <span class="n">dof</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="n">allforces</span><span class="p">[</span><span class="n">MY</span><span class="p">]</span> <span class="o">+=</span> <span class="o">+</span><span class="n">value</span> <span class="o">*</span> <span class="n">z</span>
+                            <span class="n">allforces</span><span class="p">[</span><span class="n">MZ</span><span class="p">]</span> <span class="o">+=</span> <span class="o">-</span><span class="n">value</span> <span class="o">*</span> <span class="n">y</span>
+                        <span class="k">elif</span> <span class="n">dof</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="n">allforces</span><span class="p">[</span><span class="n">MX</span><span class="p">]</span> <span class="o">+=</span> <span class="o">-</span><span class="n">value</span> <span class="o">*</span> <span class="n">z</span>
+                            <span class="n">allforces</span><span class="p">[</span><span class="n">MZ</span><span class="p">]</span> <span class="o">+=</span> <span class="o">+</span><span class="n">value</span> <span class="o">*</span> <span class="n">x</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">allforces</span><span class="p">[</span><span class="n">MY</span><span class="p">]</span> <span class="o">+=</span> <span class="o">-</span><span class="n">value</span> <span class="o">*</span> <span class="n">x</span>
+                            <span class="n">allforces</span><span class="p">[</span><span class="n">MX</span><span class="p">]</span> <span class="o">+=</span> <span class="o">+</span><span class="n">value</span> <span class="o">*</span> <span class="n">y</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># Add contributions of forces and moments</span>
+                        <span class="n">allforces</span><span class="p">[</span><span class="n">dof</span><span class="p">]</span> <span class="o">+=</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">allforces</span></div>
+
+
+
+<div class="viewcode-block" id="refine_member">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.refine_member">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">refine_member</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Refine a beam member by replacing it with ``n`` new members.</span>
+
+<span class="sd">    The new joints are numbered starting from zero, and the joint identifier is</span>
+<span class="sd">    composed of the member identifier plus the serial number of the new joint.</span>
+
+<span class="sd">    The new member identifiers are stored under the key ``&quot;descendants&quot;`` in</span>
+<span class="sd">    the refined member. The refined member is removed from the list of beam</span>
+<span class="sd">    members.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m</span>
+<span class="sd">        The model.</span>
+<span class="sd">    mid</span>
+<span class="sd">        The identifier of the member to be refined.</span>
+<span class="sd">    n</span>
+<span class="sd">        The number of new beam members to replace the old member with.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Number of new members must be at least 2&quot;</span><span class="p">)</span>
+    <span class="n">member</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;beam_members&quot;</span><span class="p">][</span><span class="n">mid</span><span class="p">]</span>
+    <span class="n">connectivity</span> <span class="o">=</span> <span class="n">member</span><span class="p">[</span><span class="s2">&quot;connectivity&quot;</span><span class="p">]</span>
+    <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">][</span><span class="n">connectivity</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">][</span><span class="n">connectivity</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="n">ci</span><span class="p">,</span> <span class="n">cj</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">],</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">]</span>
+    <span class="c1"># Store the descendants</span>
+    <span class="n">descendants</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># First replacement member</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">ci</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">cj</span>
+    <span class="n">newjid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">mid</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;j&quot;</span> <span class="o">+</span> <span class="s2">&quot;0&quot;</span>
+    <span class="n">add_joint</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">newjid</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+    <span class="n">newmid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">mid</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;m&quot;</span> <span class="o">+</span> <span class="s2">&quot;0&quot;</span>
+    <span class="n">add_beam_member</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">newmid</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;jid&quot;</span><span class="p">],</span> <span class="n">newjid</span><span class="p">],</span> <span class="n">member</span><span class="p">[</span><span class="s2">&quot;section&quot;</span><span class="p">])</span>
+    <span class="n">descendants</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newmid</span><span class="p">)</span>
+    <span class="n">prevjid</span> <span class="o">=</span> <span class="n">newjid</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="n">start</span> <span class="o">+=</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="n">n</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">ci</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">cj</span>
+        <span class="n">newjid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">mid</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;j&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">add_joint</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">newjid</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+        <span class="n">newmid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">mid</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;m&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">add_beam_member</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">newmid</span><span class="p">,</span> <span class="p">[</span><span class="n">prevjid</span><span class="p">,</span> <span class="n">newjid</span><span class="p">],</span> <span class="n">member</span><span class="p">[</span><span class="s2">&quot;section&quot;</span><span class="p">])</span>
+        <span class="n">descendants</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newmid</span><span class="p">)</span>
+        <span class="n">prevjid</span> <span class="o">=</span> <span class="n">newjid</span>
+    <span class="c1"># Last replacement member</span>
+    <span class="n">newmid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">mid</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;m&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">add_beam_member</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">newmid</span><span class="p">,</span> <span class="p">[</span><span class="n">newjid</span><span class="p">,</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;jid&quot;</span><span class="p">]],</span> <span class="n">member</span><span class="p">[</span><span class="s2">&quot;section&quot;</span><span class="p">])</span>
+    <span class="n">descendants</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newmid</span><span class="p">)</span>
+    <span class="c1"># Remember the provenance of the new members</span>
+    <span class="n">member</span><span class="p">[</span><span class="s2">&quot;descendants&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">descendants</span>
+    <span class="c1"># Remove the old member</span>
+    <span class="k">del</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;beam_members&quot;</span><span class="p">][</span><span class="n">mid</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="remove_loads">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.remove_loads">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">remove_loads</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove all the nodal loads in the model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m</span>
+<span class="sd">        The model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">joint</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s2">&quot;loads&quot;</span> <span class="ow">in</span> <span class="n">joint</span><span class="p">:</span>
+            <span class="n">joint</span><span class="p">[</span><span class="s2">&quot;loads&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></div>
+
+
+
+<div class="viewcode-block" id="remove_supports">
+<a class="viewcode-back" href="../../pystran.model.html#pystran.model.remove_supports">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">remove_supports</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove all the nodal supports in the model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    m</span>
+<span class="sd">        The model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">joint</span> <span class="ow">in</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;joints&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s2">&quot;supports&quot;</span> <span class="ow">in</span> <span class="n">joint</span><span class="p">:</span>
+            <span class="n">joint</span><span class="p">[</span><span class="s2">&quot;supports&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Petr Krysl.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

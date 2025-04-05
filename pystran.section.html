@@ -1,0 +1,692 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>pystran.section module &#8212; pystran 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=01f34227"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pystran.section';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pystran.spring module" href="pystran.spring.html" />
+    <link rel="prev" title="pystran.rotation module" href="pystran.rotation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pystran 0.1.0 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    pystran
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    pystran
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="pystran.html">pystran package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pystran.assemble.html">pystran.assemble module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html">pystran.beam module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.freedoms.html">pystran.freedoms module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.gauss.html">pystran.gauss module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.geometry.html">pystran.geometry module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html">pystran.model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html">pystran.plots module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.rigid.html">pystran.rigid module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.rotation.html">pystran.rotation module</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">pystran.section module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.spring.html">pystran.spring module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.truss.html">pystran.truss module</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="modules.html" class="nav-link">pystran</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="pystran.html" class="nav-link">pystran package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pystran.section module</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-pystran.section">
+<span id="pystran-section-module"></span><h1>pystran.section module<a class="headerlink" href="#module-pystran.section" title="Link to this heading">#</a></h1>
+<p>Define section dictionaries.</p>
+<p>A section defines material properties, geometrical properties, such as the
+second moment of area, and also orientation of the cross section profile.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.section.beam_2d_section">
+<span class="sig-prename descclassname"><span class="pre">pystran.section.</span></span><span class="sig-name descname"><span class="pre">beam_2d_section</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">I</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CTE</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/section.html#beam_2d_section"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.section.beam_2d_section" title="Link to this definition">#</a></dt>
+<dd><p>Define 2d beam section.</p>
+<p>The parameters can be defined either as regular list of values or
+variables, or in the <code class="docutils literal notranslate"><span class="pre">keyword=value</span></code> style.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>E</strong> – Young’s modulus.</p></li>
+<li><p><strong>A</strong> – Cross-sectional area.</p></li>
+<li><p><strong>I</strong> – Central moment of inertia of the cross-section about the <span class="math notranslate nohighlight">\(y\)</span>
+coordinate axis (i.e. the axis perpendicular to the plane of the
+bending, <span class="math notranslate nohighlight">\(x-z\)</span>).</p></li>
+<li><p><strong>rho</strong> – Mass density.</p></li>
+<li><p><strong>CTE</strong> – Coefficient of thermal expansion.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary that holds the data for this section.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sbar</span> <span class="o">=</span> <span class="n">section</span><span class="o">.</span><span class="n">beam_2d_section</span><span class="p">(</span><span class="s2">&quot;sbar&quot;</span><span class="p">,</span> <span class="n">E</span><span class="o">=</span><span class="n">E</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="n">rho</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="n">A</span><span class="p">,</span> <span class="n">I</span><span class="o">=</span><span class="n">Iy</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.section.beam_3d_section">
+<span class="sig-prename descclassname"><span class="pre">pystran.section.</span></span><span class="sig-name descname"><span class="pre">beam_3d_section</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">G</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Iy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Iz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">J</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xz_vector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CTE</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/section.html#beam_3d_section"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.section.beam_3d_section" title="Link to this definition">#</a></dt>
+<dd><p>Define 3d beam section.</p>
+<p>The parameters can be defined either as regular list of values or
+variables, or in the <code class="docutils literal notranslate"><span class="pre">keyword=value</span></code> style.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>E</strong> – Young’s modulus.</p></li>
+<li><p><strong>G</strong> – Shear modulus.</p></li>
+<li><p><strong>A</strong> – Cross-sectional area.</p></li>
+<li><p><strong>rho</strong> – Mass density.</p></li>
+<li><p><strong>A</strong> – Cross-sectional area.</p></li>
+<li><p><strong>Ix</strong> – Central moment of inertia of the cross-section about the local
+<span class="math notranslate nohighlight">\(x\)</span>.</p></li>
+<li><p><strong>Iy</strong> – Central moment of inertia of the cross-section about the local
+<span class="math notranslate nohighlight">\(y\)</span>.</p></li>
+<li><p><strong>Iz</strong> – Central moment of inertia of the cross-section about the local
+<span class="math notranslate nohighlight">\(z\)</span>.</p></li>
+<li><p><strong>J</strong> – St Venant torsion constant.</p></li>
+<li><p><strong>xz_vector</strong> – Vector that lies in the local <span class="math notranslate nohighlight">\(x-z\)</span> coordinate plane.</p></li>
+<li><p><strong>CTE</strong> – Coefficient of thermal expansion.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary that holds the data for this section.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sb</span> <span class="o">=</span> <span class="n">section</span><span class="o">.</span><span class="n">beam_3d_section</span><span class="p">(</span><span class="s2">&quot;sb&quot;</span><span class="p">,</span> <span class="n">E</span><span class="o">=</span><span class="n">E</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="n">G</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="n">A</span><span class="p">,</span> <span class="n">Ix</span><span class="o">=</span><span class="n">Ix</span><span class="p">,</span> <span class="n">Iy</span><span class="o">=</span><span class="n">Iy</span><span class="p">,</span> <span class="n">Iz</span><span class="o">=</span><span class="n">Iz</span><span class="p">,</span> <span class="n">J</span><span class="o">=</span><span class="n">J</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.section.circular_tube">
+<span class="sig-prename descclassname"><span class="pre">pystran.section.</span></span><span class="sig-name descname"><span class="pre">circular_tube</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">innerradius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outerradius</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/section.html#circular_tube"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.section.circular_tube" title="Link to this definition">#</a></dt>
+<dd><p>Calculate cross section characteristics for a hollow circle (tube).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>innerradius</strong> – Inner radius of the tube.</p></li>
+<li><p><strong>outerradius</strong> – Outer radius of the tube.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Area, moments of inertia and torsion constant.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of A, Ix, Iy, Iz, J</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.section.i_beam">
+<span class="sig-prename descclassname"><span class="pre">pystran.section.</span></span><span class="sig-name descname"><span class="pre">i_beam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tw</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/section.html#i_beam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.section.i_beam" title="Link to this definition">#</a></dt>
+<dd><p>Calculate cross section characteristics for an I-beam.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>H</strong> – Height of the cross section, i.e. dimension along z. The axis parallel
+to the flanges is <span class="math notranslate nohighlight">\(y\)</span>, the axis parallel to the web is <span class="math notranslate nohighlight">\(z\)</span>.</p></li>
+<li><p><strong>B</strong> – Width of the flanges.</p></li>
+<li><p><strong>tf</strong> – Thickness of the flanges.</p></li>
+<li><p><strong>tw</strong> – Thickness of the web.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Area, moments of inertia and torsion constant.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of A, Ix, Iy, Iz, J</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.section.rect_tube">
+<span class="sig-prename descclassname"><span class="pre">pystran.section.</span></span><span class="sig-name descname"><span class="pre">rect_tube</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">th</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tb</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/section.html#rect_tube"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.section.rect_tube" title="Link to this definition">#</a></dt>
+<dd><p>Calculate cross section characteristics for an rectangular tube.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>H</strong> – Height of the cross section, i.e. dimension along <span class="math notranslate nohighlight">\(z\)</span>.</p></li>
+<li><p><strong>B</strong> – Width of the cross section, i.e. dimension along <span class="math notranslate nohighlight">\(y\)</span>.</p></li>
+<li><p><strong>th</strong> – Thickness of the walls along the height.</p></li>
+<li><p><strong>tb</strong> – Thickness of the walls along the width.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Area, moments of inertia and torsion constant.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of A, Ix, Iy, Iz, J</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.section.rectangle">
+<span class="sig-prename descclassname"><span class="pre">pystran.section.</span></span><span class="sig-name descname"><span class="pre">rectangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/section.html#rectangle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.section.rectangle" title="Link to this definition">#</a></dt>
+<dd><p>Calculate cross section characteristics for a solid rectangle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>H</strong> – Height of the cross section, i.e. dimension along <span class="math notranslate nohighlight">\(z\)</span>.</p></li>
+<li><p><strong>B</strong> – Width of the cross section, i.e. dimension along <span class="math notranslate nohighlight">\(y\)</span>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Area, moments of inertia and torsion constant.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of A, Ix, Iy, Iz, J</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.section.rigid_link_section">
+<span class="sig-prename descclassname"><span class="pre">pystran.section.</span></span><span class="sig-name descname"><span class="pre">rigid_link_section</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Gamma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/section.html#rigid_link_section"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.section.rigid_link_section" title="Link to this definition">#</a></dt>
+<dd><p>Define a rigid link section.</p>
+<p>The parameters can be defined either as regular list of values or
+variables, or in the <code class="docutils literal notranslate"><span class="pre">keyword=value</span></code> style.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Gamma</strong> – Diagonal matrix of penalty coefficients; zero coefficient means
+the degrees of freedom are not linked.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary that holds the data for this section.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sr</span> <span class="o">=</span> <span class="n">section</span><span class="o">.</span><span class="n">rigid_link_section</span><span class="p">(</span><span class="s2">&quot;sr&quot;</span><span class="p">,</span> <span class="n">Gamma</span><span class="o">=</span><span class="mf">1e8</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">diagflat</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.section.spring_section">
+<span class="sig-prename descclassname"><span class="pre">pystran.section.</span></span><span class="sig-name descname"><span class="pre">spring_section</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stiffness_coefficient</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/section.html#spring_section"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.section.spring_section" title="Link to this definition">#</a></dt>
+<dd><p>Define a section for a general extension or torsion spring.</p>
+<p>The parameters can be defined either as regular list of values or
+variables, or in the <code class="docutils literal notranslate"><span class="pre">keyword=value</span></code> style.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>kind</strong> – Either <code class="docutils literal notranslate"><span class="pre">&quot;extension&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;torsion&quot;</span></code>. The connected joints either react
+to displacement or to rotation.</p></li>
+<li><p><strong>direction</strong> – The spring acts <em>along</em> this direction for extension springs, or about
+this direction for torsion springs.</p></li>
+<li><p><strong>stiffness_coefficient</strong> – Stiffness coefficient of the spring.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary that holds the data for this section.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">section</span><span class="o">.</span><span class="n">spring_section</span><span class="p">(</span><span class="s2">&quot;EXT_A&quot;</span><span class="p">,</span> <span class="s2">&quot;extension&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">K</span><span class="p">),</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.section.truss_section">
+<span class="sig-prename descclassname"><span class="pre">pystran.section.</span></span><span class="sig-name descname"><span class="pre">truss_section</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CTE</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/section.html#truss_section"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.section.truss_section" title="Link to this definition">#</a></dt>
+<dd><p>Define truss section.</p>
+<p>The parameters can be defined either as regular list of values or
+variables, or in the <code class="docutils literal notranslate"><span class="pre">keyword=value</span></code> style.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>E</strong> – Young’s modulus.</p></li>
+<li><p><strong>A</strong> – Cross-sectional area.</p></li>
+<li><p><strong>rho</strong> – Mass density.</p></li>
+<li><p><strong>CTE</strong> – Coefficient of thermal expansion.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary that holds the data for this section.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span> <span class="o">=</span> <span class="n">section</span><span class="o">.</span><span class="n">truss_section</span><span class="p">(</span><span class="s2">&quot;steel&quot;</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sr</span> <span class="o">=</span> <span class="n">section</span><span class="o">.</span><span class="n">truss_section</span><span class="p">(</span><span class="s2">&quot;sr&quot;</span><span class="p">,</span> <span class="n">E</span><span class="o">=</span><span class="n">E</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="n">Ar</span><span class="p">,</span> <span class="n">CTE</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sr</span> <span class="o">=</span> <span class="n">section</span><span class="o">.</span><span class="n">truss_section</span><span class="p">(</span><span class="s2">&quot;sr&quot;</span><span class="p">,</span> <span class="n">E</span><span class="o">=</span><span class="n">E</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="n">Ar</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="pystran.rotation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">pystran.rotation module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="pystran.spring.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">pystran.spring module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.section.beam_2d_section"><code class="docutils literal notranslate"><span class="pre">beam_2d_section()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.section.beam_3d_section"><code class="docutils literal notranslate"><span class="pre">beam_3d_section()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.section.circular_tube"><code class="docutils literal notranslate"><span class="pre">circular_tube()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.section.i_beam"><code class="docutils literal notranslate"><span class="pre">i_beam()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.section.rect_tube"><code class="docutils literal notranslate"><span class="pre">rect_tube()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.section.rectangle"><code class="docutils literal notranslate"><span class="pre">rectangle()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.section.rigid_link_section"><code class="docutils literal notranslate"><span class="pre">rigid_link_section()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.section.spring_section"><code class="docutils literal notranslate"><span class="pre">spring_section()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.section.truss_section"><code class="docutils literal notranslate"><span class="pre">truss_section()</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pystran.section.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Petr Krysl.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

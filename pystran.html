@@ -1,0 +1,651 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>pystran package &#8212; pystran 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=01f34227"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pystran';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pystran.assemble module" href="pystran.assemble.html" />
+    <link rel="prev" title="pystran" href="modules.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pystran 0.1.0 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    pystran
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    pystran
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">pystran package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="pystran.assemble.html">pystran.assemble module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html">pystran.beam module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.freedoms.html">pystran.freedoms module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.gauss.html">pystran.gauss module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.geometry.html">pystran.geometry module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html">pystran.model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html">pystran.plots module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.rigid.html">pystran.rigid module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.rotation.html">pystran.rotation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.section.html">pystran.section module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.spring.html">pystran.spring module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.truss.html">pystran.truss module</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="modules.html" class="nav-link">pystran</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pystran package</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="pystran-package">
+<h1>pystran package<a class="headerlink" href="#pystran-package" title="Link to this heading">#</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pystran.assemble.html">pystran.assemble module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pystran.assemble.html#pystran.assemble.assemble"><code class="docutils literal notranslate"><span class="pre">assemble()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pystran.beam.html">pystran.beam module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.assemble_mass"><code class="docutils literal notranslate"><span class="pre">assemble_mass()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.assemble_stiffness"><code class="docutils literal notranslate"><span class="pre">assemble_stiffness()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_2d_3d_axial_stiffness"><code class="docutils literal notranslate"><span class="pre">beam_2d_3d_axial_stiffness()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_2d_3rd_deriv_displ_matrix"><code class="docutils literal notranslate"><span class="pre">beam_2d_3rd_deriv_displ_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_2d_axial_force"><code class="docutils literal notranslate"><span class="pre">beam_2d_axial_force()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_2d_bending_stiffness"><code class="docutils literal notranslate"><span class="pre">beam_2d_bending_stiffness()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_2d_curv_displ_matrix"><code class="docutils literal notranslate"><span class="pre">beam_2d_curv_displ_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_2d_end_forces"><code class="docutils literal notranslate"><span class="pre">beam_2d_end_forces()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_2d_mass"><code class="docutils literal notranslate"><span class="pre">beam_2d_mass()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_2d_moment"><code class="docutils literal notranslate"><span class="pre">beam_2d_moment()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_2d_shear_force"><code class="docutils literal notranslate"><span class="pre">beam_2d_shear_force()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_3d_axial_force"><code class="docutils literal notranslate"><span class="pre">beam_3d_axial_force()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_3d_bending_stiffness"><code class="docutils literal notranslate"><span class="pre">beam_3d_bending_stiffness()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_3d_end_forces"><code class="docutils literal notranslate"><span class="pre">beam_3d_end_forces()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_3d_mass"><code class="docutils literal notranslate"><span class="pre">beam_3d_mass()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_3d_moment"><code class="docutils literal notranslate"><span class="pre">beam_3d_moment()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_3d_shear_force"><code class="docutils literal notranslate"><span class="pre">beam_3d_shear_force()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_3d_stretch_displ_matrix"><code class="docutils literal notranslate"><span class="pre">beam_3d_stretch_displ_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_3d_torsion_displ_matrix"><code class="docutils literal notranslate"><span class="pre">beam_3d_torsion_displ_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_3d_torsion_moment"><code class="docutils literal notranslate"><span class="pre">beam_3d_torsion_moment()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_3d_torsion_stiffness"><code class="docutils literal notranslate"><span class="pre">beam_3d_torsion_stiffness()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_3d_xy_3rd_deriv_displ_matrix"><code class="docutils literal notranslate"><span class="pre">beam_3d_xy_3rd_deriv_displ_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_3d_xy_curv_displ_matrix"><code class="docutils literal notranslate"><span class="pre">beam_3d_xy_curv_displ_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_3d_xy_shape_fun"><code class="docutils literal notranslate"><span class="pre">beam_3d_xy_shape_fun()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_3d_xy_shape_fun_xi2"><code class="docutils literal notranslate"><span class="pre">beam_3d_xy_shape_fun_xi2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_3d_xy_shape_fun_xi3"><code class="docutils literal notranslate"><span class="pre">beam_3d_xy_shape_fun_xi3()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_3d_xz_3rd_deriv_displ_matrix"><code class="docutils literal notranslate"><span class="pre">beam_3d_xz_3rd_deriv_displ_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_3d_xz_curv_displ_matrix"><code class="docutils literal notranslate"><span class="pre">beam_3d_xz_curv_displ_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_3d_xz_shape_fun"><code class="docutils literal notranslate"><span class="pre">beam_3d_xz_shape_fun()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_3d_xz_shape_fun_xi2"><code class="docutils literal notranslate"><span class="pre">beam_3d_xz_shape_fun_xi2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html#pystran.beam.beam_3d_xz_shape_fun_xi3"><code class="docutils literal notranslate"><span class="pre">beam_3d_xz_shape_fun_xi3()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pystran.freedoms.html">pystran.freedoms module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pystran.freedoms.html#pystran.freedoms.ALL_DOFS"><code class="docutils literal notranslate"><span class="pre">ALL_DOFS</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.freedoms.html#pystran.freedoms.TRANSLATION_DOFS"><code class="docutils literal notranslate"><span class="pre">TRANSLATION_DOFS</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.freedoms.html#pystran.freedoms.U1"><code class="docutils literal notranslate"><span class="pre">U1</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.freedoms.html#pystran.freedoms.U2"><code class="docutils literal notranslate"><span class="pre">U2</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.freedoms.html#pystran.freedoms.U3"><code class="docutils literal notranslate"><span class="pre">U3</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.freedoms.html#pystran.freedoms.UR1"><code class="docutils literal notranslate"><span class="pre">UR1</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.freedoms.html#pystran.freedoms.UR2"><code class="docutils literal notranslate"><span class="pre">UR2</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.freedoms.html#pystran.freedoms.UR3"><code class="docutils literal notranslate"><span class="pre">UR3</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.freedoms.html#pystran.freedoms.prescribed_dofs_and_values"><code class="docutils literal notranslate"><span class="pre">prescribed_dofs_and_values()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.freedoms.html#pystran.freedoms.rotation_dofs"><code class="docutils literal notranslate"><span class="pre">rotation_dofs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.freedoms.html#pystran.freedoms.translation_and_rotation_dofs"><code class="docutils literal notranslate"><span class="pre">translation_and_rotation_dofs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.freedoms.html#pystran.freedoms.translation_dofs"><code class="docutils literal notranslate"><span class="pre">translation_dofs()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pystran.gauss.html">pystran.gauss module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pystran.gauss.html#pystran.gauss.rule"><code class="docutils literal notranslate"><span class="pre">rule()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pystran.geometry.html">pystran.geometry module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pystran.geometry.html#pystran.geometry.delt"><code class="docutils literal notranslate"><span class="pre">delt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.geometry.html#pystran.geometry.herm_basis"><code class="docutils literal notranslate"><span class="pre">herm_basis()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.geometry.html#pystran.geometry.herm_basis_xi"><code class="docutils literal notranslate"><span class="pre">herm_basis_xi()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.geometry.html#pystran.geometry.herm_basis_xi2"><code class="docutils literal notranslate"><span class="pre">herm_basis_xi2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.geometry.html#pystran.geometry.herm_basis_xi3"><code class="docutils literal notranslate"><span class="pre">herm_basis_xi3()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.geometry.html#pystran.geometry.interpolate"><code class="docutils literal notranslate"><span class="pre">interpolate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.geometry.html#pystran.geometry.lin_basis"><code class="docutils literal notranslate"><span class="pre">lin_basis()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.geometry.html#pystran.geometry.member_2d_geometry"><code class="docutils literal notranslate"><span class="pre">member_2d_geometry()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.geometry.html#pystran.geometry.member_3d_geometry"><code class="docutils literal notranslate"><span class="pre">member_3d_geometry()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.geometry.html#pystran.geometry.vlen"><code class="docutils literal notranslate"><span class="pre">vlen()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pystran.model.html">pystran.model module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.add_beam_member"><code class="docutils literal notranslate"><span class="pre">add_beam_member()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.add_dof_links"><code class="docutils literal notranslate"><span class="pre">add_dof_links()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.add_joint"><code class="docutils literal notranslate"><span class="pre">add_joint()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.add_load"><code class="docutils literal notranslate"><span class="pre">add_load()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.add_mass"><code class="docutils literal notranslate"><span class="pre">add_mass()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.add_rigid_link_member"><code class="docutils literal notranslate"><span class="pre">add_rigid_link_member()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.add_spring_member"><code class="docutils literal notranslate"><span class="pre">add_spring_member()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.add_support"><code class="docutils literal notranslate"><span class="pre">add_support()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.add_truss_member"><code class="docutils literal notranslate"><span class="pre">add_truss_member()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.bounding_box"><code class="docutils literal notranslate"><span class="pre">bounding_box()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.characteristic_dimension"><code class="docutils literal notranslate"><span class="pre">characteristic_dimension()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.create"><code class="docutils literal notranslate"><span class="pre">create()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.free_body_check"><code class="docutils literal notranslate"><span class="pre">free_body_check()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.ndof_per_joint"><code class="docutils literal notranslate"><span class="pre">ndof_per_joint()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.number_dofs"><code class="docutils literal notranslate"><span class="pre">number_dofs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.refine_member"><code class="docutils literal notranslate"><span class="pre">refine_member()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.remove_loads"><code class="docutils literal notranslate"><span class="pre">remove_loads()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.remove_supports"><code class="docutils literal notranslate"><span class="pre">remove_supports()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.set_solution"><code class="docutils literal notranslate"><span class="pre">set_solution()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.solve_free_vibration"><code class="docutils literal notranslate"><span class="pre">solve_free_vibration()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.solve_statics"><code class="docutils literal notranslate"><span class="pre">solve_statics()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html#pystran.model.statics_reactions"><code class="docutils literal notranslate"><span class="pre">statics_reactions()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pystran.plots.html">pystran.plots module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html#pystran.plots.plot_applied_forces"><code class="docutils literal notranslate"><span class="pre">plot_applied_forces()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html#pystran.plots.plot_applied_moments"><code class="docutils literal notranslate"><span class="pre">plot_applied_moments()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html#pystran.plots.plot_axial_forces"><code class="docutils literal notranslate"><span class="pre">plot_axial_forces()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html#pystran.plots.plot_bending_moments"><code class="docutils literal notranslate"><span class="pre">plot_bending_moments()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html#pystran.plots.plot_deformations"><code class="docutils literal notranslate"><span class="pre">plot_deformations()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html#pystran.plots.plot_joint_ids"><code class="docutils literal notranslate"><span class="pre">plot_joint_ids()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html#pystran.plots.plot_member_ids"><code class="docutils literal notranslate"><span class="pre">plot_member_ids()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html#pystran.plots.plot_member_orientation"><code class="docutils literal notranslate"><span class="pre">plot_member_orientation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html#pystran.plots.plot_members"><code class="docutils literal notranslate"><span class="pre">plot_members()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html#pystran.plots.plot_reaction_forces"><code class="docutils literal notranslate"><span class="pre">plot_reaction_forces()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html#pystran.plots.plot_reaction_moments"><code class="docutils literal notranslate"><span class="pre">plot_reaction_moments()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html#pystran.plots.plot_rotation_supports"><code class="docutils literal notranslate"><span class="pre">plot_rotation_supports()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html#pystran.plots.plot_shear_forces"><code class="docutils literal notranslate"><span class="pre">plot_shear_forces()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html#pystran.plots.plot_torsion_moments"><code class="docutils literal notranslate"><span class="pre">plot_torsion_moments()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html#pystran.plots.plot_translation_supports"><code class="docutils literal notranslate"><span class="pre">plot_translation_supports()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html#pystran.plots.setup"><code class="docutils literal notranslate"><span class="pre">setup()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html#pystran.plots.show"><code class="docutils literal notranslate"><span class="pre">show()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pystran.rigid.html">pystran.rigid module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pystran.rigid.html#pystran.rigid.assemble_stiffness"><code class="docutils literal notranslate"><span class="pre">assemble_stiffness()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.rigid.html#pystran.rigid.rigid_link_stiffness"><code class="docutils literal notranslate"><span class="pre">rigid_link_stiffness()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pystran.rotation.html">pystran.rotation module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pystran.rotation.html#pystran.rotation.rotate"><code class="docutils literal notranslate"><span class="pre">rotate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.rotation.html#pystran.rotation.rotmat3"><code class="docutils literal notranslate"><span class="pre">rotmat3()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pystran.section.html">pystran.section module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pystran.section.html#pystran.section.beam_2d_section"><code class="docutils literal notranslate"><span class="pre">beam_2d_section()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.section.html#pystran.section.beam_3d_section"><code class="docutils literal notranslate"><span class="pre">beam_3d_section()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.section.html#pystran.section.circular_tube"><code class="docutils literal notranslate"><span class="pre">circular_tube()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.section.html#pystran.section.i_beam"><code class="docutils literal notranslate"><span class="pre">i_beam()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.section.html#pystran.section.rect_tube"><code class="docutils literal notranslate"><span class="pre">rect_tube()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.section.html#pystran.section.rectangle"><code class="docutils literal notranslate"><span class="pre">rectangle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.section.html#pystran.section.rigid_link_section"><code class="docutils literal notranslate"><span class="pre">rigid_link_section()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.section.html#pystran.section.spring_section"><code class="docutils literal notranslate"><span class="pre">spring_section()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.section.html#pystran.section.truss_section"><code class="docutils literal notranslate"><span class="pre">truss_section()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pystran.spring.html">pystran.spring module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pystran.spring.html#pystran.spring.assemble_stiffness"><code class="docutils literal notranslate"><span class="pre">assemble_stiffness()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pystran.truss.html">pystran.truss module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pystran.truss.html#pystran.truss.assemble_mass"><code class="docutils literal notranslate"><span class="pre">assemble_mass()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.truss.html#pystran.truss.assemble_stiffness"><code class="docutils literal notranslate"><span class="pre">assemble_stiffness()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.truss.html#pystran.truss.truss_2d_mass"><code class="docutils literal notranslate"><span class="pre">truss_2d_mass()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.truss.html#pystran.truss.truss_3d_mass"><code class="docutils literal notranslate"><span class="pre">truss_3d_mass()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.truss.html#pystran.truss.truss_axial_force"><code class="docutils literal notranslate"><span class="pre">truss_axial_force()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.truss.html#pystran.truss.truss_stiffness"><code class="docutils literal notranslate"><span class="pre">truss_stiffness()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.truss.html#pystran.truss.truss_strain_displacement"><code class="docutils literal notranslate"><span class="pre">truss_strain_displacement()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-pystran">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pystran" title="Link to this heading">#</a></h2>
+<p>pystran - Python package for structural analysis with trusses and beams</p>
+<ol class="upperalpha simple" start="3">
+<li><p>2025, Petr Krysl</p></li>
+</ol>
+<p>This package is intended for educational purposes.</p>
+<p>## Approach</p>
+<p>The approach is based on classical weighted residual formulation (Galerkin).
+The formulations are derived in the “Finite element modeling with shells and
+beams” [book](<a class="reference external" href="http://hogwarts.ucsd.edu/~pkrysl/femstructures-book/">http://hogwarts.ucsd.edu/~pkrysl/femstructures-book/</a>).</p>
+<p>The approach here is modern as opposed to classic.</p>
+<p>Classically, the geometrical transformations are developed explicitly to push
+the stiffness and mass matrices from special orientations to the real
+orientation in space. This requires multiplication of the stiffness and mass
+matrices by large transformation matrices on the left and right. The matrices
+in special orientations are usually derived analytically, and these explicit
+expressions become the starting point for developing computations. So for
+instance for spatial beams, the starting point are 12x12 matrices.</p>
+<p>The modern approach develops an expression for the strains in a basic element,
+for instance curvature in beams. This leads to a small basic stiffness matrix,
+4x4 matrix in the case of a 2D beam. The geometrical transformation is then
+introduced implicitly by projecting displacements in the real space onto the
+local basis vectors of the element. The Galerkin weighted residual method then
+naturally completes the development of the matrices.</p>
+<p>The three dimensional beam is in such a modern framework treated as a
+superposition of four stiffness mechanisms, each with its own
+strain-displacement matrix. The stiffness and mass matrices are obtained
+readily using numerical integration.</p>
+<p>## Features and limitations</p>
+<ul class="simple">
+<li><p>The package analyzes two-dimensional and three-dimensional structures made up
+of truss (axial) members and beams (even in combination), rigid links, and
+general springs. Concentrated masses can be added at joints.</p></li>
+<li><p>Linear statics and dynamics (free vibration) solvers are included.</p></li>
+<li><p>Only elastic models can be solved.</p></li>
+<li><p>For beams, only the Bernoulli-Euler model is implemented, so no shear
+deformation is taken into account.</p></li>
+<li><p>Only straight members are treated.</p></li>
+<li><p>It is assumed that there is no coupling between the bending actions in the
+two orthogonal planes.</p></li>
+<li><p>Coupling of axial and bending action is not implemented. This means that the
+neutral axis must pass through the centroid.</p></li>
+<li><p>Warping of the cross sections is not modelled, hence only free torsion
+effects are included.</p></li>
+<li><p>Member loading is not considered. All member loading needs to be converted to
+nodal forces.</p></li>
+<li><p>Internal hinges can be modelled with linked joints. No member end releases
+are implemented.</p></li>
+<li><p>Degrees of freedom are only along the global Cartesian axes. Skew supports
+are not included (except with a penalty method based on springs)</p></li>
+<li><p>Offsets of the beams from the joints are currently not implemented.</p></li>
+<li><p>Rigid links between pairs of joints can be modeled with a penalty approach.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="modules.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">pystran</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="pystran.assemble.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">pystran.assemble module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-pystran">Module contents</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pystran.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Petr Krysl.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

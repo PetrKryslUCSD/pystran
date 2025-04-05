@@ -1,0 +1,1397 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>pystran.beam module &#8212; pystran 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=01f34227"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pystran.beam';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pystran.freedoms module" href="pystran.freedoms.html" />
+    <link rel="prev" title="pystran.assemble module" href="pystran.assemble.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pystran 0.1.0 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    pystran
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    pystran
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="pystran.html">pystran package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pystran.assemble.html">pystran.assemble module</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">pystran.beam module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.freedoms.html">pystran.freedoms module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.gauss.html">pystran.gauss module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.geometry.html">pystran.geometry module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html">pystran.model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html">pystran.plots module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.rigid.html">pystran.rigid module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.rotation.html">pystran.rotation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.section.html">pystran.section module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.spring.html">pystran.spring module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.truss.html">pystran.truss module</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="modules.html" class="nav-link">pystran</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="pystran.html" class="nav-link">pystran package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pystran.beam module</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-pystran.beam">
+<span id="pystran-beam-module"></span><h1>pystran.beam module<a class="headerlink" href="#module-pystran.beam" title="Link to this heading">#</a></h1>
+<p>Define beam mechanical quantities.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.assemble_mass">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">assemble_mass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Mg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#assemble_mass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.assemble_mass" title="Link to this definition">#</a></dt>
+<dd><p>Assemble beam mass matrix.</p>
+<p>The mass matrix of two-dimensional beam takes into account axial vibration
+and transverse vibration separately.</p>
+<p>In three dimensions, in addition to axial vibration, transverse vibration
+in two principal planes, torsional vibration is also taken into account.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Mg</strong> – Global structural mass matrix.</p></li>
+<li><p><strong>member</strong> – Dictionary that defines the data of the member.</p></li>
+<li><p><strong>i</strong> – Dictionary that defines the data of the first joint of the member.</p></li>
+<li><p><strong>j</strong> – Dictionary that defines the data of the second joint of the member.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated global matrix is returned.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="pystran.assemble.html#pystran.assemble.assemble" title="pystran.assemble.assemble"><code class="xref py py-func docutils literal notranslate"><span class="pre">pystran.assemble.assemble()</span></code></a>, <a class="reference internal" href="#pystran.beam.beam_2d_mass" title="pystran.beam.beam_2d_mass"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_2d_mass()</span></code></a>, <a class="reference internal" href="#pystran.beam.beam_3d_mass" title="pystran.beam.beam_3d_mass"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_3d_mass()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.assemble_stiffness">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">assemble_stiffness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Kg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#assemble_stiffness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.assemble_stiffness" title="Link to this definition">#</a></dt>
+<dd><p>Assemble beam stiffness matrix.</p>
+<p>The stiffness matrix depends on whether the beam is considered in two
+dimensions or in three dimensions.</p>
+<p>In two dimensions, the beam stiffness matrix is a superposition of two
+mechanisms: axial bar plus bending in the <span class="math notranslate nohighlight">\(x-z\)</span> plane.</p>
+<p>In three dimensions, beam stiffness is a superposition of four mechanisms
+– axial bar, torsion bar, bending in the <span class="math notranslate nohighlight">\(x-y\)</span> plane, and bending in
+the <span class="math notranslate nohighlight">\(x-z\)</span> plane.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Kg</strong> – Global structural stiffness matrix.</p></li>
+<li><p><strong>member</strong> – Dictionary that defines the data of the member.</p></li>
+<li><p><strong>i</strong> – Dictionary that defines the data of the first joint of the member.</p></li>
+<li><p><strong>j</strong> – Dictionary that defines the data of the second joint of the member.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated global matrix is returned.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="pystran.assemble.html#pystran.assemble.assemble" title="pystran.assemble.assemble"><code class="xref py py-func docutils literal notranslate"><span class="pre">pystran.assemble.assemble()</span></code></a>, <a class="reference internal" href="#pystran.beam.beam_2d_3d_axial_stiffness" title="pystran.beam.beam_2d_3d_axial_stiffness"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_2d_3d_axial_stiffness()</span></code></a>, <a class="reference internal" href="#pystran.beam.beam_2d_bending_stiffness" title="pystran.beam.beam_2d_bending_stiffness"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_2d_bending_stiffness()</span></code></a>, <a class="reference internal" href="#pystran.beam.beam_3d_bending_stiffness" title="pystran.beam.beam_3d_bending_stiffness"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_3d_bending_stiffness()</span></code></a>, <a class="reference internal" href="#pystran.beam.beam_3d_torsion_stiffness" title="pystran.beam.beam_3d_torsion_stiffness"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_3d_torsion_stiffness()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_2d_3d_axial_stiffness">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_2d_3d_axial_stiffness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_2d_3d_axial_stiffness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_2d_3d_axial_stiffness" title="Link to this definition">#</a></dt>
+<dd><p>Compute axial stiffness matrix.</p>
+<p>This function works both for 2D and 3D beams.</p>
+<p>The axial stiffness matrix is computed as <span class="math notranslate nohighlight">\(K = EA B^T B h\)</span>. Here
+<span class="math notranslate nohighlight">\(B\)</span> is the stretch-displacement matrix, computed by
+<a class="reference internal" href="#pystran.beam.beam_3d_stretch_displ_matrix" title="pystran.beam.beam_3d_stretch_displ_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_3d_stretch_displ_matrix()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>e_x</strong> – Unit vector of the local cartesian coordinate system in the direction
+of the axis of the beam.</p></li>
+<li><p><strong>h</strong> – Length of the beam.</p></li>
+<li><p><strong>E</strong> – Young’s modulus of elasticity.</p></li>
+<li><p><strong>A</strong> – Cross section area.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Stiffness matrix of the beam.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#pystran.beam.beam_3d_stretch_displ_matrix" title="pystran.beam.beam_3d_stretch_displ_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_3d_stretch_displ_matrix()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_2d_3rd_deriv_displ_matrix">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_2d_3rd_deriv_displ_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e_z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_2d_3rd_deriv_displ_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_2d_3rd_deriv_displ_matrix" title="Link to this definition">#</a></dt>
+<dd><p>Compute beam third derivative-displacement matrix.</p>
+<p>Here the third derivative is with respect to the physical coordinate
+measured along the member (local <span class="math notranslate nohighlight">\(x\)</span>).</p>
+<p>The third derivative <span class="math notranslate nohighlight">\(d^3w/dx^3\)</span> is computed in the local coordinate
+system of the beam as <span class="math notranslate nohighlight">\(d^3w/dx^3 = B U\)</span>. Here <span class="math notranslate nohighlight">\(B\)</span> is the
+third-derivative-displacement matrix and <span class="math notranslate nohighlight">\(U\)</span> is the displacement
+vector. Two displacement components and one rotation component at each
+joint are assumed, so the matrix <span class="math notranslate nohighlight">\(B\)</span> has one row and six columns.
+Note that this matrix is constant (independent of the location along the
+beam).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>e_z</strong> – Unit vector of the local cartesian coordinate system (orthogonal to the
+axis of the beam).</p></li>
+<li><p><strong>h</strong> – Length of the beam.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The third derivative-displacement matrix.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_2d_axial_force">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_2d_axial_force</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">member</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_2d_axial_force"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_2d_axial_force" title="Link to this definition">#</a></dt>
+<dd><p>Compute 2d beam axial force based on the displacements stored at the
+joints.</p>
+<p>Refer to the function <a class="reference internal" href="pystran.truss.html#pystran.truss.truss_strain_displacement" title="pystran.truss.truss_strain_displacement"><code class="xref py py-func docutils literal notranslate"><span class="pre">pystran.truss.truss_strain_displacement()</span></code></a> that computes
+the strain-displacement matrix for a truss member.</p>
+<p>The axial force is uniform along the beam. Hence, <code class="docutils literal notranslate"><span class="pre">xi</span></code> does not matter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>member</strong> – Dictionary that defines the data of the member.</p></li>
+<li><p><strong>i</strong> – Dictionary that defines the data of the first joint of the member.</p></li>
+<li><p><strong>j</strong> – Dictionary that defines the data of the second joint of the member.</p></li>
+<li><p><strong>xi</strong> – Parametric coordinate (<span class="math notranslate nohighlight">\(-1\le\xi\le+1\)</span>): first joint is at
+<span class="math notranslate nohighlight">\(\xi =-1\)</span>, second is at <span class="math notranslate nohighlight">\(\xi =+1\)</span>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The force resultant.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="pystran.truss.html#pystran.truss.truss_strain_displacement" title="pystran.truss.truss_strain_displacement"><code class="xref py py-func docutils literal notranslate"><span class="pre">pystran.truss.truss_strain_displacement()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_2d_bending_stiffness">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_2d_bending_stiffness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e_z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">I</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_2d_bending_stiffness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_2d_bending_stiffness" title="Link to this definition">#</a></dt>
+<dd><p>Compute 2d beam stiffness matrix.</p>
+<p>The formula reads</p>
+<div class="math notranslate nohighlight">
+\[K = (h/2) \int_{-1}^{+1} EI B^T B  d\xi,\]</div>
+<p>where <span class="math notranslate nohighlight">\(B\)</span> is the curvature-displacement matrix (computed by
+<a class="reference internal" href="#pystran.beam.beam_2d_curv_displ_matrix" title="pystran.beam.beam_2d_curv_displ_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_2d_curv_displ_matrix()</span></code></a>), and <span class="math notranslate nohighlight">\(h/2\)</span> is the Jacobian. <span class="math notranslate nohighlight">\(I\)</span> is the
+second moment of area about the <span class="math notranslate nohighlight">\(y\)</span> axis (which is orthogonal to the plane
+of bending).</p>
+<p>Two-point Gauss quadrature is used to compute the stiffness matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>e_z</strong> – Unit vector of the local cartesian coordinate system (orthogonal to the
+axis of the beam).</p></li>
+<li><p><strong>h</strong> – Length of the beam.</p></li>
+<li><p><strong>E</strong> – Young’s modulus of elasticity.</p></li>
+<li><p><strong>I</strong> – Second moment of area for bending about the <span class="math notranslate nohighlight">\(y\)</span>-axis (i.e. bending in the
+<span class="math notranslate nohighlight">\(x-z\)</span> plane).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Stiffness matrix of the beam.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#pystran.beam.beam_2d_curv_displ_matrix" title="pystran.beam.beam_2d_curv_displ_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_2d_curv_displ_matrix()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_2d_curv_displ_matrix">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_2d_curv_displ_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e_z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_2d_curv_displ_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_2d_curv_displ_matrix" title="Link to this definition">#</a></dt>
+<dd><p>Compute 2d beam curvature-displacement matrix.</p>
+<p>Here the curvatures is with respect to the physical coordinate measured
+along the member (local <span class="math notranslate nohighlight">\(x\)</span>).</p>
+<p>The curvature <span class="math notranslate nohighlight">\(d^2w/dx^2\)</span> is computed in the local coordinate system
+of the beam as <span class="math notranslate nohighlight">\(d^2w/dx^2 = B U\)</span>. Here <span class="math notranslate nohighlight">\(B\)</span> is the
+curvature-displacement matrix and <span class="math notranslate nohighlight">\(U\)</span> is the displacement vector. Two
+displacement components and one rotation component at each joint are
+assumed, so the matrix <span class="math notranslate nohighlight">\(B\)</span> has one row and six columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>e_z</strong> – Unit vector of the local cartesian coordinate system (orthogonal to the
+axis of the beam).</p></li>
+<li><p><strong>h</strong> – Length of the beam.</p></li>
+<li><p><strong>xi</strong> – Parametric coordinate (<span class="math notranslate nohighlight">\(-1\le\xi\le+1\)</span>): first joint is at
+<span class="math notranslate nohighlight">\(\xi =-1\)</span>, second is at <span class="math notranslate nohighlight">\(\xi =+1\)</span>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The curvature-displacement matrix.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_2d_end_forces">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_2d_end_forces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">member</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_2d_end_forces"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_2d_end_forces" title="Link to this definition">#</a></dt>
+<dd><p>Compute the end forces of a beam element in 3d.</p>
+<p>The end forces of the beam are forces acting on the joints <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span></code>
+by the beam.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>member</strong> – Dictionary that defines the data of the member.</p></li>
+<li><p><strong>i</strong> – Dictionary that defines the data of the first joint of the member.</p></li>
+<li><p><strong>j</strong> – Dictionary that defines the data of the second joint of the member.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary with the keys <code class="docutils literal notranslate"><span class="pre">'Ni'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Qzi'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Myi'</span></code>,  <code class="docutils literal notranslate"><span class="pre">'Nj'</span></code>,
+<code class="docutils literal notranslate"><span class="pre">'Qzj'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Myj'</span></code>,  is returned.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_2d_mass">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_2d_mass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e_z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_2d_mass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_2d_mass" title="Link to this definition">#</a></dt>
+<dd><p>Compute beam mass matrix.</p>
+<p>The mass matrix is consistent, which means that it is computed from the
+discrete form of the kinetic energy of the element,</p>
+<div class="math notranslate nohighlight">
+\[\int \rho A \left(\dot u \cdot \dot u +  \dot w \cdot \dot
+w\right)dx\]</div>
+<p>where <span class="math notranslate nohighlight">\(\dot u\)</span> and  <span class="math notranslate nohighlight">\(\dot w\)</span> are the velocities in the
+<span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(z\)</span> directions. Note that the rotational velocities of
+the cross sections do not play a role.</p>
+<p>The velocity <span class="math notranslate nohighlight">\(\dot u\)</span> is assumed to vary linearly along the element,
+and the velocity <span class="math notranslate nohighlight">\(\dot w\)</span> is assumed to vary according to the Hermite
+shape functions.</p>
+<p>Gauss quadrature is used to compute the mass matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>e_x</strong> – Unit vector of the local cartesian coordinate system in the direction
+of the axis of the beam.</p></li>
+<li><p><strong>e_z</strong> – Unit vector of the local cartesian coordinate system (orthogonal to the
+axis of the beam).</p></li>
+<li><p><strong>h</strong> – Length of the beam.</p></li>
+<li><p><strong>rho</strong> – Mass density of the material.</p></li>
+<li><p><strong>A</strong> – Area of the cross section.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Mass matrix of the beam.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_2d_moment">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_2d_moment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">member</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_2d_moment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_2d_moment" title="Link to this definition">#</a></dt>
+<dd><p>Compute 2d beam moment based on the displacements stored at the joints. The
+moment is computed at the parametric location <code class="docutils literal notranslate"><span class="pre">xi</span></code> along the beam.</p>
+<p>The moment is mathematically defined as <span class="math notranslate nohighlight">\(M = -EI d^2w/dx^2\)</span>.</p>
+<p>The curvature is computed with the curvature-displacement matrix <span class="math notranslate nohighlight">\(B\)</span>
+by the function <a class="reference internal" href="#pystran.beam.beam_2d_curv_displ_matrix" title="pystran.beam.beam_2d_curv_displ_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_2d_curv_displ_matrix()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>member</strong> – Dictionary that defines the data of the member.</p></li>
+<li><p><strong>i</strong> – Dictionary that defines the data of the first joint of the member.</p></li>
+<li><p><strong>j</strong> – Dictionary that defines the data of the second joint of the member.</p></li>
+<li><p><strong>xi</strong> – Parametric coordinate (<span class="math notranslate nohighlight">\(-1\le\xi\le+1\)</span>): first joint is at
+<span class="math notranslate nohighlight">\(\xi =-1\)</span>, second is at <span class="math notranslate nohighlight">\(\xi =+1\)</span>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The moment resultant.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#pystran.beam.beam_2d_curv_displ_matrix" title="pystran.beam.beam_2d_curv_displ_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_2d_curv_displ_matrix()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_2d_shear_force">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_2d_shear_force</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">member</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_2d_shear_force"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_2d_shear_force" title="Link to this definition">#</a></dt>
+<dd><p>Compute 2d beam shear force based on the displacements stored at the
+joints.</p>
+<p>The shear force is uniform along the beam.  Hence, <code class="docutils literal notranslate"><span class="pre">xi</span></code> does not matter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>member</strong> – Dictionary that defines the data of the member.</p></li>
+<li><p><strong>i</strong> – Dictionary that defines the data of the first joint of the member.</p></li>
+<li><p><strong>j</strong> – Dictionary that defines the data of the second joint of the member.</p></li>
+<li><p><strong>xi</strong> – Parametric coordinate (<span class="math notranslate nohighlight">\(-1\le\xi\le+1\)</span>): first joint is at
+<span class="math notranslate nohighlight">\(\xi =-1\)</span>, second is at <span class="math notranslate nohighlight">\(\xi =+1\)</span>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The force resultant.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_3d_axial_force">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_3d_axial_force</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">member</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_3d_axial_force"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_3d_axial_force" title="Link to this definition">#</a></dt>
+<dd><p>Compute 3d beam axial force based on the displacements stored at the joints.</p>
+<p>The axial force is uniform along the beam. Hence, <code class="docutils literal notranslate"><span class="pre">xi</span></code> does not matter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>member</strong> – Dictionary that defines the data of the member.</p></li>
+<li><p><strong>i</strong> – Dictionary that defines the data of the first joint of the member.</p></li>
+<li><p><strong>j</strong> – Dictionary that defines the data of the second joint of the member.</p></li>
+<li><p><strong>xi</strong> – Parametric coordinate (<span class="math notranslate nohighlight">\(-1\le\xi\le+1\)</span>): first joint is at
+<span class="math notranslate nohighlight">\(\xi =-1\)</span>, second is at <span class="math notranslate nohighlight">\(\xi =+1\)</span>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The force resultant.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_3d_bending_stiffness">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_3d_bending_stiffness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e_z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Iy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Iz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_3d_bending_stiffness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_3d_bending_stiffness" title="Link to this definition">#</a></dt>
+<dd><p>Compute 3d beam stiffness matrices for bending in the planes <span class="math notranslate nohighlight">\(x-y\)</span>
+and <span class="math notranslate nohighlight">\(x-z\)</span>.</p>
+<p>The formula reads</p>
+<div class="math notranslate nohighlight">
+\[K = (h/2) \int_{-1}^{+1} EI_y B_{xz}^T B_{xz}  d\xi,\]</div>
+<p>for bending in the <span class="math notranslate nohighlight">\(x-z\)</span> plane, and</p>
+<div class="math notranslate nohighlight">
+\[K = (h/2) \int_{-1}^{+1} EI_z B_{xy}^T B_{xy}  d\xi,\]</div>
+<p>for bending in the <span class="math notranslate nohighlight">\(x-y\)</span> plane. Here <span class="math notranslate nohighlight">\(B_{xz}\)</span> is the
+curvature-displacement matrix for bending in the <span class="math notranslate nohighlight">\(x-z\)</span> plane
+(computed by <a class="reference internal" href="#pystran.beam.beam_3d_xz_curv_displ_matrix" title="pystran.beam.beam_3d_xz_curv_displ_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_3d_xz_curv_displ_matrix()</span></code></a>), <span class="math notranslate nohighlight">\(B_{xy}\)</span> is the
+curvature-displacement matrix for bending in the <span class="math notranslate nohighlight">\(x-y\)</span> plane
+(computed by <a class="reference internal" href="#pystran.beam.beam_3d_xy_curv_displ_matrix" title="pystran.beam.beam_3d_xy_curv_displ_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_3d_xy_curv_displ_matrix()</span></code></a>), and <span class="math notranslate nohighlight">\(h/2\)</span> is the
+Jacobian. <span class="math notranslate nohighlight">\(I_y\)</span> is the second moment of area about the <span class="math notranslate nohighlight">\(y\)</span>
+axis, and <span class="math notranslate nohighlight">\(I_z\)</span>  is the second moment of area about the <span class="math notranslate nohighlight">\(z\)</span>
+axis. The overall matrix is the sum of these two contributions.</p>
+<p>Appropriate Gauss quadrature formulas are used to compute the stiffness matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>e_y</strong> – Unit vector of the local cartesian coordinate system (orthogonal to the
+axis of the beam).</p></li>
+<li><p><strong>e_z</strong> – Unit vector of the local cartesian coordinate system (orthogonal to the
+axis of the beam).</p></li>
+<li><p><strong>h</strong> – Length of the beam.</p></li>
+<li><p><strong>E</strong> – Young’s modulus of elasticity.</p></li>
+<li><p><strong>Iy</strong> – Second moment of area for bending about the <span class="math notranslate nohighlight">\(y\)</span>-axis (i.e. bending in the
+<span class="math notranslate nohighlight">\(x-z\)</span> plane).</p></li>
+<li><p><strong>Iz</strong> – Second moment of area for bending about the <span class="math notranslate nohighlight">\(z\)</span>-axis (i.e. bending in the
+<span class="math notranslate nohighlight">\(x-y\)</span> plane).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Stiffness matrix of the beam.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#pystran.beam.beam_3d_xy_curv_displ_matrix" title="pystran.beam.beam_3d_xy_curv_displ_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_3d_xy_curv_displ_matrix()</span></code></a>, <a class="reference internal" href="#pystran.beam.beam_3d_xz_curv_displ_matrix" title="pystran.beam.beam_3d_xz_curv_displ_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_3d_xz_curv_displ_matrix()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_3d_end_forces">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_3d_end_forces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">member</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_3d_end_forces"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_3d_end_forces" title="Link to this definition">#</a></dt>
+<dd><p>Compute the end forces of a beam element in 3d.</p>
+<p>The end forces of the beam are forces acting on the joints <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span></code>
+by the beam.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>member</strong> – Dictionary that defines the data of the member.</p></li>
+<li><p><strong>i</strong> – Dictionary that defines the data of the first joint of the member.</p></li>
+<li><p><strong>j</strong> – Dictionary that defines the data of the second joint of the member.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary with the keys <code class="docutils literal notranslate"><span class="pre">'Ni'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Qyi'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Qzi'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Ti'</span></code>,
+<code class="docutils literal notranslate"><span class="pre">'Myi'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Mzi'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Nj'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Qyj'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Qzj'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Tj'</span></code>,
+<code class="docutils literal notranslate"><span class="pre">'Myj'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Mzj'</span></code>,  is returned.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_3d_mass">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_3d_mass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e_z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ix</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_3d_mass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_3d_mass" title="Link to this definition">#</a></dt>
+<dd><p>Compute beam mass matrix.</p>
+<p>The mass matrix is consistent, which means that it is computed from the
+discrete form of the kinetic energy of the element,</p>
+<div class="math notranslate nohighlight">
+\[\int \rho A \left(\dot u \cdot \dot u + \dot v \cdot \dot v + \dot w
+\cdot \dot    w\right)dx\]</div>
+<p>where <span class="math notranslate nohighlight">\(\dot u\)</span>, <span class="math notranslate nohighlight">\(\dot v\)</span>, and <span class="math notranslate nohighlight">\(\dot w\)</span> are the velocities
+in the <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, and <span class="math notranslate nohighlight">\(z\)</span> directions.</p>
+<p>The velocity <span class="math notranslate nohighlight">\(\dot u\)</span> is assumed to vary linearly along the element,
+and the velocity <span class="math notranslate nohighlight">\(\dot v\)</span>, <span class="math notranslate nohighlight">\(\dot w\)</span> is assumed to vary
+according to the Hermite shape functions. Rotations about <span class="math notranslate nohighlight">\(y\)</span> and
+<span class="math notranslate nohighlight">\(z\)</span> are ignored in the kinetic energy.</p>
+<p>For spinning of the beam about its axis, the kinetic energy is given by the
+formula</p>
+<div class="math notranslate nohighlight">
+\[\int \rho I_x \dot \theta_x \cdot \dot \theta_x dx.\]</div>
+<p>Gauss quadrature is used to compute the mass matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>e_x</strong> – Unit vector of the local cartesian coordinate system in the direction
+of the axis of the beam.</p></li>
+<li><p><strong>e_y</strong> – Unit vector of the local cartesian coordinate system (orthogonal to the
+axis of the beam).</p></li>
+<li><p><strong>e_z</strong> – Unit vector of the local cartesian coordinate system (orthogonal to the
+axis of the beam).</p></li>
+<li><p><strong>h</strong> – Length of the beam.</p></li>
+<li><p><strong>rho</strong> – Mass density of the material.</p></li>
+<li><p><strong>A</strong> – Area of the cross section.</p></li>
+<li><p><strong>Ix</strong> – Second moment of area of the cross section for rotation about x.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Mass matrix of the beam.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_3d_moment">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_3d_moment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">member</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_3d_moment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_3d_moment" title="Link to this definition">#</a></dt>
+<dd><p>Compute 3d beam moment based on the displacements stored at the joints. The
+moment is computed at the parametric location <code class="docutils literal notranslate"><span class="pre">xi</span></code> along the beam. The
+moment acts about the axis specified by the string <code class="docutils literal notranslate"><span class="pre">axis</span></code> (<code class="docutils literal notranslate"><span class="pre">'y'</span></code> or
+<code class="docutils literal notranslate"><span class="pre">'z'</span></code>).</p>
+<p>The moments are mathematically defined as <span class="math notranslate nohighlight">\(M_y = -EI_y d^2w/dx^2\)</span> for
+bending about the <cite>y</cite> axis, and <span class="math notranslate nohighlight">\(M_z = +EI_z d^2v/dx^2\)</span> for bending
+about the <span class="math notranslate nohighlight">\(z\)</span> axis.</p>
+<p>The curvatures are computed with  curvature-displacement matrices <span class="math notranslate nohighlight">\(B\)</span>
+by the functions <a class="reference internal" href="#pystran.beam.beam_3d_xz_curv_displ_matrix" title="pystran.beam.beam_3d_xz_curv_displ_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_3d_xz_curv_displ_matrix()</span></code></a> and
+<a class="reference internal" href="#pystran.beam.beam_3d_xy_curv_displ_matrix" title="pystran.beam.beam_3d_xy_curv_displ_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_3d_xy_curv_displ_matrix()</span></code></a>, respectively.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>member</strong> – Dictionary that defines the data of the member.</p></li>
+<li><p><strong>i</strong> – Dictionary that defines the data of the first joint of the member.</p></li>
+<li><p><strong>j</strong> – Dictionary that defines the data of the second joint of the member.</p></li>
+<li><p><strong>axis</strong> – Bending about which axis? Specify either <cite>‘y’</cite> or <cite>‘z’</cite>.</p></li>
+<li><p><strong>xi</strong> – Parametric coordinate (<span class="math notranslate nohighlight">\(-1\le\xi\le+1\)</span>): first joint is at
+<span class="math notranslate nohighlight">\(\xi =-1\)</span>, second is at <span class="math notranslate nohighlight">\(\xi =+1\)</span>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The moment resultant.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_3d_shear_force">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_3d_shear_force</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">member</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_3d_shear_force"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_3d_shear_force" title="Link to this definition">#</a></dt>
+<dd><p>Compute 3d shear force based on the displacements stored at the joints.</p>
+<p>The shear force in the direction of axis <code class="docutils literal notranslate"><span class="pre">axis</span></code>  (<code class="docutils literal notranslate"><span class="pre">'y'</span></code> or <code class="docutils literal notranslate"><span class="pre">'z'</span></code>) is
+uniform along the beam.  Hence, <code class="docutils literal notranslate"><span class="pre">xi</span></code> does not matter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>member</strong> – Dictionary that defines the data of the member.</p></li>
+<li><p><strong>i</strong> – Dictionary that defines the data of the first joint of the member.</p></li>
+<li><p><strong>j</strong> – Dictionary that defines the data of the second joint of the member.</p></li>
+<li><p><strong>axis</strong> – Shearing in the direction of which axis? Specify either <cite>‘y’</cite> or <cite>‘z’</cite>.</p></li>
+<li><p><strong>xi</strong> – Parametric coordinate (<span class="math notranslate nohighlight">\(-1\le\xi\le+1\)</span>): first joint is at
+<span class="math notranslate nohighlight">\(\xi =-1\)</span>, second is at <span class="math notranslate nohighlight">\(\xi =+1\)</span>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The force resultant.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_3d_stretch_displ_matrix">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_3d_stretch_displ_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_3d_stretch_displ_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_3d_stretch_displ_matrix" title="Link to this definition">#</a></dt>
+<dd><p>Compute beam stretch-displacement matrix.</p>
+<p>Stretch here means axial strain.</p>
+<p>The job is delegated to the truss module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>e_x</strong> – Unit vector along the axis of the member.</p></li>
+<li><p><strong>h</strong> – Length of the member.</p></li>
+<li><p><strong>xi</strong> – Parametric coordinate (<span class="math notranslate nohighlight">\(-1\le\xi\le+1\)</span>): first joint is at
+<span class="math notranslate nohighlight">\(\xi =-1\)</span>, second is at <span class="math notranslate nohighlight">\(\xi =+1\)</span>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Stretch-displacement matrix.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="pystran.truss.html#pystran.truss.truss_strain_displacement" title="pystran.truss.truss_strain_displacement"><code class="xref py py-func docutils literal notranslate"><span class="pre">pystran.truss.truss_strain_displacement()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_3d_torsion_displ_matrix">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_3d_torsion_displ_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_3d_torsion_displ_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_3d_torsion_displ_matrix" title="Link to this definition">#</a></dt>
+<dd><p>Compute torsion-displacement matrix.</p>
+<p>The torsion-displacement matrix is constant.  Hence, <code class="docutils literal notranslate"><span class="pre">xi</span></code> does not
+matter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>e_x</strong> – Unit vector of the local cartesian coordinate system in the direction
+of the axis of the beam.</p></li>
+<li><p><strong>h</strong> – Length of the beam.</p></li>
+<li><p><strong>xi</strong> – Parametric coordinate (<span class="math notranslate nohighlight">\(-1\le\xi\le+1\)</span>): first joint is at
+<span class="math notranslate nohighlight">\(\xi =-1\)</span>, second is at <span class="math notranslate nohighlight">\(\xi =+1\)</span>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The torsion rate-displacement matrix of the bar.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_3d_torsion_moment">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_3d_torsion_moment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">member</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_3d_torsion_moment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_3d_torsion_moment" title="Link to this definition">#</a></dt>
+<dd><p>Compute 3d beam torsion moment based on the displacements stored at the
+joints. The moment is uniform along the beam.</p>
+<p>The moment is mathematically defined as <span class="math notranslate nohighlight">\(T = GJ d\theta_x/dx\)</span>. The rate of
+change of the axial rotation, <span class="math notranslate nohighlight">\(d\theta_x/dx\)</span>, is computed with the
+torsion-displacement matrix <span class="math notranslate nohighlight">\(B\)</span>, obtained by the function
+<a class="reference internal" href="#pystran.beam.beam_3d_torsion_displ_matrix" title="pystran.beam.beam_3d_torsion_displ_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_3d_torsion_displ_matrix()</span></code></a>.</p>
+<p>The torsion moment is uniform along the beam. Hence, <code class="docutils literal notranslate"><span class="pre">xi</span></code> does not matter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>member</strong> – Dictionary that defines the data of the member.</p></li>
+<li><p><strong>i</strong> – Dictionary that defines the data of the first joint of the member.</p></li>
+<li><p><strong>j</strong> – Dictionary that defines the data of the second joint of the member.</p></li>
+<li><p><strong>xi</strong> – Parametric coordinate (<span class="math notranslate nohighlight">\(-1\le\xi\le+1\)</span>): first joint is at
+<span class="math notranslate nohighlight">\(\xi =-1\)</span>, second is at <span class="math notranslate nohighlight">\(\xi =+1\)</span>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The moment resultant.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_3d_torsion_stiffness">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_3d_torsion_stiffness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">J</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_3d_torsion_stiffness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_3d_torsion_stiffness" title="Link to this definition">#</a></dt>
+<dd><p>Compute torsion stiffness matrix.</p>
+<p>The torsion stiffness matrix is computed as <span class="math notranslate nohighlight">\(K = GJ B^T B h\)</span>. Here
+<span class="math notranslate nohighlight">\(B\)</span> is the torsion-displacement matrix, computed by
+<a class="reference internal" href="#pystran.beam.beam_3d_torsion_displ_matrix" title="pystran.beam.beam_3d_torsion_displ_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_3d_torsion_displ_matrix()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>e_x</strong> – Unit vector of the local cartesian coordinate system in the direction
+of the axis of the beam.</p></li>
+<li><p><strong>h</strong> – Length of the beam.</p></li>
+<li><p><strong>G</strong> – Shear modulus of elasticity.</p></li>
+<li><p><strong>J</strong> – Torsion constant of the section.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Stiffness matrix of the beam.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#pystran.beam.beam_3d_torsion_displ_matrix" title="pystran.beam.beam_3d_torsion_displ_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">beam_3d_torsion_displ_matrix()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_3d_xy_3rd_deriv_displ_matrix">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_3d_xy_3rd_deriv_displ_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e_z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_3d_xy_3rd_deriv_displ_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_3d_xy_3rd_deriv_displ_matrix" title="Link to this definition">#</a></dt>
+<dd><p>Compute 3d beam third derivative-displacement matrix for displacements in
+the <span class="math notranslate nohighlight">\(x-y\)</span> plane.</p>
+<p>Here the third derivative is with respect to the physical coordinate
+measured along the member (local <span class="math notranslate nohighlight">\(x\)</span>).</p>
+<p>The third derivative <span class="math notranslate nohighlight">\(d^3v/dx^3\)</span> is computed in the local coordinate
+system of the beam as <span class="math notranslate nohighlight">\(d^3v/dx^3 = B U\)</span>. Here <span class="math notranslate nohighlight">\(B\)</span> is the
+third-derivative-displacement matrix and <span class="math notranslate nohighlight">\(U\)</span> is the displacement
+vector. All three displacement components and all three rotation components
+at each joint are assumed, so the matrix <span class="math notranslate nohighlight">\(B\)</span> has one row and twelve
+columns. Note that this matrix is constant (independent of the location
+along the beam).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>e_y</strong> – Unit vector of the local cartesian coordinate system (orthogonal to the
+axis of the beam).</p></li>
+<li><p><strong>e_z</strong> – Unit vector of the local cartesian coordinate system (orthogonal to the
+axis of the beam).</p></li>
+<li><p><strong>h</strong> – Length of the beam.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The third derivative-displacement matrix.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_3d_xy_curv_displ_matrix">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_3d_xy_curv_displ_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e_z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_3d_xy_curv_displ_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_3d_xy_curv_displ_matrix" title="Link to this definition">#</a></dt>
+<dd><p>Compute beam curvature-displacement matrix in the local <span class="math notranslate nohighlight">\(x-y\)</span> plane
+(i.e. bending about the <span class="math notranslate nohighlight">\(z\)</span> axis).</p>
+<p>The curvature <span class="math notranslate nohighlight">\(d^2v/dx^2\)</span> is computed in the local coordinate system
+of the beam as <span class="math notranslate nohighlight">\(d^2v/dx^2 = B U\)</span>. Here <span class="math notranslate nohighlight">\(B\)</span> is the
+curvature-displacement matrix and <span class="math notranslate nohighlight">\(U\)</span> is the displacement vector. All
+three displacement components and all three rotation components at each
+joint are assumed, so the matrix <span class="math notranslate nohighlight">\(B\)</span> has one row and twelve columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>e_y</strong> – Unit vector of the local cartesian coordinate system (orthogonal to the
+axis of the beam).</p></li>
+<li><p><strong>e_z</strong> – Unit vector of the local cartesian coordinate system (orthogonal to the
+axis of the beam).</p></li>
+<li><p><strong>h</strong> – Length of the beam.</p></li>
+<li><p><strong>xi</strong> – Parametric coordinate (<span class="math notranslate nohighlight">\(-1\le\xi\le+1\)</span>): first joint is at
+<span class="math notranslate nohighlight">\(\xi =-1\)</span>, second is at <span class="math notranslate nohighlight">\(\xi =+1\)</span>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The curvature-displacement matrix.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_3d_xy_shape_fun">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_3d_xy_shape_fun</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_3d_xy_shape_fun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_3d_xy_shape_fun" title="Link to this definition">#</a></dt>
+<dd><p>Compute the beam shape functions for deflection in the <span class="math notranslate nohighlight">\(x-y\)</span> plane.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>xi</strong> – Parametric coordinate (<span class="math notranslate nohighlight">\(-1\le\xi\le+1\)</span>): first joint is at
+<span class="math notranslate nohighlight">\(\xi =-1\)</span>, second is at <span class="math notranslate nohighlight">\(\xi =+1\)</span>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The signs of the shape functions that go with the rotations (i.e. the
+second and fourth) need to be reversed relative to the <span class="math notranslate nohighlight">\(x-z\)</span>
+plane of bending: An array of second derivatives of shape functions is
+returned (i.e. <span class="math notranslate nohighlight">\([N_1(\xi), -N_2(\xi), N_3(\xi), -N_4(\xi)]\)</span>).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="pystran.geometry.html#pystran.geometry.herm_basis" title="pystran.geometry.herm_basis"><code class="xref py py-func docutils literal notranslate"><span class="pre">pystran.geometry.herm_basis()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_3d_xy_shape_fun_xi2">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_3d_xy_shape_fun_xi2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_3d_xy_shape_fun_xi2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_3d_xy_shape_fun_xi2" title="Link to this definition">#</a></dt>
+<dd><p>Compute the second derivative of the beam shape functions for deflection in
+the <span class="math notranslate nohighlight">\(x-y\)</span> plane.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>xi</strong> – Parametric coordinate (<span class="math notranslate nohighlight">\(-1\le\xi\le+1\)</span>): first joint is at
+<span class="math notranslate nohighlight">\(\xi =-1\)</span>, second is at <span class="math notranslate nohighlight">\(\xi =+1\)</span>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The signs of the shape functions that go with the rotations (i.e. the
+second and fourth) need to be reversed: An array of second derivatives
+of shape functions is returned (i.e. <span class="math notranslate nohighlight">\([d^2N_1(\xi)/d\xi^2,
+-d^2N_2(\xi)/d\xi^2, d^2N_3(\xi)/d\xi^2, -d^2N_4(\xi)/d\xi^2]\)</span>).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="pystran.geometry.html#pystran.geometry.herm_basis" title="pystran.geometry.herm_basis"><code class="xref py py-func docutils literal notranslate"><span class="pre">pystran.geometry.herm_basis()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_3d_xy_shape_fun_xi3">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_3d_xy_shape_fun_xi3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_3d_xy_shape_fun_xi3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_3d_xy_shape_fun_xi3" title="Link to this definition">#</a></dt>
+<dd><p>Compute the third derivative of the beam shape functions with respect to
+<code class="docutils literal notranslate"><span class="pre">xi</span></code> for deflection in the <span class="math notranslate nohighlight">\(x-y\)</span> plane.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>xi</strong> – Parametric coordinate (<span class="math notranslate nohighlight">\(-1\le\xi\le+1\)</span>): first joint is at
+<span class="math notranslate nohighlight">\(\xi =-1\)</span>, second is at <span class="math notranslate nohighlight">\(\xi =+1\)</span>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The signs of the shape functions that go with the rotations (i.e. the
+second and fourth) need to be reversed: An array of third derivatives
+of shape functions is returned (i.e. <span class="math notranslate nohighlight">\([d^3N_1(\xi)/d\xi^3,
+-d^3N_2(\xi)/d\xi^3, d^3N_3(\xi)/d\xi^3, -d^3N_4(\xi)/d\xi^3]\)</span>).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="pystran.geometry.html#pystran.geometry.herm_basis" title="pystran.geometry.herm_basis"><code class="xref py py-func docutils literal notranslate"><span class="pre">pystran.geometry.herm_basis()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_3d_xz_3rd_deriv_displ_matrix">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_3d_xz_3rd_deriv_displ_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e_z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_3d_xz_3rd_deriv_displ_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_3d_xz_3rd_deriv_displ_matrix" title="Link to this definition">#</a></dt>
+<dd><p>Compute 3d beam third derivative-displacement matrix for displacements in
+the <span class="math notranslate nohighlight">\(x-z\)</span> plane.</p>
+<p>Here the third derivative is with respect to the physical coordinate
+measured along the member (local <span class="math notranslate nohighlight">\(x\)</span>).</p>
+<p>The third derivative <span class="math notranslate nohighlight">\(d^3w/dx^3\)</span> is computed in the local coordinate
+system of the beam as <span class="math notranslate nohighlight">\(d^3w/dx^3 = B U\)</span>. Here <span class="math notranslate nohighlight">\(B\)</span> is the
+third-derivative-displacement matrix and <span class="math notranslate nohighlight">\(U\)</span> is the displacement
+vector. All three displacement components and all three rotation components
+at each joint are assumed, so the matrix <span class="math notranslate nohighlight">\(B\)</span> has one row and twelve
+columns. Note that this matrix is constant (independent of the location
+along the beam).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>e_y</strong> – Unit vector of the local cartesian coordinate system (orthogonal to the
+axis of the beam).</p></li>
+<li><p><strong>e_z</strong> – Unit vector of the local cartesian coordinate system (orthogonal to the
+axis of the beam).</p></li>
+<li><p><strong>h</strong> – Length of the beam.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The third derivative-displacement matrix.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_3d_xz_curv_displ_matrix">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_3d_xz_curv_displ_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e_z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_3d_xz_curv_displ_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_3d_xz_curv_displ_matrix" title="Link to this definition">#</a></dt>
+<dd><p>Compute beam curvature-displacement matrix in the local <span class="math notranslate nohighlight">\(x-z\)</span> plane
+(i.e. bending about the <span class="math notranslate nohighlight">\(y\)</span> axis).</p>
+<p>The curvature <span class="math notranslate nohighlight">\(d^2w/dx^2\)</span> is computed in the local coordinate system
+of the beam as <span class="math notranslate nohighlight">\(d^2w/dx^2 = B U\)</span>. Here <span class="math notranslate nohighlight">\(B\)</span> is the
+curvature-displacement matrix and <span class="math notranslate nohighlight">\(U\)</span> is the displacement vector. All
+three displacement components and all three rotation components at each
+joint are assumed, so the matrix <span class="math notranslate nohighlight">\(B\)</span> has one row and twelve columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>e_y</strong> – Unit vector of the local cartesian coordinate system (orthogonal to the
+axis of the beam).</p></li>
+<li><p><strong>e_z</strong> – Unit vector of the local cartesian coordinate system (orthogonal to the
+axis of the beam).</p></li>
+<li><p><strong>h</strong> – Length of the beam.</p></li>
+<li><p><strong>xi</strong> – Parametric coordinate (<span class="math notranslate nohighlight">\(-1\le\xi\le+1\)</span>): first joint is at
+<span class="math notranslate nohighlight">\(\xi =-1\)</span>, second is at <span class="math notranslate nohighlight">\(\xi =+1\)</span>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The curvature-displacement matrix.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_3d_xz_shape_fun">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_3d_xz_shape_fun</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_3d_xz_shape_fun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_3d_xz_shape_fun" title="Link to this definition">#</a></dt>
+<dd><p>Compute the beam shape functions for deflection in the <span class="math notranslate nohighlight">\(x-z\)</span> plane.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>xi</strong> – Parametric coordinate (<span class="math notranslate nohighlight">\(-1\le\xi\le+1\)</span>): first joint is at
+<span class="math notranslate nohighlight">\(\xi =-1\)</span>, second is at <span class="math notranslate nohighlight">\(\xi =+1\)</span>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An array of shape function values is returned (i.e. <span class="math notranslate nohighlight">\([N_1(\xi),
+..., N_4(\xi)]\)</span>).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="pystran.geometry.html#pystran.geometry.herm_basis" title="pystran.geometry.herm_basis"><code class="xref py py-func docutils literal notranslate"><span class="pre">pystran.geometry.herm_basis()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_3d_xz_shape_fun_xi2">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_3d_xz_shape_fun_xi2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_3d_xz_shape_fun_xi2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_3d_xz_shape_fun_xi2" title="Link to this definition">#</a></dt>
+<dd><p>Compute the second derivative of the beam shape functions for deflection in
+the <span class="math notranslate nohighlight">\(x-z\)</span> plane.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>xi</strong> – Parametric coordinate (<span class="math notranslate nohighlight">\(-1\le\xi\le+1\)</span>): first joint is at
+<span class="math notranslate nohighlight">\(\xi =-1\)</span>, second is at <span class="math notranslate nohighlight">\(\xi =+1\)</span>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An array of second derivatives of shape functions is returned (i.e.
+<span class="math notranslate nohighlight">\([d^2N_1(\xi)/d\xi^2, ..., d^2N_4(\xi)/d\xi^2]\)</span>).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="pystran.geometry.html#pystran.geometry.herm_basis" title="pystran.geometry.herm_basis"><code class="xref py py-func docutils literal notranslate"><span class="pre">pystran.geometry.herm_basis()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.beam.beam_3d_xz_shape_fun_xi3">
+<span class="sig-prename descclassname"><span class="pre">pystran.beam.</span></span><span class="sig-name descname"><span class="pre">beam_3d_xz_shape_fun_xi3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/beam.html#beam_3d_xz_shape_fun_xi3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.beam.beam_3d_xz_shape_fun_xi3" title="Link to this definition">#</a></dt>
+<dd><p>Compute the third derivative of the beam shape functions with respect to
+<code class="docutils literal notranslate"><span class="pre">xi</span></code> for deflection in the <span class="math notranslate nohighlight">\(x-z\)</span> plane.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>xi</strong> – Parametric coordinate (<span class="math notranslate nohighlight">\(-1\le\xi\le+1\)</span>): first joint is at
+<span class="math notranslate nohighlight">\(\xi =-1\)</span>, second is at <span class="math notranslate nohighlight">\(\xi =+1\)</span>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An array of third derivatives of shape functions is returned (i.e.
+<span class="math notranslate nohighlight">\([d^3N_1(\xi)/d\xi^3, ..., d^3N_4(\xi)/d\xi^3]\)</span>).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="pystran.geometry.html#pystran.geometry.herm_basis" title="pystran.geometry.herm_basis"><code class="xref py py-func docutils literal notranslate"><span class="pre">pystran.geometry.herm_basis()</span></code></a></p>
+</div>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="pystran.assemble.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">pystran.assemble module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="pystran.freedoms.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">pystran.freedoms module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.assemble_mass"><code class="docutils literal notranslate"><span class="pre">assemble_mass()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.assemble_stiffness"><code class="docutils literal notranslate"><span class="pre">assemble_stiffness()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_2d_3d_axial_stiffness"><code class="docutils literal notranslate"><span class="pre">beam_2d_3d_axial_stiffness()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_2d_3rd_deriv_displ_matrix"><code class="docutils literal notranslate"><span class="pre">beam_2d_3rd_deriv_displ_matrix()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_2d_axial_force"><code class="docutils literal notranslate"><span class="pre">beam_2d_axial_force()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_2d_bending_stiffness"><code class="docutils literal notranslate"><span class="pre">beam_2d_bending_stiffness()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_2d_curv_displ_matrix"><code class="docutils literal notranslate"><span class="pre">beam_2d_curv_displ_matrix()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_2d_end_forces"><code class="docutils literal notranslate"><span class="pre">beam_2d_end_forces()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_2d_mass"><code class="docutils literal notranslate"><span class="pre">beam_2d_mass()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_2d_moment"><code class="docutils literal notranslate"><span class="pre">beam_2d_moment()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_2d_shear_force"><code class="docutils literal notranslate"><span class="pre">beam_2d_shear_force()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_3d_axial_force"><code class="docutils literal notranslate"><span class="pre">beam_3d_axial_force()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_3d_bending_stiffness"><code class="docutils literal notranslate"><span class="pre">beam_3d_bending_stiffness()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_3d_end_forces"><code class="docutils literal notranslate"><span class="pre">beam_3d_end_forces()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_3d_mass"><code class="docutils literal notranslate"><span class="pre">beam_3d_mass()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_3d_moment"><code class="docutils literal notranslate"><span class="pre">beam_3d_moment()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_3d_shear_force"><code class="docutils literal notranslate"><span class="pre">beam_3d_shear_force()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_3d_stretch_displ_matrix"><code class="docutils literal notranslate"><span class="pre">beam_3d_stretch_displ_matrix()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_3d_torsion_displ_matrix"><code class="docutils literal notranslate"><span class="pre">beam_3d_torsion_displ_matrix()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_3d_torsion_moment"><code class="docutils literal notranslate"><span class="pre">beam_3d_torsion_moment()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_3d_torsion_stiffness"><code class="docutils literal notranslate"><span class="pre">beam_3d_torsion_stiffness()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_3d_xy_3rd_deriv_displ_matrix"><code class="docutils literal notranslate"><span class="pre">beam_3d_xy_3rd_deriv_displ_matrix()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_3d_xy_curv_displ_matrix"><code class="docutils literal notranslate"><span class="pre">beam_3d_xy_curv_displ_matrix()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_3d_xy_shape_fun"><code class="docutils literal notranslate"><span class="pre">beam_3d_xy_shape_fun()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_3d_xy_shape_fun_xi2"><code class="docutils literal notranslate"><span class="pre">beam_3d_xy_shape_fun_xi2()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_3d_xy_shape_fun_xi3"><code class="docutils literal notranslate"><span class="pre">beam_3d_xy_shape_fun_xi3()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_3d_xz_3rd_deriv_displ_matrix"><code class="docutils literal notranslate"><span class="pre">beam_3d_xz_3rd_deriv_displ_matrix()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_3d_xz_curv_displ_matrix"><code class="docutils literal notranslate"><span class="pre">beam_3d_xz_curv_displ_matrix()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_3d_xz_shape_fun"><code class="docutils literal notranslate"><span class="pre">beam_3d_xz_shape_fun()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_3d_xz_shape_fun_xi2"><code class="docutils literal notranslate"><span class="pre">beam_3d_xz_shape_fun_xi2()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.beam.beam_3d_xz_shape_fun_xi3"><code class="docutils literal notranslate"><span class="pre">beam_3d_xz_shape_fun_xi3()</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pystran.beam.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Petr Krysl.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

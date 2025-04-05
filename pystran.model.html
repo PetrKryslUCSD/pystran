@@ -1,0 +1,977 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>pystran.model module &#8212; pystran 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=01f34227"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pystran.model';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pystran.plots module" href="pystran.plots.html" />
+    <link rel="prev" title="pystran.geometry module" href="pystran.geometry.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pystran 0.1.0 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    pystran
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    pystran
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="pystran.html">pystran package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pystran.assemble.html">pystran.assemble module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html">pystran.beam module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.freedoms.html">pystran.freedoms module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.gauss.html">pystran.gauss module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.geometry.html">pystran.geometry module</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">pystran.model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html">pystran.plots module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.rigid.html">pystran.rigid module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.rotation.html">pystran.rotation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.section.html">pystran.section module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.spring.html">pystran.spring module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.truss.html">pystran.truss module</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="modules.html" class="nav-link">pystran</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="pystran.html" class="nav-link">pystran package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pystran.model module</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-pystran.model">
+<span id="pystran-model-module"></span><h1>pystran.model module<a class="headerlink" href="#module-pystran.model" title="Link to this heading">#</a></h1>
+<p>Define the functions for defining and manipulating a model.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.add_beam_member">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">add_beam_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connectivity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sect</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#add_beam_member"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.add_beam_member" title="Link to this definition">#</a></dt>
+<dd><p>Add a beam member to the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> – Model.</p></li>
+<li><p><strong>mid</strong> – The member identifier, which must be unique, but can be anything
+that is a legal dictionary key (integer, string, …).</p></li>
+<li><p><strong>connectivity</strong> – The list (or a tuple) of the joint identifiers.</p></li>
+<li><p><strong>sect</strong> – Section of appropriate type (2d or 3d beam section).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Newly created member.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-func docutils literal notranslate"><span class="pre">section.beam_2d_section()</span></code>, <code class="xref py py-func docutils literal notranslate"><span class="pre">section.beam_3d_section()</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.add_dof_links">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">add_dof_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dof</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#add_dof_links"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.add_dof_links" title="Link to this definition">#</a></dt>
+<dd><p>Add degree-of-freedom links between all joints in the list <code class="docutils literal notranslate"><span class="pre">jids</span></code> in the
+direction <code class="docutils literal notranslate"><span class="pre">dof</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> – The model.</p></li>
+<li><p><strong>jids</strong> – The list of joint identifiers.</p></li>
+<li><p><strong>dof</strong> – The degree of freedom at which the joints are to be linked.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.add_joint">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">add_joint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coordinates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#add_joint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.add_joint" title="Link to this definition">#</a></dt>
+<dd><p>Add a joint to the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> – Model.</p></li>
+<li><p><strong>jid</strong> – The joint identifier, which must be unique, but can be anything
+that is a legal dictionary key (integer, string, …),</p></li>
+<li><p><strong>coordinates</strong> – The list (or a tuple) of coordinates of the joint; the
+input is converted to an array.</p></li>
+<li><p><strong>dof</strong> – Optional: the degrees of freedom of the joint as a list (or a
+tuple). If provided, do not use <a class="reference internal" href="#pystran.model.number_dofs" title="pystran.model.number_dofs"><code class="xref py py-func docutils literal notranslate"><span class="pre">number_dofs()</span></code></a> later on.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Newly created joint.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.add_load">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">add_load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dof</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#add_load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.add_load" title="Link to this definition">#</a></dt>
+<dd><p>Add a load to a joint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>j</strong> – The joint (obtained from the model as <code class="docutils literal notranslate"><span class="pre">m[&quot;joints&quot;][jid]</span></code>).</p></li>
+<li><p><strong>dof</strong> – The degree of freedom (0, 1, …).</p></li>
+<li><p><strong>value</strong> – The signed magnitude of the load.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.add_mass">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">add_mass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dof</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#add_mass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.add_mass" title="Link to this definition">#</a></dt>
+<dd><p>Add a mass to a joint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>j</strong> – The joint (obtained from the model as <code class="docutils literal notranslate"><span class="pre">m[&quot;joints&quot;][jid]</span></code>).</p></li>
+<li><p><strong>dof</strong> – The degree of freedom (0, 1, …). Refer to the module <code class="docutils literal notranslate"><span class="pre">freedoms</span></code>.</p></li>
+<li><p><strong>value</strong> – The magnitude of the added mass.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.add_rigid_link_member">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">add_rigid_link_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connectivity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sect</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#add_rigid_link_member"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.add_rigid_link_member" title="Link to this definition">#</a></dt>
+<dd><p>Add a rigid link member to the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> – Model.</p></li>
+<li><p><strong>mid</strong> – The member identifier, which must be unique, but can be anything
+that is a legal dictionary key (integer, string, …),</p></li>
+<li><p><strong>connectivity</strong> – The list (or a tuple) of the joint identifiers; the
+first is the <em>master</em> (its motion determines the motion of the
+subordinate), the second is the <em>subordinate</em> (its motion follows that of
+the master).</p></li>
+<li><p><strong>sect</strong> – Section of appropriate type (i.e. rigid link section).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Newly created member.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-func docutils literal notranslate"><span class="pre">rigid_link_section()</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.add_spring_member">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">add_spring_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connectivity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sect</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#add_spring_member"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.add_spring_member" title="Link to this definition">#</a></dt>
+<dd><p>Add a spring member to the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> – Model.</p></li>
+<li><p><strong>mid</strong> – The member identifier, which must be unique, but can be anything
+that is a legal dictionary key (integer, string, …),</p></li>
+<li><p><strong>connectivity</strong> – The list (or a tuple) of the joint identifiers.</p></li>
+<li><p><strong>sect</strong> – Section of appropriate type (i.e. a spring section).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Newly created member.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-func docutils literal notranslate"><span class="pre">spring_section()</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.add_support">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">add_support</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dof</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#add_support"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.add_support" title="Link to this definition">#</a></dt>
+<dd><p>Add a support to a joint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>j</strong> – The joint (obtained from the model as <code class="docutils literal notranslate"><span class="pre">m[&quot;joints&quot;][jid]</span></code>).</p></li>
+<li><p><strong>dof</strong> – The degree of freedom (0, 1, …). Refer to the module <code class="docutils literal notranslate"><span class="pre">freedoms</span></code>.</p></li>
+<li><p><strong>value</strong> – The signed magnitude of the support motion (default is zero).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.add_truss_member">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">add_truss_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connectivity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sect</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#add_truss_member"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.add_truss_member" title="Link to this definition">#</a></dt>
+<dd><p>Add a truss member to the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> – Model.</p></li>
+<li><p><strong>mid</strong> – The member identifier, which must be unique, but can be anything
+that is a legal dictionary key (integer, string, …).</p></li>
+<li><p><strong>connectivity</strong> – The list (or a tuple) of the joint identifiers.</p></li>
+<li><p><strong>sect</strong> – Section of appropriate type (i.e. a truss section).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Newly created member.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.bounding_box">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#bounding_box"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.bounding_box" title="Link to this definition">#</a></dt>
+<dd><p>Compute the bounding box of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> – The model.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of the lower and upper ranges (i.e. the bounding box that
+encloses all the joints).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.characteristic_dimension">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">characteristic_dimension</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#characteristic_dimension"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.characteristic_dimension" title="Link to this definition">#</a></dt>
+<dd><p>Compute the characteristic dimension of the model.</p>
+<p>This is the average of the dimensions of the bounding box.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> – The model.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Characteristic dimension.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.create">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.create" title="Link to this definition">#</a></dt>
+<dd><p>Create a new model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dim</strong> – Supply the dimension of the model (2 or 3).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.free_body_check">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">free_body_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#free_body_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.free_body_check" title="Link to this definition">#</a></dt>
+<dd><p>Check the balance of the structure as a free body.</p>
+<p>All the active forces and moments together with the reactions at all the
+supports should sum to zero.</p>
+<p><a class="reference internal" href="#pystran.model.statics_reactions" title="pystran.model.statics_reactions"><code class="xref py py-func docutils literal notranslate"><span class="pre">statics_reactions()</span></code></a> must be called before this function as this calculation
+relies on the presence of reactions at the joints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> – The model.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of resultant forces and moments.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#pystran.model.statics_reactions" title="pystran.model.statics_reactions"><code class="xref py py-func docutils literal notranslate"><span class="pre">statics_reactions()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.ndof_per_joint">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">ndof_per_joint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#ndof_per_joint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.ndof_per_joint" title="Link to this definition">#</a></dt>
+<dd><p>How many degrees of freedom are there per joint?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> – The model.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of the degrees of freedom per joint. Depends on the space
+dimension of the model and the presence or absence of beams.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.number_dofs">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">number_dofs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#number_dofs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.number_dofs" title="Link to this definition">#</a></dt>
+<dd><p>Number degrees of freedom.</p>
+<p>All current information about degrees of freedom will be replaced when this
+function is done.</p>
+<p>After this function returns, <code class="docutils literal notranslate"><span class="pre">m[&quot;nfreedof&quot;]</span></code> will be the number of free
+degrees of freedom, and <code class="docutils literal notranslate"><span class="pre">m[&quot;ntotaldof&quot;]</span></code> will be the total number of degrees
+of freedom.</p>
+<p>The degrees of freedom are numbered in the order of free and then
+prescribed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> – The model.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.refine_member">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">refine_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#refine_member"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.refine_member" title="Link to this definition">#</a></dt>
+<dd><p>Refine a beam member by replacing it with <code class="docutils literal notranslate"><span class="pre">n</span></code> new members.</p>
+<p>The new joints are numbered starting from zero, and the joint identifier is
+composed of the member identifier plus the serial number of the new joint.</p>
+<p>The new member identifiers are stored under the key <code class="docutils literal notranslate"><span class="pre">&quot;descendants&quot;</span></code> in
+the refined member. The refined member is removed from the list of beam
+members.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> – The model.</p></li>
+<li><p><strong>mid</strong> – The identifier of the member to be refined.</p></li>
+<li><p><strong>n</strong> – The number of new beam members to replace the old member with.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.remove_loads">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">remove_loads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#remove_loads"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.remove_loads" title="Link to this definition">#</a></dt>
+<dd><p>Remove all the nodal loads in the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> – The model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.remove_supports">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">remove_supports</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#remove_supports"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.remove_supports" title="Link to this definition">#</a></dt>
+<dd><p>Remove all the nodal supports in the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> – The model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.set_solution">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">set_solution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#set_solution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.set_solution" title="Link to this definition">#</a></dt>
+<dd><p>Set the displacement solution from a vector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> – The model.</p></li>
+<li><p><strong>V</strong> – The displacement vector. Either of length <code class="docutils literal notranslate"><span class="pre">m[&quot;nfreedof&quot;]</span></code> for only the
+free degrees of freedom, or of length <code class="docutils literal notranslate"><span class="pre">m[&quot;ntotaldof&quot;]</span></code> for the total
+number of degrees of freedom.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#pystran.model.number_dofs" title="pystran.model.number_dofs"><code class="xref py py-func docutils literal notranslate"><span class="pre">number_dofs()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.solve_free_vibration">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">solve_free_vibration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#solve_free_vibration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.solve_free_vibration" title="Link to this definition">#</a></dt>
+<dd><p>Solve the free vibration of the discrete model.</p>
+<p>The free vibration eigenvalue problem is solved for the eigenvalues and
+eigenvectors (can be retrieved as  <code class="docutils literal notranslate"><span class="pre">m[&quot;eigvals&quot;]</span></code> and <code class="docutils literal notranslate"><span class="pre">m[&quot;eigvecs&quot;]</span></code>). The
+frequencies are computed from the eigenvalues (can be retrieved as
+<code class="docutils literal notranslate"><span class="pre">m[&quot;frequencies&quot;]</span></code>).</p>
+<p>The equation of free vibration is</p>
+<div class="math notranslate nohighlight">
+\[K \cdot V = \omega^2 M \cdot V\]</div>
+<p>where <span class="math notranslate nohighlight">\(M\)</span> is the mass matrix, <span class="math notranslate nohighlight">\(V\)</span> is the eigenvector, and
+<span class="math notranslate nohighlight">\(\omega\)</span> is the angular frequency.</p>
+<p><a class="reference internal" href="#pystran.model.number_dofs" title="pystran.model.number_dofs"><code class="xref py py-func docutils literal notranslate"><span class="pre">number_dofs()</span></code></a> must be called before this function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> – The model.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#pystran.model.number_dofs" title="pystran.model.number_dofs"><code class="xref py py-func docutils literal notranslate"><span class="pre">number_dofs()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.solve_statics">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">solve_statics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#solve_statics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.solve_statics" title="Link to this definition">#</a></dt>
+<dd><p>Solve the static equilibrium of the discrete model.</p>
+<p><a class="reference internal" href="#pystran.model.number_dofs" title="pystran.model.number_dofs"><code class="xref py py-func docutils literal notranslate"><span class="pre">number_dofs()</span></code></a> must be called before this function.</p>
+<p>This function solves the equation of static equilibrium</p>
+<div class="math notranslate nohighlight">
+\[K \cdot U = F\]</div>
+<p>Here <span class="math notranslate nohighlight">\(K\)</span> is the stiffness matrix, <span class="math notranslate nohighlight">\(U\)</span> is the displacement
+vector, and <span class="math notranslate nohighlight">\(F\)</span> is the vector of forces acting on the joints.</p>
+<p>Note that the degrees of freedom can be partitioned into ‘free’ and
+prescribed (given as ‘data’).</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[ \begin{array}{cc}
+K_{ff} &amp; K_{fd} \\
+K_{df} &amp; K_{dd} \\
+\end{array}\right] \cdot \left[ \begin{array}{cc}
+U_{f} \\
+U_{d} \\
+\end{array}\right] = \left[ \begin{array}{cc}
+L_{f} \\
+L_{d} + R\\
+\end{array}\right]\end{split}\]</div>
+<p>Here <span class="math notranslate nohighlight">\(L_f\)</span> is the vector of active loads applied to the free degrees of
+freedom, and <span class="math notranslate nohighlight">\(L_d\)</span>  is the vector of active loads applied to the data
+degrees of freedom. The reactions <span class="math notranslate nohighlight">\(R\)</span> due to supports act on the prescribed
+(data) degrees of freedom.</p>
+<p>The system of equations is solved for the free degrees of freedom as</p>
+<div class="math notranslate nohighlight">
+\[K_{ff} \cdot U_{f} = -K_{fd} \cdot U_{d} +L_{f}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> – The model.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#pystran.model.number_dofs" title="pystran.model.number_dofs"><code class="xref py py-func docutils literal notranslate"><span class="pre">number_dofs()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.model.statics_reactions">
+<span class="sig-prename descclassname"><span class="pre">pystran.model.</span></span><span class="sig-name descname"><span class="pre">statics_reactions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/model.html#statics_reactions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.model.statics_reactions" title="Link to this definition">#</a></dt>
+<dd><p>Compute the reactions in the static equilibrium of the discrete model.</p>
+<p>The partitioned system of balanced equations reads</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[ \begin{array}{cc}
+K_{ff} &amp; K_{fd} \\
+K_{df} &amp; K_{dd} \\
+\end{array}\right] \cdot \left[ \begin{array}{cc}
+U_{f} \\
+U_{d} \\
+\end{array}\right] = \left[ \begin{array}{cc}
+L_{f} \\
+L_{d} + R\\
+\end{array}\right]\end{split}\]</div>
+<p>Here <span class="math notranslate nohighlight">\(L_f\)</span> is the vector of active loads applied to the free degrees
+of freedom, and <span class="math notranslate nohighlight">\(L_d\)</span>  is the vector of active loads applied to the
+data degrees of freedom. The reactions <span class="math notranslate nohighlight">\(R\)</span> due to supports act on the
+prescribed (data) degrees of freedom.</p>
+<p>The system of equations is solved for the reactions as</p>
+<div class="math notranslate nohighlight">
+\[R = K_{ff} \cdot U_{f} + K_{fd} \cdot U_{d} -L_{d}\]</div>
+<p>once <span class="math notranslate nohighlight">\(U_f\)</span> has been solved for in the <a class="reference internal" href="#pystran.model.solve_statics" title="pystran.model.solve_statics"><code class="xref py py-func docutils literal notranslate"><span class="pre">solve_statics()</span></code></a> step.</p>
+<p>The reactions are distributed to the joints, and can be retrieved from
+individual joint dictionaries <code class="docutils literal notranslate"><span class="pre">j</span></code> as <code class="docutils literal notranslate"><span class="pre">j['reactions']</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>m</strong> – The model.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#pystran.model.solve_statics" title="pystran.model.solve_statics"><code class="xref py py-func docutils literal notranslate"><span class="pre">solve_statics()</span></code></a></p>
+</div>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="pystran.geometry.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">pystran.geometry module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="pystran.plots.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">pystran.plots module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.add_beam_member"><code class="docutils literal notranslate"><span class="pre">add_beam_member()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.add_dof_links"><code class="docutils literal notranslate"><span class="pre">add_dof_links()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.add_joint"><code class="docutils literal notranslate"><span class="pre">add_joint()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.add_load"><code class="docutils literal notranslate"><span class="pre">add_load()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.add_mass"><code class="docutils literal notranslate"><span class="pre">add_mass()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.add_rigid_link_member"><code class="docutils literal notranslate"><span class="pre">add_rigid_link_member()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.add_spring_member"><code class="docutils literal notranslate"><span class="pre">add_spring_member()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.add_support"><code class="docutils literal notranslate"><span class="pre">add_support()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.add_truss_member"><code class="docutils literal notranslate"><span class="pre">add_truss_member()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.bounding_box"><code class="docutils literal notranslate"><span class="pre">bounding_box()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.characteristic_dimension"><code class="docutils literal notranslate"><span class="pre">characteristic_dimension()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.create"><code class="docutils literal notranslate"><span class="pre">create()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.free_body_check"><code class="docutils literal notranslate"><span class="pre">free_body_check()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.ndof_per_joint"><code class="docutils literal notranslate"><span class="pre">ndof_per_joint()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.number_dofs"><code class="docutils literal notranslate"><span class="pre">number_dofs()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.refine_member"><code class="docutils literal notranslate"><span class="pre">refine_member()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.remove_loads"><code class="docutils literal notranslate"><span class="pre">remove_loads()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.remove_supports"><code class="docutils literal notranslate"><span class="pre">remove_supports()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.set_solution"><code class="docutils literal notranslate"><span class="pre">set_solution()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.solve_free_vibration"><code class="docutils literal notranslate"><span class="pre">solve_free_vibration()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.solve_statics"><code class="docutils literal notranslate"><span class="pre">solve_statics()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.model.statics_reactions"><code class="docutils literal notranslate"><span class="pre">statics_reactions()</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pystran.model.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Petr Krysl.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,677 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>pystran.geometry module &#8212; pystran 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=01f34227"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pystran.geometry';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pystran.model module" href="pystran.model.html" />
+    <link rel="prev" title="pystran.gauss module" href="pystran.gauss.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pystran 0.1.0 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    pystran
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="modules.html">
+    pystran
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="pystran.html">pystran package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pystran.assemble.html">pystran.assemble module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.beam.html">pystran.beam module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.freedoms.html">pystran.freedoms module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.gauss.html">pystran.gauss module</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">pystran.geometry module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.model.html">pystran.model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.plots.html">pystran.plots module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.rigid.html">pystran.rigid module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.rotation.html">pystran.rotation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.section.html">pystran.section module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.spring.html">pystran.spring module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pystran.truss.html">pystran.truss module</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="modules.html" class="nav-link">pystran</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="pystran.html" class="nav-link">pystran package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pystran.geometry module</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-pystran.geometry">
+<span id="pystran-geometry-module"></span><h1>pystran.geometry module<a class="headerlink" href="#module-pystran.geometry" title="Link to this heading">#</a></h1>
+<p>Simple geometry utilities.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.geometry.delt">
+<span class="sig-prename descclassname"><span class="pre">pystran.geometry.</span></span><span class="sig-name descname"><span class="pre">delt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ci</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/geometry.html#delt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.geometry.delt" title="Link to this definition">#</a></dt>
+<dd><p>Compute oriented vector from the first to the second location.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ci</strong> – Coordinates of the first point.</p></li>
+<li><p><strong>cj</strong> – Coordinates of the second point.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.geometry.herm_basis">
+<span class="sig-prename descclassname"><span class="pre">pystran.geometry.</span></span><span class="sig-name descname"><span class="pre">herm_basis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/geometry.html#herm_basis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.geometry.herm_basis" title="Link to this definition">#</a></dt>
+<dd><p>Compute the cubic Hermite basis functions for an interval <span class="math notranslate nohighlight">\(-1\le\xi\le+1\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>xi</strong> – Parametric coordinate (from -1 to +1) from the first joint to the
+second.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An array of basis function values is returned (i.e. <span class="math notranslate nohighlight">\([N_1(\xi), ..., N_4(\xi)]\)</span>).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.geometry.herm_basis_xi">
+<span class="sig-prename descclassname"><span class="pre">pystran.geometry.</span></span><span class="sig-name descname"><span class="pre">herm_basis_xi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/geometry.html#herm_basis_xi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.geometry.herm_basis_xi" title="Link to this definition">#</a></dt>
+<dd><p>Compute the first derivative wrt <span class="math notranslate nohighlight">\(\xi\)</span> of the Hermite basis functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>xi</strong> – Parametric coordinate (from -1 to +1) from the first joint to the
+second.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An array of first derivatives of shape functions is returned (i.e.
+<span class="math notranslate nohighlight">\([dN_1(\xi)/d\xi, ..., dN_4(\xi)/d\xi]\)</span>).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#pystran.geometry.herm_basis" title="pystran.geometry.herm_basis"><code class="xref py py-func docutils literal notranslate"><span class="pre">herm_basis()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.geometry.herm_basis_xi2">
+<span class="sig-prename descclassname"><span class="pre">pystran.geometry.</span></span><span class="sig-name descname"><span class="pre">herm_basis_xi2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/geometry.html#herm_basis_xi2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.geometry.herm_basis_xi2" title="Link to this definition">#</a></dt>
+<dd><p>Compute the second derivative wrt <span class="math notranslate nohighlight">\(\xi\)</span> of the Hermite basis functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>xi</strong> – Parametric coordinate (from -1 to +1) from the first joint to the
+second.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An array of second derivatives of shape functions is returned (i.e.
+<span class="math notranslate nohighlight">\([d^2N_1(\xi)/d\xi^2, ..., d^2N_4(\xi)/d\xi^2]\)</span>).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#pystran.geometry.herm_basis" title="pystran.geometry.herm_basis"><code class="xref py py-func docutils literal notranslate"><span class="pre">herm_basis()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.geometry.herm_basis_xi3">
+<span class="sig-prename descclassname"><span class="pre">pystran.geometry.</span></span><span class="sig-name descname"><span class="pre">herm_basis_xi3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/geometry.html#herm_basis_xi3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.geometry.herm_basis_xi3" title="Link to this definition">#</a></dt>
+<dd><p>Compute the third derivative wrt <span class="math notranslate nohighlight">\(\xi\)</span> of the Hermite basis functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>xi</strong> – Parametric coordinate (from -1 to +1) from the first joint to the
+second.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An array of third derivatives of shape functions is returned (i.e.
+<span class="math notranslate nohighlight">\([d^3N_1(\xi)/d\xi^3, ..., d^3N_4(\xi)/d\xi^3]\)</span>).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#pystran.geometry.herm_basis" title="pystran.geometry.herm_basis"><code class="xref py py-func docutils literal notranslate"><span class="pre">herm_basis()</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.geometry.interpolate">
+<span class="sig-prename descclassname"><span class="pre">pystran.geometry.</span></span><span class="sig-name descname"><span class="pre">interpolate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/geometry.html#interpolate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.geometry.interpolate" title="Link to this definition">#</a></dt>
+<dd><p>Interpolate linearly between two quantities.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xi</strong> – Parametric coordinate (from -1 to +1) from the first joint to the
+second.</p></li>
+<li><p><strong>q1</strong> – The quantity at <span class="math notranslate nohighlight">\(\xi=-1\)</span>.</p></li>
+<li><p><strong>q2</strong> – The quantity at <span class="math notranslate nohighlight">\(\xi=+1\)</span>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.geometry.lin_basis">
+<span class="sig-prename descclassname"><span class="pre">pystran.geometry.</span></span><span class="sig-name descname"><span class="pre">lin_basis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/geometry.html#lin_basis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.geometry.lin_basis" title="Link to this definition">#</a></dt>
+<dd><p>Compute linear basis functions for an interval <span class="math notranslate nohighlight">\(-1\le\xi\le+1\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>xi</strong> – Parametric coordinate (from -1 to +1) from the first joint to the
+second.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The matrix of basis functions (i.e. <span class="math notranslate nohighlight">\([N_1(\xi), N_2(\xi)]\)</span>).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.geometry.member_2d_geometry">
+<span class="sig-prename descclassname"><span class="pre">pystran.geometry.</span></span><span class="sig-name descname"><span class="pre">member_2d_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/geometry.html#member_2d_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.geometry.member_2d_geometry" title="Link to this definition">#</a></dt>
+<dd><p>Compute 2d member geometry.</p>
+<p>A local coordinate system is attached to the member such that the <span class="math notranslate nohighlight">\(x\)</span>
+axis is along the member axis. The deformation of the member is considered
+in the <span class="math notranslate nohighlight">\(x-z\)</span> plane.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i</strong> – Dictionary holding data for first joint.</p></li>
+<li><p><strong>j</strong> – Dictionary holding data for second joint.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Vector <span class="math notranslate nohighlight">\(e_x\)</span> is the direction vector along the axis of the
+member. <span class="math notranslate nohighlight">\(e_z\)</span> is the direction vector perpendicular to the axis
+of the member. These two vectors form a left-handed coordinate system
+(consistent with the sign convention in the book): The deflection
+<span class="math notranslate nohighlight">\(w\)</span> is measured positive downwards, while the <span class="math notranslate nohighlight">\(x\)</span>
+coordinate is measured left to right. So in two dimensions <span class="math notranslate nohighlight">\(e_x\)</span>
+and <span class="math notranslate nohighlight">\(e_z\)</span> form a left-handed coordinate system. In reality, the
+complete coordinate system is right-handed, as the not-used basis
+vector is <span class="math notranslate nohighlight">\(e_y\)</span>, which points out of the plane of the screen (page).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of e_x, e_z, h</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.geometry.member_3d_geometry">
+<span class="sig-prename descclassname"><span class="pre">pystran.geometry.</span></span><span class="sig-name descname"><span class="pre">member_3d_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xz_vector</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/geometry.html#member_3d_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.geometry.member_3d_geometry" title="Link to this definition">#</a></dt>
+<dd><p>Compute 3d member geometry.</p>
+<p>A local coordinate system is attached to the member such that the <span class="math notranslate nohighlight">\(x\)</span>
+axis is along the member axis. The deformation of the member is considered
+in the three dimensional space.</p>
+<p>The plane <span class="math notranslate nohighlight">\(x-z\)</span> is defined by the vector <code class="docutils literal notranslate"><span class="pre">xz_vector</span></code> and the member
+axis (i.e. <span class="math notranslate nohighlight">\(e_x\)</span>), in other words <span class="math notranslate nohighlight">\(e_x\)</span> is given by the axis of
+the member, and the vector <span class="math notranslate nohighlight">\(e_y\)</span> is the normalized cross product of the
+<code class="docutils literal notranslate"><span class="pre">xz_vector</span></code> and <span class="math notranslate nohighlight">\(e_x\)</span>. Therefore, the vector <code class="docutils literal notranslate"><span class="pre">xz_vector</span></code> must
+not be parallel to the member axis.</p>
+<p>The third vector, <span class="math notranslate nohighlight">\(e_z\)</span>, completes the Cartesian basis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i</strong> – Dictionary holding data for first joint.</p></li>
+<li><p><strong>j</strong> – Dictionary holding data for second joint.</p></li>
+<li><p><strong>xz_vector</strong> – The vector that defines the <span class="math notranslate nohighlight">\(x-z\)</span> plane of the member-local
+coordinate system. It does not need to be of unit length, but it must
+not be parallel to the member axis. This vector is not defined for a
+truss member, and will be passed in as empty. Heuristics will be then
+used to orient the planes.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Vector <span class="math notranslate nohighlight">\(e_x\)</span> is the direction vector along the axis of the
+member, and  <span class="math notranslate nohighlight">\(e_y\)</span> and <span class="math notranslate nohighlight">\(e_z\)</span> are the direction vectors
+perpendicular to the axis of the member. These three vectors form a
+right-handed Cartesian coordinate system. <span class="math notranslate nohighlight">\(h\)</span> is the length of
+the member.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of e_x, e_y, e_z, h</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pystran.geometry.vlen">
+<span class="sig-prename descclassname"><span class="pre">pystran.geometry.</span></span><span class="sig-name descname"><span class="pre">vlen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ci</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pystran/geometry.html#vlen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pystran.geometry.vlen" title="Link to this definition">#</a></dt>
+<dd><p>Compute distance from the first to the second point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ci</strong> – Coordinates of the first point.</p></li>
+<li><p><strong>cj</strong> – Coordinates of the second point.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>This is <span class="math notranslate nohighlight">\(\| c_j - c_i \|\)</span>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="pystran.gauss.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">pystran.gauss module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="pystran.model.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">pystran.model module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.geometry.delt"><code class="docutils literal notranslate"><span class="pre">delt()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.geometry.herm_basis"><code class="docutils literal notranslate"><span class="pre">herm_basis()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.geometry.herm_basis_xi"><code class="docutils literal notranslate"><span class="pre">herm_basis_xi()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.geometry.herm_basis_xi2"><code class="docutils literal notranslate"><span class="pre">herm_basis_xi2()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.geometry.herm_basis_xi3"><code class="docutils literal notranslate"><span class="pre">herm_basis_xi3()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.geometry.interpolate"><code class="docutils literal notranslate"><span class="pre">interpolate()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.geometry.lin_basis"><code class="docutils literal notranslate"><span class="pre">lin_basis()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.geometry.member_2d_geometry"><code class="docutils literal notranslate"><span class="pre">member_2d_geometry()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.geometry.member_3d_geometry"><code class="docutils literal notranslate"><span class="pre">member_3d_geometry()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pystran.geometry.vlen"><code class="docutils literal notranslate"><span class="pre">vlen()</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pystran.geometry.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Petr Krysl.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

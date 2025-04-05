@@ -1,0 +1,7 @@
+pystran.gauss module
+====================
+
+.. automodule:: pystran.gauss
+   :members:
+   :undoc-members:
+   :show-inheritance:

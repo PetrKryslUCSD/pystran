@@ -1,0 +1,7 @@
+pystran.rotation module
+=======================
+
+.. automodule:: pystran.rotation
+   :members:
+   :undoc-members:
+   :show-inheritance:

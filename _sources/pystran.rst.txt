@@ -1,0 +1,29 @@
+pystran package
+===============
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   pystran.assemble
+   pystran.beam
+   pystran.freedoms
+   pystran.gauss
+   pystran.geometry
+   pystran.model
+   pystran.plots
+   pystran.rigid
+   pystran.rotation
+   pystran.section
+   pystran.spring
+   pystran.truss
+
+Module contents
+---------------
+
+.. automodule:: pystran
+   :members:
+   :undoc-members:
+   :show-inheritance:

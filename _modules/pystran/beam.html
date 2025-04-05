@@ -1,0 +1,1716 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pystran.beam &#8212; pystran 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/pystran/beam';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">pystran 0.1.0 documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../modules.html">
+    pystran
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../modules.html">
+    pystran
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">pystran.beam</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for pystran.beam</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Define beam mechanical quantities.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">dot</span><span class="p">,</span> <span class="n">outer</span><span class="p">,</span> <span class="n">concatenate</span><span class="p">,</span> <span class="n">zeros</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pystran</span><span class="w"> </span><span class="kn">import</span> <span class="n">geometry</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pystran.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">herm_basis_xi2</span><span class="p">,</span> <span class="n">herm_basis_xi3</span><span class="p">,</span> <span class="n">herm_basis</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pystran</span><span class="w"> </span><span class="kn">import</span> <span class="n">gauss</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pystran</span><span class="w"> </span><span class="kn">import</span> <span class="n">assemble</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pystran</span><span class="w"> </span><span class="kn">import</span> <span class="n">truss</span>
+
+
+<div class="viewcode-block" id="beam_3d_xz_shape_fun">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_3d_xz_shape_fun">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_3d_xz_shape_fun</span><span class="p">(</span><span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the beam shape functions for deflection in the :math:`x-z` plane.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (:math:`-1\le\xi\le+1`): first joint is at</span>
+<span class="sd">        :math:`\xi =-1`, second is at :math:`\xi =+1`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        An array of shape function values is returned (i.e. :math:`[N_1(\xi),</span>
+<span class="sd">        ..., N_4(\xi)]`).</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`pystran.geometry.herm_basis`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">herm_basis</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="beam_3d_xz_shape_fun_xi2">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_3d_xz_shape_fun_xi2">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_3d_xz_shape_fun_xi2</span><span class="p">(</span><span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the second derivative of the beam shape functions for deflection in</span>
+<span class="sd">    the :math:`x-z` plane.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (:math:`-1\le\xi\le+1`): first joint is at</span>
+<span class="sd">        :math:`\xi =-1`, second is at :math:`\xi =+1`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        An array of second derivatives of shape functions is returned (i.e.</span>
+<span class="sd">        :math:`[d^2N_1(\xi)/d\xi^2, ..., d^2N_4(\xi)/d\xi^2]`).</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`pystran.geometry.herm_basis`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">herm_basis_xi2</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="beam_3d_xy_shape_fun">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_3d_xy_shape_fun">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_3d_xy_shape_fun</span><span class="p">(</span><span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the beam shape functions for deflection in the :math:`x-y` plane.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (:math:`-1\le\xi\le+1`): first joint is at</span>
+<span class="sd">        :math:`\xi =-1`, second is at :math:`\xi =+1`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        The signs of the shape functions that go with the rotations (i.e. the</span>
+<span class="sd">        second and fourth) need to be reversed relative to the :math:`x-z`</span>
+<span class="sd">        plane of bending: An array of second derivatives of shape functions is</span>
+<span class="sd">        returned (i.e. :math:`[N_1(\xi), -N_2(\xi), N_3(\xi), -N_4(\xi)]`).</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`pystran.geometry.herm_basis`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">herm_basis</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span>
+    <span class="n">N</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.0</span>
+    <span class="n">N</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.0</span>
+    <span class="k">return</span> <span class="n">N</span></div>
+
+
+
+<div class="viewcode-block" id="beam_3d_xy_shape_fun_xi2">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_3d_xy_shape_fun_xi2">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_3d_xy_shape_fun_xi2</span><span class="p">(</span><span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the second derivative of the beam shape functions for deflection in</span>
+<span class="sd">    the :math:`x-y` plane.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (:math:`-1\le\xi\le+1`): first joint is at</span>
+<span class="sd">        :math:`\xi =-1`, second is at :math:`\xi =+1`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        The signs of the shape functions that go with the rotations (i.e. the</span>
+<span class="sd">        second and fourth) need to be reversed: An array of second derivatives</span>
+<span class="sd">        of shape functions is returned (i.e. :math:`[d^2N_1(\xi)/d\xi^2,</span>
+<span class="sd">        -d^2N_2(\xi)/d\xi^2, d^2N_3(\xi)/d\xi^2, -d^2N_4(\xi)/d\xi^2]`).</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`pystran.geometry.herm_basis`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d2Ndxi2</span> <span class="o">=</span> <span class="n">herm_basis_xi2</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span>
+    <span class="n">d2Ndxi2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.0</span>
+    <span class="n">d2Ndxi2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.0</span>
+    <span class="k">return</span> <span class="n">d2Ndxi2</span></div>
+
+
+
+<div class="viewcode-block" id="beam_3d_xz_shape_fun_xi3">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_3d_xz_shape_fun_xi3">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_3d_xz_shape_fun_xi3</span><span class="p">(</span><span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the third derivative of the beam shape functions with respect to</span>
+<span class="sd">    ``xi`` for deflection in the :math:`x-z` plane.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (:math:`-1\le\xi\le+1`): first joint is at</span>
+<span class="sd">        :math:`\xi =-1`, second is at :math:`\xi =+1`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        An array of third derivatives of shape functions is returned (i.e.</span>
+<span class="sd">        :math:`[d^3N_1(\xi)/d\xi^3, ..., d^3N_4(\xi)/d\xi^3]`).</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`pystran.geometry.herm_basis`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">herm_basis_xi3</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="beam_3d_xy_shape_fun_xi3">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_3d_xy_shape_fun_xi3">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_3d_xy_shape_fun_xi3</span><span class="p">(</span><span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the third derivative of the beam shape functions with respect to</span>
+<span class="sd">    ``xi`` for deflection in the :math:`x-y` plane.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (:math:`-1\le\xi\le+1`): first joint is at</span>
+<span class="sd">        :math:`\xi =-1`, second is at :math:`\xi =+1`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        The signs of the shape functions that go with the rotations (i.e. the</span>
+<span class="sd">        second and fourth) need to be reversed: An array of third derivatives</span>
+<span class="sd">        of shape functions is returned (i.e. :math:`[d^3N_1(\xi)/d\xi^3,</span>
+<span class="sd">        -d^3N_2(\xi)/d\xi^3, d^3N_3(\xi)/d\xi^3, -d^3N_4(\xi)/d\xi^3]`).</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`pystran.geometry.herm_basis`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d3Ndxi3</span> <span class="o">=</span> <span class="n">herm_basis_xi3</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span>
+    <span class="n">d3Ndxi3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.0</span>
+    <span class="n">d3Ndxi3</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.0</span>
+    <span class="k">return</span> <span class="n">d3Ndxi3</span></div>
+
+
+
+<div class="viewcode-block" id="beam_2d_bending_stiffness">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_2d_bending_stiffness">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_2d_bending_stiffness</span><span class="p">(</span><span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">I</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute 2d beam stiffness matrix.</span>
+
+<span class="sd">    The formula reads</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        K = (h/2) \int_{-1}^{+1} EI B^T B  d\xi,</span>
+
+<span class="sd">    where :math:`B` is the curvature-displacement matrix (computed by</span>
+<span class="sd">    :func:`beam_2d_curv_displ_matrix`), and :math:`h/2` is the Jacobian. :math:`I` is the</span>
+<span class="sd">    second moment of area about the :math:`y` axis (which is orthogonal to the plane</span>
+<span class="sd">    of bending).</span>
+
+<span class="sd">    Two-point Gauss quadrature is used to compute the stiffness matrix.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    e_z</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system (orthogonal to the</span>
+<span class="sd">        axis of the beam).</span>
+<span class="sd">    h</span>
+<span class="sd">        Length of the beam.</span>
+<span class="sd">    E</span>
+<span class="sd">        Young&#39;s modulus of elasticity.</span>
+<span class="sd">    I</span>
+<span class="sd">        Second moment of area for bending about the :math:`y`-axis (i.e. bending in the</span>
+<span class="sd">        :math:`x-z` plane).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        Stiffness matrix of the beam.</span>
+
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`beam_2d_curv_displ_matrix`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">xiG</span><span class="p">,</span> <span class="n">WG</span> <span class="o">=</span> <span class="n">gauss</span><span class="o">.</span><span class="n">rule</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">W</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">xiG</span><span class="p">,</span> <span class="n">WG</span><span class="p">):</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">beam_2d_curv_displ_matrix</span><span class="p">(</span><span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">xi</span><span class="p">)</span>
+        <span class="n">K</span> <span class="o">+=</span> <span class="n">E</span> <span class="o">*</span> <span class="n">I</span> <span class="o">*</span> <span class="n">outer</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="o">*</span> <span class="n">W</span> <span class="o">*</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">K</span></div>
+
+
+
+<div class="viewcode-block" id="beam_3d_xz_curv_displ_matrix">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_3d_xz_curv_displ_matrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_3d_xz_curv_displ_matrix</span><span class="p">(</span><span class="n">e_y</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute beam curvature-displacement matrix in the local :math:`x-z` plane</span>
+<span class="sd">    (i.e. bending about the :math:`y` axis).</span>
+
+<span class="sd">    The curvature :math:`d^2w/dx^2` is computed in the local coordinate system</span>
+<span class="sd">    of the beam as :math:`d^2w/dx^2 = B U`. Here :math:`B` is the</span>
+<span class="sd">    curvature-displacement matrix and :math:`U` is the displacement vector. All</span>
+<span class="sd">    three displacement components and all three rotation components at each</span>
+<span class="sd">    joint are assumed, so the matrix :math:`B` has one row and twelve columns.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    e_y</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system (orthogonal to the</span>
+<span class="sd">        axis of the beam).</span>
+<span class="sd">    e_z</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system (orthogonal to the</span>
+<span class="sd">        axis of the beam).</span>
+<span class="sd">    h</span>
+<span class="sd">        Length of the beam.</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (:math:`-1\le\xi\le+1`): first joint is at</span>
+<span class="sd">        :math:`\xi =-1`, second is at :math:`\xi =+1`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        The curvature-displacement matrix.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d2Ndxi2</span> <span class="o">=</span> <span class="n">beam_3d_xz_shape_fun_xi2</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2Ndxi2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">e_z</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">d2Ndxi2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">e_y</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2Ndxi2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">e_z</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">:</span><span class="mi">12</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">d2Ndxi2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">e_y</span>
+    <span class="k">return</span> <span class="n">B</span></div>
+
+
+
+<div class="viewcode-block" id="beam_3d_xy_curv_displ_matrix">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_3d_xy_curv_displ_matrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_3d_xy_curv_displ_matrix</span><span class="p">(</span><span class="n">e_y</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute beam curvature-displacement matrix in the local :math:`x-y` plane</span>
+<span class="sd">    (i.e. bending about the :math:`z` axis).</span>
+
+<span class="sd">    The curvature :math:`d^2v/dx^2` is computed in the local coordinate system</span>
+<span class="sd">    of the beam as :math:`d^2v/dx^2 = B U`. Here :math:`B` is the</span>
+<span class="sd">    curvature-displacement matrix and :math:`U` is the displacement vector. All</span>
+<span class="sd">    three displacement components and all three rotation components at each</span>
+<span class="sd">    joint are assumed, so the matrix :math:`B` has one row and twelve columns.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    e_y</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system (orthogonal to the</span>
+<span class="sd">        axis of the beam).</span>
+<span class="sd">    e_z</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system (orthogonal to the</span>
+<span class="sd">        axis of the beam).</span>
+<span class="sd">    h</span>
+<span class="sd">        Length of the beam.</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (:math:`-1\le\xi\le+1`): first joint is at</span>
+<span class="sd">        :math:`\xi =-1`, second is at :math:`\xi =+1`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        The curvature-displacement matrix.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d2Ndxi2</span> <span class="o">=</span> <span class="n">beam_3d_xy_shape_fun_xi2</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2Ndxi2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">e_y</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">d2Ndxi2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">e_z</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2Ndxi2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">e_y</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">:</span><span class="mi">12</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">d2Ndxi2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">e_z</span>
+    <span class="k">return</span> <span class="n">B</span></div>
+
+
+
+<div class="viewcode-block" id="beam_3d_bending_stiffness">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_3d_bending_stiffness">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_3d_bending_stiffness</span><span class="p">(</span><span class="n">e_y</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">Iy</span><span class="p">,</span> <span class="n">Iz</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute 3d beam stiffness matrices for bending in the planes :math:`x-y`</span>
+<span class="sd">    and :math:`x-z`.</span>
+
+<span class="sd">    The formula reads</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        K = (h/2) \int_{-1}^{+1} EI_y B_{xz}^T B_{xz}  d\xi,</span>
+
+<span class="sd">    for bending in the :math:`x-z` plane, and</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        K = (h/2) \int_{-1}^{+1} EI_z B_{xy}^T B_{xy}  d\xi,</span>
+
+<span class="sd">    for bending in the :math:`x-y` plane. Here :math:`B_{xz}` is the</span>
+<span class="sd">    curvature-displacement matrix for bending in the :math:`x-z` plane</span>
+<span class="sd">    (computed by :func:`beam_3d_xz_curv_displ_matrix`), :math:`B_{xy}` is the</span>
+<span class="sd">    curvature-displacement matrix for bending in the :math:`x-y` plane</span>
+<span class="sd">    (computed by :func:`beam_3d_xy_curv_displ_matrix`), and :math:`h/2` is the</span>
+<span class="sd">    Jacobian. :math:`I_y` is the second moment of area about the :math:`y`</span>
+<span class="sd">    axis, and :math:`I_z`  is the second moment of area about the :math:`z`</span>
+<span class="sd">    axis. The overall matrix is the sum of these two contributions.</span>
+
+<span class="sd">    Appropriate Gauss quadrature formulas are used to compute the stiffness matrix.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    e_y</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system (orthogonal to the</span>
+<span class="sd">        axis of the beam).</span>
+<span class="sd">    e_z</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system (orthogonal to the</span>
+<span class="sd">        axis of the beam).</span>
+<span class="sd">    h</span>
+<span class="sd">        Length of the beam.</span>
+<span class="sd">    E</span>
+<span class="sd">        Young&#39;s modulus of elasticity.</span>
+<span class="sd">    Iy</span>
+<span class="sd">        Second moment of area for bending about the :math:`y`-axis (i.e. bending in the</span>
+<span class="sd">        :math:`x-z` plane).</span>
+<span class="sd">    Iz</span>
+<span class="sd">        Second moment of area for bending about the :math:`z`-axis (i.e. bending in the</span>
+<span class="sd">        :math:`x-y` plane).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        Stiffness matrix of the beam.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`beam_3d_xy_curv_displ_matrix`</span>
+<span class="sd">    :func:`beam_3d_xz_curv_displ_matrix`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">xiG</span><span class="p">,</span> <span class="n">WG</span> <span class="o">=</span> <span class="n">gauss</span><span class="o">.</span><span class="n">rule</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">Kxy</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">W</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">xiG</span><span class="p">,</span> <span class="n">WG</span><span class="p">):</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">beam_3d_xy_curv_displ_matrix</span><span class="p">(</span><span class="n">e_y</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">xi</span><span class="p">)</span>
+        <span class="n">Kxy</span> <span class="o">+=</span> <span class="n">E</span> <span class="o">*</span> <span class="n">Iz</span> <span class="o">*</span> <span class="n">outer</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="o">*</span> <span class="n">W</span> <span class="o">*</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">Kxz</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">W</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">xiG</span><span class="p">,</span> <span class="n">WG</span><span class="p">):</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">beam_3d_xz_curv_displ_matrix</span><span class="p">(</span><span class="n">e_y</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">xi</span><span class="p">)</span>
+        <span class="n">Kxz</span> <span class="o">+=</span> <span class="n">E</span> <span class="o">*</span> <span class="n">Iy</span> <span class="o">*</span> <span class="n">outer</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="o">*</span> <span class="n">W</span> <span class="o">*</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Kxy</span><span class="p">,</span> <span class="n">Kxz</span></div>
+
+
+
+<div class="viewcode-block" id="beam_2d_curv_displ_matrix">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_2d_curv_displ_matrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_2d_curv_displ_matrix</span><span class="p">(</span><span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute 2d beam curvature-displacement matrix.</span>
+
+<span class="sd">    Here the curvatures is with respect to the physical coordinate measured</span>
+<span class="sd">    along the member (local :math:`x`).</span>
+
+<span class="sd">    The curvature :math:`d^2w/dx^2` is computed in the local coordinate system</span>
+<span class="sd">    of the beam as :math:`d^2w/dx^2 = B U`. Here :math:`B` is the</span>
+<span class="sd">    curvature-displacement matrix and :math:`U` is the displacement vector. Two</span>
+<span class="sd">    displacement components and one rotation component at each joint are</span>
+<span class="sd">    assumed, so the matrix :math:`B` has one row and six columns.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    e_z</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system (orthogonal to the</span>
+<span class="sd">        axis of the beam).</span>
+<span class="sd">    h</span>
+<span class="sd">        Length of the beam.</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (:math:`-1\le\xi\le+1`): first joint is at</span>
+<span class="sd">        :math:`\xi =-1`, second is at :math:`\xi =+1`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        The curvature-displacement matrix.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d2Ndxi2</span> <span class="o">=</span> <span class="n">herm_basis_xi2</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2Ndxi2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">e_z</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">d2Ndxi2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2Ndxi2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">e_z</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">d2Ndxi2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">B</span></div>
+
+
+
+<div class="viewcode-block" id="beam_2d_3rd_deriv_displ_matrix">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_2d_3rd_deriv_displ_matrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_2d_3rd_deriv_displ_matrix</span><span class="p">(</span><span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute beam third derivative-displacement matrix.</span>
+
+<span class="sd">    Here the third derivative is with respect to the physical coordinate</span>
+<span class="sd">    measured along the member (local :math:`x`).</span>
+
+<span class="sd">    The third derivative :math:`d^3w/dx^3` is computed in the local coordinate</span>
+<span class="sd">    system of the beam as :math:`d^3w/dx^3 = B U`. Here :math:`B` is the</span>
+<span class="sd">    third-derivative-displacement matrix and :math:`U` is the displacement</span>
+<span class="sd">    vector. Two displacement components and one rotation component at each</span>
+<span class="sd">    joint are assumed, so the matrix :math:`B` has one row and six columns.</span>
+<span class="sd">    Note that this matrix is constant (independent of the location along the</span>
+<span class="sd">    beam).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    e_z</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system (orthogonal to the</span>
+<span class="sd">        axis of the beam).</span>
+<span class="sd">    h</span>
+<span class="sd">        Length of the beam.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        The third derivative-displacement matrix.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d2Ndxi3</span> <span class="o">=</span> <span class="n">herm_basis_xi3</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2Ndxi3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">e_z</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">d2Ndxi3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2Ndxi3</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">e_z</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">d2Ndxi3</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span>
+    <span class="k">return</span> <span class="n">B</span></div>
+
+
+
+<div class="viewcode-block" id="beam_3d_xz_3rd_deriv_displ_matrix">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_3d_xz_3rd_deriv_displ_matrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_3d_xz_3rd_deriv_displ_matrix</span><span class="p">(</span><span class="n">e_y</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute 3d beam third derivative-displacement matrix for displacements in</span>
+<span class="sd">    the :math:`x-z` plane.</span>
+
+<span class="sd">    Here the third derivative is with respect to the physical coordinate</span>
+<span class="sd">    measured along the member (local :math:`x`).</span>
+
+<span class="sd">    The third derivative :math:`d^3w/dx^3` is computed in the local coordinate</span>
+<span class="sd">    system of the beam as :math:`d^3w/dx^3 = B U`. Here :math:`B` is the</span>
+<span class="sd">    third-derivative-displacement matrix and :math:`U` is the displacement</span>
+<span class="sd">    vector. All three displacement components and all three rotation components</span>
+<span class="sd">    at each joint are assumed, so the matrix :math:`B` has one row and twelve</span>
+<span class="sd">    columns. Note that this matrix is constant (independent of the location</span>
+<span class="sd">    along the beam).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    e_y</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system (orthogonal to the</span>
+<span class="sd">        axis of the beam).</span>
+<span class="sd">    e_z</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system (orthogonal to the</span>
+<span class="sd">        axis of the beam).</span>
+<span class="sd">    h</span>
+<span class="sd">        Length of the beam.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        The third derivative-displacement matrix.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d2Ndxi3</span> <span class="o">=</span> <span class="n">beam_3d_xz_shape_fun_xi3</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2Ndxi3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">e_z</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">d2Ndxi3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">e_y</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2Ndxi3</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">e_z</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">:</span><span class="mi">12</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">d2Ndxi3</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">e_y</span>
+    <span class="k">return</span> <span class="n">B</span></div>
+
+
+
+<div class="viewcode-block" id="beam_3d_xy_3rd_deriv_displ_matrix">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_3d_xy_3rd_deriv_displ_matrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_3d_xy_3rd_deriv_displ_matrix</span><span class="p">(</span><span class="n">e_y</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute 3d beam third derivative-displacement matrix for displacements in</span>
+<span class="sd">    the :math:`x-y` plane.</span>
+
+<span class="sd">    Here the third derivative is with respect to the physical coordinate</span>
+<span class="sd">    measured along the member (local :math:`x`).</span>
+
+<span class="sd">    The third derivative :math:`d^3v/dx^3` is computed in the local coordinate</span>
+<span class="sd">    system of the beam as :math:`d^3v/dx^3 = B U`. Here :math:`B` is the</span>
+<span class="sd">    third-derivative-displacement matrix and :math:`U` is the displacement</span>
+<span class="sd">    vector. All three displacement components and all three rotation components</span>
+<span class="sd">    at each joint are assumed, so the matrix :math:`B` has one row and twelve</span>
+<span class="sd">    columns. Note that this matrix is constant (independent of the location</span>
+<span class="sd">    along the beam).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    e_y</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system (orthogonal to the</span>
+<span class="sd">        axis of the beam).</span>
+<span class="sd">    e_z</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system (orthogonal to the</span>
+<span class="sd">        axis of the beam).</span>
+<span class="sd">    h</span>
+<span class="sd">        Length of the beam.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        The third derivative-displacement matrix.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d2Ndxi3</span> <span class="o">=</span> <span class="n">beam_3d_xy_shape_fun_xi3</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2Ndxi3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">e_y</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">d2Ndxi3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">e_z</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="n">d2Ndxi3</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">e_y</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">:</span><span class="mi">12</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">d2Ndxi3</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">e_z</span>
+    <span class="k">return</span> <span class="n">B</span></div>
+
+
+
+<div class="viewcode-block" id="beam_2d_moment">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_2d_moment">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_2d_moment</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute 2d beam moment based on the displacements stored at the joints. The</span>
+<span class="sd">    moment is computed at the parametric location ``xi`` along the beam.</span>
+
+<span class="sd">    The moment is mathematically defined as :math:`M = -EI d^2w/dx^2`.</span>
+
+<span class="sd">    The curvature is computed with the curvature-displacement matrix :math:`B`</span>
+<span class="sd">    by the function :func:`beam_2d_curv_displ_matrix`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    member</span>
+<span class="sd">        Dictionary that defines the data of the member.</span>
+<span class="sd">    i</span>
+<span class="sd">        Dictionary that defines the data of the first joint of the member.</span>
+<span class="sd">    j</span>
+<span class="sd">        Dictionary that defines the data of the second joint of the member.</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (:math:`-1\le\xi\le+1`): first joint is at</span>
+<span class="sd">        :math:`\xi =-1`, second is at :math:`\xi =+1`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The moment resultant.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`beam_2d_curv_displ_matrix`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">member_2d_geometry</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+    <span class="n">sect</span> <span class="o">=</span> <span class="n">member</span><span class="p">[</span><span class="s2">&quot;section&quot;</span><span class="p">]</span>
+    <span class="n">E</span><span class="p">,</span> <span class="n">I</span> <span class="o">=</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;E&quot;</span><span class="p">],</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;I&quot;</span><span class="p">]</span>
+    <span class="n">ui</span><span class="p">,</span> <span class="n">uj</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;displacements&quot;</span><span class="p">],</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;displacements&quot;</span><span class="p">]</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">ui</span><span class="p">,</span> <span class="n">uj</span><span class="p">])</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">beam_2d_curv_displ_matrix</span><span class="p">(</span><span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">xi</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">E</span> <span class="o">*</span> <span class="n">I</span> <span class="o">*</span> <span class="n">dot</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="beam_3d_moment">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_3d_moment">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_3d_moment</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute 3d beam moment based on the displacements stored at the joints. The</span>
+<span class="sd">    moment is computed at the parametric location ``xi`` along the beam. The</span>
+<span class="sd">    moment acts about the axis specified by the string ``axis`` (``&#39;y&#39;`` or</span>
+<span class="sd">    ``&#39;z&#39;``).</span>
+
+<span class="sd">    The moments are mathematically defined as :math:`M_y = -EI_y d^2w/dx^2` for</span>
+<span class="sd">    bending about the `y` axis, and :math:`M_z = +EI_z d^2v/dx^2` for bending</span>
+<span class="sd">    about the :math:`z` axis.</span>
+
+<span class="sd">    The curvatures are computed with  curvature-displacement matrices :math:`B`</span>
+<span class="sd">    by the functions :func:`beam_3d_xz_curv_displ_matrix` and</span>
+<span class="sd">    :func:`beam_3d_xy_curv_displ_matrix`, respectively.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    member</span>
+<span class="sd">        Dictionary that defines the data of the member.</span>
+<span class="sd">    i</span>
+<span class="sd">        Dictionary that defines the data of the first joint of the member.</span>
+<span class="sd">    j</span>
+<span class="sd">        Dictionary that defines the data of the second joint of the member.</span>
+<span class="sd">    axis</span>
+<span class="sd">        Bending about which axis? Specify either `&#39;y&#39;` or `&#39;z&#39;`.</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (:math:`-1\le\xi\le+1`): first joint is at</span>
+<span class="sd">        :math:`\xi =-1`, second is at :math:`\xi =+1`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The moment resultant.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sect</span> <span class="o">=</span> <span class="n">member</span><span class="p">[</span><span class="s2">&quot;section&quot;</span><span class="p">]</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">e_y</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">member_3d_geometry</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;xz_vector&quot;</span><span class="p">])</span>
+    <span class="n">E</span><span class="p">,</span> <span class="n">Iy</span><span class="p">,</span> <span class="n">Iz</span> <span class="o">=</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;E&quot;</span><span class="p">],</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;Iy&quot;</span><span class="p">],</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;Iz&quot;</span><span class="p">]</span>
+    <span class="n">ui</span><span class="p">,</span> <span class="n">uj</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;displacements&quot;</span><span class="p">],</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;displacements&quot;</span><span class="p">]</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">ui</span><span class="p">,</span> <span class="n">uj</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">beam_3d_xz_curv_displ_matrix</span><span class="p">(</span><span class="n">e_y</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">xi</span><span class="p">)</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="o">-</span><span class="n">E</span> <span class="o">*</span> <span class="n">Iy</span> <span class="o">*</span> <span class="n">dot</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">beam_3d_xy_curv_displ_matrix</span><span class="p">(</span><span class="n">e_y</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">xi</span><span class="p">)</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="o">+</span><span class="n">E</span> <span class="o">*</span> <span class="n">Iz</span> <span class="o">*</span> <span class="n">dot</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">M</span></div>
+
+
+
+<div class="viewcode-block" id="beam_3d_torsion_moment">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_3d_torsion_moment">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_3d_torsion_moment</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute 3d beam torsion moment based on the displacements stored at the</span>
+<span class="sd">    joints. The moment is uniform along the beam.</span>
+
+<span class="sd">    The moment is mathematically defined as :math:`T = GJ d\theta_x/dx`. The rate of</span>
+<span class="sd">    change of the axial rotation, :math:`d\theta_x/dx`, is computed with the</span>
+<span class="sd">    torsion-displacement matrix :math:`B`, obtained by the function</span>
+<span class="sd">    :func:`beam_3d_torsion_displ_matrix`.</span>
+
+<span class="sd">    The torsion moment is uniform along the beam. Hence, ``xi`` does not matter.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    member</span>
+<span class="sd">        Dictionary that defines the data of the member.</span>
+<span class="sd">    i</span>
+<span class="sd">        Dictionary that defines the data of the first joint of the member.</span>
+<span class="sd">    j</span>
+<span class="sd">        Dictionary that defines the data of the second joint of the member.</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (:math:`-1\le\xi\le+1`): first joint is at</span>
+<span class="sd">        :math:`\xi =-1`, second is at :math:`\xi =+1`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The moment resultant.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sect</span> <span class="o">=</span> <span class="n">member</span><span class="p">[</span><span class="s2">&quot;section&quot;</span><span class="p">]</span>
+    <span class="n">e_x</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">member_3d_geometry</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;xz_vector&quot;</span><span class="p">])</span>
+    <span class="n">G</span><span class="p">,</span> <span class="n">J</span> <span class="o">=</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">],</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;J&quot;</span><span class="p">]</span>
+    <span class="n">ui</span><span class="p">,</span> <span class="n">uj</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;displacements&quot;</span><span class="p">][</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">],</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;displacements&quot;</span><span class="p">][</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">ui</span><span class="p">,</span> <span class="n">uj</span><span class="p">])</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">beam_3d_torsion_displ_matrix</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>  <span class="c1"># single-point integration</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">G</span> <span class="o">*</span> <span class="n">J</span> <span class="o">*</span> <span class="n">dot</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">T</span></div>
+
+
+
+<div class="viewcode-block" id="beam_2d_axial_force">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_2d_axial_force">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_2d_axial_force</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute 2d beam axial force based on the displacements stored at the</span>
+<span class="sd">    joints.</span>
+
+<span class="sd">    Refer to the function :func:`pystran.truss.truss_strain_displacement` that computes</span>
+<span class="sd">    the strain-displacement matrix for a truss member.</span>
+
+<span class="sd">    The axial force is uniform along the beam. Hence, ``xi`` does not matter.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    member</span>
+<span class="sd">        Dictionary that defines the data of the member.</span>
+<span class="sd">    i</span>
+<span class="sd">        Dictionary that defines the data of the first joint of the member.</span>
+<span class="sd">    j</span>
+<span class="sd">        Dictionary that defines the data of the second joint of the member.</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (:math:`-1\le\xi\le+1`): first joint is at</span>
+<span class="sd">        :math:`\xi =-1`, second is at :math:`\xi =+1`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The force resultant.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`pystran.truss.truss_strain_displacement`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sect</span> <span class="o">=</span> <span class="n">member</span><span class="p">[</span><span class="s2">&quot;section&quot;</span><span class="p">]</span>
+    <span class="n">e_x</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">member_2d_geometry</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+    <span class="n">E</span><span class="p">,</span> <span class="n">A</span> <span class="o">=</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;E&quot;</span><span class="p">],</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span>
+    <span class="n">ui</span><span class="p">,</span> <span class="n">uj</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;displacements&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;displacements&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">ui</span><span class="p">,</span> <span class="n">uj</span><span class="p">])</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">truss</span><span class="o">.</span><span class="n">truss_strain_displacement</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">E</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">dot</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">N</span></div>
+
+
+
+<div class="viewcode-block" id="beam_3d_axial_force">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_3d_axial_force">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_3d_axial_force</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute 3d beam axial force based on the displacements stored at the joints.</span>
+
+<span class="sd">    The axial force is uniform along the beam. Hence, ``xi`` does not matter.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    member</span>
+<span class="sd">        Dictionary that defines the data of the member.</span>
+<span class="sd">    i</span>
+<span class="sd">        Dictionary that defines the data of the first joint of the member.</span>
+<span class="sd">    j</span>
+<span class="sd">        Dictionary that defines the data of the second joint of the member.</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (:math:`-1\le\xi\le+1`): first joint is at</span>
+<span class="sd">        :math:`\xi =-1`, second is at :math:`\xi =+1`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The force resultant.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sect</span> <span class="o">=</span> <span class="n">member</span><span class="p">[</span><span class="s2">&quot;section&quot;</span><span class="p">]</span>
+    <span class="n">e_x</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">member_3d_geometry</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;xz_vector&quot;</span><span class="p">])</span>
+    <span class="n">E</span><span class="p">,</span> <span class="n">A</span> <span class="o">=</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;E&quot;</span><span class="p">],</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span>
+    <span class="n">ui</span><span class="p">,</span> <span class="n">uj</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;displacements&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;displacements&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">ui</span><span class="p">,</span> <span class="n">uj</span><span class="p">])</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">beam_3d_stretch_displ_matrix</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>  <span class="c1"># single-point integration</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">E</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">dot</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">N</span></div>
+
+
+
+<div class="viewcode-block" id="beam_3d_shear_force">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_3d_shear_force">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_3d_shear_force</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute 3d shear force based on the displacements stored at the joints.</span>
+
+<span class="sd">    The shear force in the direction of axis ``axis``  (``&#39;y&#39;`` or ``&#39;z&#39;``) is</span>
+<span class="sd">    uniform along the beam.  Hence, ``xi`` does not matter.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    member</span>
+<span class="sd">        Dictionary that defines the data of the member.</span>
+<span class="sd">    i</span>
+<span class="sd">        Dictionary that defines the data of the first joint of the member.</span>
+<span class="sd">    j</span>
+<span class="sd">        Dictionary that defines the data of the second joint of the member.</span>
+<span class="sd">    axis</span>
+<span class="sd">        Shearing in the direction of which axis? Specify either `&#39;y&#39;` or `&#39;z&#39;`.</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (:math:`-1\le\xi\le+1`): first joint is at</span>
+<span class="sd">        :math:`\xi =-1`, second is at :math:`\xi =+1`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The force resultant.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sect</span> <span class="o">=</span> <span class="n">member</span><span class="p">[</span><span class="s2">&quot;section&quot;</span><span class="p">]</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">e_y</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">member_3d_geometry</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;xz_vector&quot;</span><span class="p">])</span>
+    <span class="n">E</span><span class="p">,</span> <span class="n">Iy</span><span class="p">,</span> <span class="n">Iz</span> <span class="o">=</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;E&quot;</span><span class="p">],</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;Iy&quot;</span><span class="p">],</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;Iz&quot;</span><span class="p">]</span>
+    <span class="n">ui</span><span class="p">,</span> <span class="n">uj</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;displacements&quot;</span><span class="p">],</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;displacements&quot;</span><span class="p">]</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">ui</span><span class="p">,</span> <span class="n">uj</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">beam_3d_xz_3rd_deriv_displ_matrix</span><span class="p">(</span><span class="n">e_y</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+        <span class="n">Q</span> <span class="o">=</span> <span class="o">-</span><span class="n">E</span> <span class="o">*</span> <span class="n">Iy</span> <span class="o">*</span> <span class="n">dot</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">beam_3d_xy_3rd_deriv_displ_matrix</span><span class="p">(</span><span class="n">e_y</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+        <span class="n">Q</span> <span class="o">=</span> <span class="o">-</span><span class="n">E</span> <span class="o">*</span> <span class="n">Iz</span> <span class="o">*</span> <span class="n">dot</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Q</span></div>
+
+
+
+<div class="viewcode-block" id="beam_2d_shear_force">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_2d_shear_force">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_2d_shear_force</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute 2d beam shear force based on the displacements stored at the</span>
+<span class="sd">    joints.</span>
+
+<span class="sd">    The shear force is uniform along the beam.  Hence, ``xi`` does not matter.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    member</span>
+<span class="sd">        Dictionary that defines the data of the member.</span>
+<span class="sd">    i</span>
+<span class="sd">        Dictionary that defines the data of the first joint of the member.</span>
+<span class="sd">    j</span>
+<span class="sd">        Dictionary that defines the data of the second joint of the member.</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (:math:`-1\le\xi\le+1`): first joint is at</span>
+<span class="sd">        :math:`\xi =-1`, second is at :math:`\xi =+1`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The force resultant.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">member_2d_geometry</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+    <span class="n">sect</span> <span class="o">=</span> <span class="n">member</span><span class="p">[</span><span class="s2">&quot;section&quot;</span><span class="p">]</span>
+    <span class="n">E</span><span class="p">,</span> <span class="n">I</span> <span class="o">=</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;E&quot;</span><span class="p">],</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;I&quot;</span><span class="p">]</span>
+    <span class="n">ui</span><span class="p">,</span> <span class="n">uj</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;displacements&quot;</span><span class="p">],</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;displacements&quot;</span><span class="p">]</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">ui</span><span class="p">,</span> <span class="n">uj</span><span class="p">])</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">beam_2d_3rd_deriv_displ_matrix</span><span class="p">(</span><span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">E</span> <span class="o">*</span> <span class="n">I</span> <span class="o">*</span> <span class="n">dot</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="beam_3d_stretch_displ_matrix">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_3d_stretch_displ_matrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_3d_stretch_displ_matrix</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute beam stretch-displacement matrix.</span>
+
+<span class="sd">    Stretch here means axial strain.</span>
+
+<span class="sd">    The job is delegated to the truss module.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    e_x</span>
+<span class="sd">        Unit vector along the axis of the member.</span>
+<span class="sd">    h</span>
+<span class="sd">        Length of the member.</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (:math:`-1\le\xi\le+1`): first joint is at</span>
+<span class="sd">        :math:`\xi =-1`, second is at :math:`\xi =+1`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        Stretch-displacement matrix.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`pystran.truss.truss_strain_displacement`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">truss</span><span class="o">.</span><span class="n">truss_strain_displacement</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="beam_2d_3d_axial_stiffness">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_2d_3d_axial_stiffness">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_2d_3d_axial_stiffness</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute axial stiffness matrix.</span>
+
+<span class="sd">    This function works both for 2D and 3D beams.</span>
+
+<span class="sd">    The axial stiffness matrix is computed as :math:`K = EA B^T B h`. Here</span>
+<span class="sd">    :math:`B` is the stretch-displacement matrix, computed by</span>
+<span class="sd">    :func:`beam_3d_stretch_displ_matrix`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    e_x</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system in the direction</span>
+<span class="sd">        of the axis of the beam.</span>
+<span class="sd">    h</span>
+<span class="sd">        Length of the beam.</span>
+<span class="sd">    E</span>
+<span class="sd">        Young&#39;s modulus of elasticity.</span>
+<span class="sd">    A</span>
+<span class="sd">        Cross section area.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        Stiffness matrix of the beam.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`beam_3d_stretch_displ_matrix`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">beam_3d_stretch_displ_matrix</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>  <span class="c1"># single-point integration</span>
+    <span class="k">return</span> <span class="n">E</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">outer</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="o">*</span> <span class="n">h</span></div>
+
+
+
+<div class="viewcode-block" id="beam_3d_torsion_stiffness">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_3d_torsion_stiffness">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_3d_torsion_stiffness</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">J</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute torsion stiffness matrix.</span>
+
+<span class="sd">    The torsion stiffness matrix is computed as :math:`K = GJ B^T B h`. Here</span>
+<span class="sd">    :math:`B` is the torsion-displacement matrix, computed by</span>
+<span class="sd">    :func:`beam_3d_torsion_displ_matrix`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    e_x</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system in the direction</span>
+<span class="sd">        of the axis of the beam.</span>
+<span class="sd">    h</span>
+<span class="sd">        Length of the beam.</span>
+<span class="sd">    G</span>
+<span class="sd">        Shear modulus of elasticity.</span>
+<span class="sd">    J</span>
+<span class="sd">        Torsion constant of the section.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        Stiffness matrix of the beam.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`beam_3d_torsion_displ_matrix`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">beam_3d_torsion_displ_matrix</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>  <span class="c1"># single-point integration</span>
+    <span class="k">return</span> <span class="n">G</span> <span class="o">*</span> <span class="n">J</span> <span class="o">*</span> <span class="n">outer</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="o">*</span> <span class="n">h</span></div>
+
+
+
+<div class="viewcode-block" id="beam_3d_torsion_displ_matrix">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_3d_torsion_displ_matrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_3d_torsion_displ_matrix</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">xi</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute torsion-displacement matrix.</span>
+
+<span class="sd">    The torsion-displacement matrix is constant.  Hence, ``xi`` does not</span>
+<span class="sd">    matter.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    e_x</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system in the direction</span>
+<span class="sd">        of the axis of the beam.</span>
+<span class="sd">    h</span>
+<span class="sd">        Length of the beam.</span>
+<span class="sd">    xi</span>
+<span class="sd">        Parametric coordinate (:math:`-1\le\xi\le+1`): first joint is at</span>
+<span class="sd">        :math:`\xi =-1`, second is at :math:`\xi =+1`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        The torsion rate-displacement matrix of the bar.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">e_x</span> <span class="o">/</span> <span class="n">h</span>
+    <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="n">e_x</span> <span class="o">/</span> <span class="n">h</span>
+    <span class="k">return</span> <span class="n">B</span></div>
+
+
+
+<div class="viewcode-block" id="assemble_stiffness">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.assemble_stiffness">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">assemble_stiffness</span><span class="p">(</span><span class="n">Kg</span><span class="p">,</span> <span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Assemble beam stiffness matrix.</span>
+
+<span class="sd">    The stiffness matrix depends on whether the beam is considered in two</span>
+<span class="sd">    dimensions or in three dimensions.</span>
+
+<span class="sd">    In two dimensions, the beam stiffness matrix is a superposition of two</span>
+<span class="sd">    mechanisms: axial bar plus bending in the :math:`x-z` plane.</span>
+
+<span class="sd">    In three dimensions, beam stiffness is a superposition of four mechanisms</span>
+<span class="sd">    -- axial bar, torsion bar, bending in the :math:`x-y` plane, and bending in</span>
+<span class="sd">    the :math:`x-z` plane.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Kg</span>
+<span class="sd">        Global structural stiffness matrix.</span>
+<span class="sd">    member</span>
+<span class="sd">        Dictionary that defines the data of the member.</span>
+<span class="sd">    i</span>
+<span class="sd">        Dictionary that defines the data of the first joint of the member.</span>
+<span class="sd">    j</span>
+<span class="sd">        Dictionary that defines the data of the second joint of the member.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        Updated global matrix is returned.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`pystran.assemble.assemble`</span>
+<span class="sd">    :func:`beam_2d_3d_axial_stiffness`</span>
+<span class="sd">    :func:`beam_2d_bending_stiffness`</span>
+<span class="sd">    :func:`beam_3d_bending_stiffness`</span>
+<span class="sd">    :func:`beam_3d_torsion_stiffness`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Add stiffness in bending.</span>
+    <span class="n">beam_is_2d</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">2</span>
+    <span class="n">dof</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">],</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">]])</span>
+    <span class="k">if</span> <span class="n">beam_is_2d</span><span class="p">:</span>
+        <span class="n">sect</span> <span class="o">=</span> <span class="n">member</span><span class="p">[</span><span class="s2">&quot;section&quot;</span><span class="p">]</span>
+        <span class="n">e_x</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">member_2d_geometry</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+        <span class="c1"># Add stiffness in bending.</span>
+        <span class="n">E</span><span class="p">,</span> <span class="n">I</span> <span class="o">=</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;E&quot;</span><span class="p">],</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;I&quot;</span><span class="p">]</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">beam_2d_bending_stiffness</span><span class="p">(</span><span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">I</span><span class="p">)</span>
+        <span class="n">Kg</span> <span class="o">=</span> <span class="n">assemble</span><span class="o">.</span><span class="n">assemble</span><span class="p">(</span><span class="n">Kg</span><span class="p">,</span> <span class="n">dof</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+        <span class="c1"># Add stiffness in the axial direction.</span>
+        <span class="n">E</span><span class="p">,</span> <span class="n">A</span> <span class="o">=</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;E&quot;</span><span class="p">],</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">beam_2d_3d_axial_stiffness</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+        <span class="n">dof</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]])</span>
+        <span class="n">Kg</span> <span class="o">=</span> <span class="n">assemble</span><span class="o">.</span><span class="n">assemble</span><span class="p">(</span><span class="n">Kg</span><span class="p">,</span> <span class="n">dof</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sect</span> <span class="o">=</span> <span class="n">member</span><span class="p">[</span><span class="s2">&quot;section&quot;</span><span class="p">]</span>
+        <span class="n">e_x</span><span class="p">,</span> <span class="n">e_y</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">member_3d_geometry</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;xz_vector&quot;</span><span class="p">])</span>
+        <span class="c1"># Add stiffness in bending.</span>
+        <span class="n">E</span><span class="p">,</span> <span class="n">Iy</span><span class="p">,</span> <span class="n">Iz</span> <span class="o">=</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;E&quot;</span><span class="p">],</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;Iy&quot;</span><span class="p">],</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;Iz&quot;</span><span class="p">]</span>
+        <span class="n">kxy</span><span class="p">,</span> <span class="n">kxz</span> <span class="o">=</span> <span class="n">beam_3d_bending_stiffness</span><span class="p">(</span><span class="n">e_y</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">Iy</span><span class="p">,</span> <span class="n">Iz</span><span class="p">)</span>
+        <span class="n">Kg</span> <span class="o">=</span> <span class="n">assemble</span><span class="o">.</span><span class="n">assemble</span><span class="p">(</span><span class="n">Kg</span><span class="p">,</span> <span class="n">dof</span><span class="p">,</span> <span class="n">kxy</span><span class="p">)</span>
+        <span class="n">Kg</span> <span class="o">=</span> <span class="n">assemble</span><span class="o">.</span><span class="n">assemble</span><span class="p">(</span><span class="n">Kg</span><span class="p">,</span> <span class="n">dof</span><span class="p">,</span> <span class="n">kxz</span><span class="p">)</span>
+        <span class="c1"># Add stiffness in the axial direction.</span>
+        <span class="n">E</span><span class="p">,</span> <span class="n">A</span> <span class="o">=</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;E&quot;</span><span class="p">],</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">beam_2d_3d_axial_stiffness</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+        <span class="n">dof</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]])</span>
+        <span class="n">Kg</span> <span class="o">=</span> <span class="n">assemble</span><span class="o">.</span><span class="n">assemble</span><span class="p">(</span><span class="n">Kg</span><span class="p">,</span> <span class="n">dof</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+        <span class="c1"># Add stiffness in torsion.</span>
+        <span class="n">G</span><span class="p">,</span> <span class="n">J</span> <span class="o">=</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">],</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;J&quot;</span><span class="p">]</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">beam_3d_torsion_stiffness</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">J</span><span class="p">)</span>
+        <span class="n">dof</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">][</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">],</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">][</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]])</span>
+        <span class="n">Kg</span> <span class="o">=</span> <span class="n">assemble</span><span class="o">.</span><span class="n">assemble</span><span class="p">(</span><span class="n">Kg</span><span class="p">,</span> <span class="n">dof</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Kg</span></div>
+
+
+
+<div class="viewcode-block" id="assemble_mass">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.assemble_mass">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">assemble_mass</span><span class="p">(</span><span class="n">Mg</span><span class="p">,</span> <span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Assemble beam mass matrix.</span>
+
+<span class="sd">    The mass matrix of two-dimensional beam takes into account axial vibration</span>
+<span class="sd">    and transverse vibration separately.</span>
+
+<span class="sd">    In three dimensions, in addition to axial vibration, transverse vibration</span>
+<span class="sd">    in two principal planes, torsional vibration is also taken into account.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Mg</span>
+<span class="sd">        Global structural mass matrix.</span>
+<span class="sd">    member</span>
+<span class="sd">        Dictionary that defines the data of the member.</span>
+<span class="sd">    i</span>
+<span class="sd">        Dictionary that defines the data of the first joint of the member.</span>
+<span class="sd">    j</span>
+<span class="sd">        Dictionary that defines the data of the second joint of the member.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Updated global matrix is returned.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`pystran.assemble.assemble`</span>
+<span class="sd">    :func:`beam_2d_mass`</span>
+<span class="sd">    :func:`beam_3d_mass`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">beam_is_2d</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">j</span><span class="p">[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">2</span>
+    <span class="n">dof</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">i</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">],</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;dof&quot;</span><span class="p">]])</span>
+    <span class="n">sect</span> <span class="o">=</span> <span class="n">member</span><span class="p">[</span><span class="s2">&quot;section&quot;</span><span class="p">]</span>
+    <span class="n">rho</span><span class="p">,</span> <span class="n">A</span> <span class="o">=</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;rho&quot;</span><span class="p">],</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">beam_is_2d</span><span class="p">:</span>
+        <span class="n">e_x</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">member_2d_geometry</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">beam_2d_mass</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">e_x</span><span class="p">,</span> <span class="n">e_y</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">member_3d_geometry</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;xz_vector&quot;</span><span class="p">])</span>
+        <span class="n">Ix</span> <span class="o">=</span> <span class="n">sect</span><span class="p">[</span><span class="s2">&quot;Ix&quot;</span><span class="p">]</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">beam_3d_mass</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">e_y</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">Ix</span><span class="p">)</span>
+    <span class="n">Mg</span> <span class="o">=</span> <span class="n">assemble</span><span class="o">.</span><span class="n">assemble</span><span class="p">(</span><span class="n">Mg</span><span class="p">,</span> <span class="n">dof</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Mg</span></div>
+
+
+
+<div class="viewcode-block" id="beam_2d_mass">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_2d_mass">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_2d_mass</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute beam mass matrix.</span>
+
+<span class="sd">    The mass matrix is consistent, which means that it is computed from the</span>
+<span class="sd">    discrete form of the kinetic energy of the element,</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \int \rho A \left(\dot u \cdot \dot u +  \dot w \cdot \dot</span>
+<span class="sd">        w\right)dx</span>
+
+<span class="sd">    where :math:`\dot u` and  :math:`\dot w` are the velocities in the</span>
+<span class="sd">    :math:`x` and :math:`z` directions. Note that the rotational velocities of</span>
+<span class="sd">    the cross sections do not play a role.</span>
+
+<span class="sd">    The velocity :math:`\dot u` is assumed to vary linearly along the element,</span>
+<span class="sd">    and the velocity :math:`\dot w` is assumed to vary according to the Hermite</span>
+<span class="sd">    shape functions.</span>
+
+<span class="sd">    Gauss quadrature is used to compute the mass matrix.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    e_x</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system in the direction</span>
+<span class="sd">        of the axis of the beam.</span>
+<span class="sd">    e_z</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system (orthogonal to the</span>
+<span class="sd">        axis of the beam).</span>
+<span class="sd">    h</span>
+<span class="sd">        Length of the beam.</span>
+<span class="sd">    rho</span>
+<span class="sd">        Mass density of the material.</span>
+<span class="sd">    A</span>
+<span class="sd">        Area of the cross section.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        Mass matrix of the beam.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">xiG</span><span class="p">,</span> <span class="n">WG</span> <span class="o">=</span> <span class="n">gauss</span><span class="o">.</span><span class="n">rule</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">e_x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">W</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">xiG</span><span class="p">,</span> <span class="n">WG</span><span class="p">):</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">lin_basis</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span>
+        <span class="n">Nu</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">N</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">e_x</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">],</span> <span class="n">N</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">e_x</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]])</span>
+        <span class="n">m</span> <span class="o">+=</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">outer</span><span class="p">(</span><span class="n">Nu</span><span class="p">,</span> <span class="n">Nu</span><span class="p">)</span> <span class="o">*</span> <span class="n">W</span> <span class="o">*</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">herm_basis</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span>
+        <span class="n">Nw</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">N</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">e_z</span><span class="p">,</span> <span class="p">[(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">N</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">N</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">e_z</span><span class="p">,</span> <span class="p">[(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">N</span><span class="p">[</span><span class="mi">3</span><span class="p">]]])</span>
+        <span class="n">m</span> <span class="o">+=</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">outer</span><span class="p">(</span><span class="n">Nw</span><span class="p">,</span> <span class="n">Nw</span><span class="p">)</span> <span class="o">*</span> <span class="n">W</span> <span class="o">*</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+
+<div class="viewcode-block" id="beam_3d_mass">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_3d_mass">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_3d_mass</span><span class="p">(</span><span class="n">e_x</span><span class="p">,</span> <span class="n">e_y</span><span class="p">,</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">Ix</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute beam mass matrix.</span>
+
+<span class="sd">    The mass matrix is consistent, which means that it is computed from the</span>
+<span class="sd">    discrete form of the kinetic energy of the element,</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \int \rho A \left(\dot u \cdot \dot u + \dot v \cdot \dot v + \dot w</span>
+<span class="sd">        \cdot \dot    w\right)dx</span>
+
+<span class="sd">    where :math:`\dot u`, :math:`\dot v`, and :math:`\dot w` are the velocities</span>
+<span class="sd">    in the :math:`x`, :math:`y`, and :math:`z` directions.</span>
+
+<span class="sd">    The velocity :math:`\dot u` is assumed to vary linearly along the element,</span>
+<span class="sd">    and the velocity :math:`\dot v`, :math:`\dot w` is assumed to vary</span>
+<span class="sd">    according to the Hermite shape functions. Rotations about :math:`y` and</span>
+<span class="sd">    :math:`z` are ignored in the kinetic energy.</span>
+
+<span class="sd">    For spinning of the beam about its axis, the kinetic energy is given by the</span>
+<span class="sd">    formula</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \int \rho I_x \dot \theta_x \cdot \dot \theta_x dx.</span>
+
+<span class="sd">    Gauss quadrature is used to compute the mass matrix.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    e_x</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system in the direction</span>
+<span class="sd">        of the axis of the beam.</span>
+<span class="sd">    e_y</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system (orthogonal to the</span>
+<span class="sd">        axis of the beam).</span>
+<span class="sd">    e_z</span>
+<span class="sd">        Unit vector of the local cartesian coordinate system (orthogonal to the</span>
+<span class="sd">        axis of the beam).</span>
+<span class="sd">    h</span>
+<span class="sd">        Length of the beam.</span>
+<span class="sd">    rho</span>
+<span class="sd">        Mass density of the material.</span>
+<span class="sd">    A</span>
+<span class="sd">        Area of the cross section.</span>
+<span class="sd">    Ix</span>
+<span class="sd">        Second moment of area of the cross section for rotation about x.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array</span>
+<span class="sd">        Mass matrix of the beam.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">xiG</span><span class="p">,</span> <span class="n">WG</span> <span class="o">=</span> <span class="n">gauss</span><span class="o">.</span><span class="n">rule</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">e_x</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">W</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">xiG</span><span class="p">,</span> <span class="n">WG</span><span class="p">):</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">lin_basis</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span>
+        <span class="c1"># Axial translation</span>
+        <span class="n">extN</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">N</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">e_x</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">N</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">e_x</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]])</span>
+        <span class="n">m</span> <span class="o">+=</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">outer</span><span class="p">(</span><span class="n">extN</span><span class="p">,</span> <span class="n">extN</span><span class="p">)</span> <span class="o">*</span> <span class="n">W</span> <span class="o">*</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="c1"># Torsion</span>
+        <span class="n">extN</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">N</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">e_x</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">N</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">e_x</span><span class="p">])</span>
+        <span class="n">m</span> <span class="o">+=</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">Ix</span> <span class="o">*</span> <span class="n">outer</span><span class="p">(</span><span class="n">extN</span><span class="p">,</span> <span class="n">extN</span><span class="p">)</span> <span class="o">*</span> <span class="n">W</span> <span class="o">*</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="c1"># Transverse displacements and rotations about y and z</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">beam_3d_xz_shape_fun</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span>
+        <span class="n">extN</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">N</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">e_z</span><span class="p">,</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">N</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">e_y</span><span class="p">,</span> <span class="n">N</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">e_z</span><span class="p">,</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">N</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">e_y</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">m</span> <span class="o">+=</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">outer</span><span class="p">(</span><span class="n">extN</span><span class="p">,</span> <span class="n">extN</span><span class="p">)</span> <span class="o">*</span> <span class="n">W</span> <span class="o">*</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">beam_3d_xy_shape_fun</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span>
+        <span class="n">extN</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">N</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">e_y</span><span class="p">,</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">N</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">e_z</span><span class="p">,</span> <span class="n">N</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">e_y</span><span class="p">,</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">N</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">e_z</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">m</span> <span class="o">+=</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">outer</span><span class="p">(</span><span class="n">extN</span><span class="p">,</span> <span class="n">extN</span><span class="p">)</span> <span class="o">*</span> <span class="n">W</span> <span class="o">*</span> <span class="p">(</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">m</span></div>
+
+
+
+<div class="viewcode-block" id="beam_3d_end_forces">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_3d_end_forces">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_3d_end_forces</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the end forces of a beam element in 3d.</span>
+
+<span class="sd">    The end forces of the beam are forces acting on the joints ``i`` and ``j``</span>
+<span class="sd">    by the beam.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    member</span>
+<span class="sd">        Dictionary that defines the data of the member.</span>
+<span class="sd">    i</span>
+<span class="sd">        Dictionary that defines the data of the first joint of the member.</span>
+<span class="sd">    j</span>
+<span class="sd">        Dictionary that defines the data of the second joint of the member.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Dict</span>
+<span class="sd">        Dictionary with the keys ``&#39;Ni&#39;``, ``&#39;Qyi&#39;``, ``&#39;Qzi&#39;``, ``&#39;Ti&#39;``,</span>
+<span class="sd">        ``&#39;Myi&#39;``, ``&#39;Mzi&#39;``, ``&#39;Nj&#39;``, ``&#39;Qyj&#39;``, ``&#39;Qzj&#39;``, ``&#39;Tj&#39;``,</span>
+<span class="sd">        ``&#39;Myj&#39;``, ``&#39;Mzj&#39;``,  is returned.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Ni</span> <span class="o">=</span> <span class="n">beam_3d_axial_force</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">Nj</span> <span class="o">=</span> <span class="o">-</span><span class="n">beam_3d_axial_force</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">Ti</span> <span class="o">=</span> <span class="n">beam_3d_torsion_moment</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">Tj</span> <span class="o">=</span> <span class="o">-</span><span class="n">beam_3d_torsion_moment</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">Myi</span> <span class="o">=</span> <span class="n">beam_3d_moment</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">Myj</span> <span class="o">=</span> <span class="o">-</span><span class="n">beam_3d_moment</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="o">+</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">Mzi</span> <span class="o">=</span> <span class="n">beam_3d_moment</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">Mzj</span> <span class="o">=</span> <span class="o">-</span><span class="n">beam_3d_moment</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="o">+</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">Qyi</span> <span class="o">=</span> <span class="n">beam_3d_shear_force</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">Qyj</span> <span class="o">=</span> <span class="o">-</span><span class="n">beam_3d_shear_force</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="o">+</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">Qzi</span> <span class="o">=</span> <span class="n">beam_3d_shear_force</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">Qzj</span> <span class="o">=</span> <span class="o">-</span><span class="n">beam_3d_shear_force</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="o">+</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">Ni</span><span class="o">=</span><span class="n">Ni</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">Qyi</span><span class="o">=</span><span class="n">Qyi</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">Qzi</span><span class="o">=</span><span class="n">Qzi</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">Ti</span><span class="o">=</span><span class="n">Ti</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">Myi</span><span class="o">=</span><span class="n">Myi</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">Mzi</span><span class="o">=</span><span class="n">Mzi</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">Nj</span><span class="o">=</span><span class="n">Nj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">Qyj</span><span class="o">=</span><span class="n">Qyj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">Qzj</span><span class="o">=</span><span class="n">Qzj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">Tj</span><span class="o">=</span><span class="n">Tj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">Myj</span><span class="o">=</span><span class="n">Myj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">Mzj</span><span class="o">=</span><span class="n">Mzj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="beam_2d_end_forces">
+<a class="viewcode-back" href="../../pystran.beam.html#pystran.beam.beam_2d_end_forces">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">beam_2d_end_forces</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the end forces of a beam element in 3d.</span>
+
+<span class="sd">    The end forces of the beam are forces acting on the joints ``i`` and ``j``</span>
+<span class="sd">    by the beam.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    member</span>
+<span class="sd">        Dictionary that defines the data of the member.</span>
+<span class="sd">    i</span>
+<span class="sd">        Dictionary that defines the data of the first joint of the member.</span>
+<span class="sd">    j</span>
+<span class="sd">        Dictionary that defines the data of the second joint of the member.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Dict</span>
+<span class="sd">        Dictionary with the keys ``&#39;Ni&#39;``, ``&#39;Qzi&#39;``, ``&#39;Myi&#39;``,  ``&#39;Nj&#39;``,</span>
+<span class="sd">        ``&#39;Qzj&#39;``, ``&#39;Myj&#39;``,  is returned.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Ni</span> <span class="o">=</span> <span class="n">beam_2d_axial_force</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">Nj</span> <span class="o">=</span> <span class="o">-</span><span class="n">beam_2d_axial_force</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">Myi</span> <span class="o">=</span> <span class="n">beam_2d_moment</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">Myj</span> <span class="o">=</span> <span class="o">-</span><span class="n">beam_2d_moment</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="o">+</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">Qzi</span> <span class="o">=</span> <span class="n">beam_2d_shear_force</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">Qzj</span> <span class="o">=</span> <span class="o">-</span><span class="n">beam_2d_shear_force</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="o">+</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">Ni</span><span class="o">=</span><span class="n">Ni</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">Qzi</span><span class="o">=</span><span class="n">Qzi</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">Myi</span><span class="o">=</span><span class="n">Myi</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">Nj</span><span class="o">=</span><span class="n">Nj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">Qzj</span><span class="o">=</span><span class="n">Qzj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">Myj</span><span class="o">=</span><span class="n">Myj</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="p">)</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Petr Krysl.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

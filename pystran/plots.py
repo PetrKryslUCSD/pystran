@@ -713,7 +713,11 @@ def _plot_2d_truss_axial_forces(ax, member, i, j, scale):
 
 def _plot_3d_truss_beam_axial_forces(ax, member, i, j, scale):
     sect = member["section"]
-    _, _, e_z, _ = member_3d_geometry(i, j, sect["xz_vector"])
+    if 'xz_vector' in sect:
+        xz_vector = sect["xz_vector"]
+    else:
+        xz_vector = []
+    _, _, e_z, _ = member_3d_geometry(i, j, xz_vector)
     ci, cj = i["coordinates"], j["coordinates"]
     n = 13
     dirv = e_z

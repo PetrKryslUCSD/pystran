@@ -689,7 +689,7 @@ def beam_2d_axial_force(member, i, j, xi):
 
 def beam_3d_axial_force(member, i, j, xi):
     r"""
-    Compute 3d beam axial force based on the displacements stored at the joints.
+    Compute 3d beam or truss axial force based on the displacements stored at the joints.
 
     The axial force is uniform along the beam. Hence, ``xi`` does not matter.
 
@@ -711,7 +711,11 @@ def beam_3d_axial_force(member, i, j, xi):
         The force resultant.
     """
     sect = member["section"]
-    e_x, _, _, h = geometry.member_3d_geometry(i, j, sect["xz_vector"])
+    if 'xz_vector' in sect:
+        xz_vector = sect["xz_vector"]
+    else:
+        xz_vector = []
+    e_x, _, _, h = geometry.member_3d_geometry(i, j, xz_vector)
     E, A = sect["E"], sect["A"]
     ui, uj = i["displacements"][0:3], j["displacements"][0:3]
     u = concatenate([ui, uj])

@@ -574,14 +574,16 @@ def plot_bending_moments(m, axis="y", scale=0.0):
         i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
         if m["dim"] == 3:
             _plot_3d_beam_moments(ax, member, i, j, axis, scale)
-            ax.set_xticklabels([]) 
-            ax.set_yticklabels([]) 
-            ax.set_zticklabels([]) 
         else:
             _plot_2d_beam_moments(ax, member, i, j, scale)
-            ax.set_xticklabels([]) 
-            ax.set_zticklabels([]) 
-    return ax
+    if m["dim"] == 3:
+        ax.set_xticklabels([]) 
+        ax.set_yticklabels([]) 
+        ax.set_zticklabels([]) 
+    else:
+        ax.set_xticklabels([]) 
+        ax.set_yticklabels([]) 
+    return ax 
 
 
 def _plot_2d_beam_shear_forces(ax, member, i, j, scale):
@@ -663,13 +665,15 @@ def plot_shear_forces(m, axis="z", scale=0.0):
         i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
         if m["dim"] == 3:
             _plot_3d_beam_shear_forces(ax, member, i, j, axis, scale)
-            ax.set_xticklabels([]) 
-            ax.set_yticklabels([]) 
-            ax.set_zticklabels([]) 
         else:
             _plot_2d_beam_shear_forces(ax, member, i, j, scale)
-            ax.set_xticklabels([]) 
-            ax.set_zticklabels([]) 
+    if m["dim"] == 3:
+        ax.set_xticklabels([]) 
+        ax.set_yticklabels([]) 
+        ax.set_zticklabels([]) 
+    else:
+        ax.set_xticklabels([]) 
+        ax.set_yticklabels([]) 
     return ax
 
 
@@ -788,9 +792,13 @@ def plot_axial_forces(m, scale=0.0):
                 _plot_3d_truss_beam_axial_forces(ax, member, i, j, scale)
             else:
                 _plot_2d_beam_axial_forces(ax, member, i, j, scale)
-    ax.set_xticklabels([]) 
-    ax.set_yticklabels([]) 
-    ax.set_zticklabels([]) 
+    if m["dim"] == 3:
+        ax.set_xticklabels([]) 
+        ax.set_yticklabels([]) 
+        ax.set_zticklabels([]) 
+    else:
+        ax.set_xticklabels([]) 
+        ax.set_yticklabels([]) 
     return ax
 
 

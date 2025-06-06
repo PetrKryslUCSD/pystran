@@ -894,7 +894,11 @@ def plot_member_orientation(m, scale=0.0):
             ci, cj = i["coordinates"], j["coordinates"]
             xm = (ci + cj) / 2.0
             if m["dim"] == 3:
-                e_x, e_y, e_z, _ = member_3d_geometry(i, j, sect["xz_vector"])
+                if "xz_vector" in sect:
+                    xz_vector = sect['xz_vector']
+                else:
+                    xz_vector = []
+                e_x, e_y, e_z, _ = member_3d_geometry(i, j, xz_vector)
                 xs = zeros(2)
                 ys = zeros(2)
                 zs = zeros(2)

@@ -467,12 +467,15 @@ def plot_joint_ids(m, offsets = []):
                 j["coordinates"][1] + offsets[1],
                 j["coordinates"][2] + offsets[2],
                 str(j["jid"]),
+                bbox=dict(facecolor='white', boxstyle='circle')
             )
         else:
             ax.plot(j["coordinates"][0], j["coordinates"][1], "ro")
             ax.text(j["coordinates"][0] + offsets[0], 
                     j["coordinates"][1] + offsets[1], 
-                    str(j["jid"]))
+                    str(j["jid"]),
+                    bbox=dict(facecolor='white', boxstyle='circle')
+                    )
     return ax
 
 
@@ -701,7 +704,8 @@ def _plot_2d_beam_axial_forces(ax, member, i, j, scale):
         ys[1] = x[1] + scale * N * e_z[1]
         ax.plot(xs, ys, "r-" if (N > 0) else "b-")
         if xi == 0.0:
-            ax.text(xs[1], ys[1], str(f"{N[0]:.5}"))
+            ax.text(xs[1], ys[1], str(f"{N[0]:.5}"),
+                    bbox=dict(facecolor='white', boxstyle='round,pad=0.5'))
     return ax
 
 
@@ -748,7 +752,8 @@ def _plot_3d_truss_beam_axial_forces(ax, member, i, j, scale):
         zs[1] = zs[0] + scale * N * dirv[2]
         ax.plot(xs, ys, zs, "r-" if (N > 0) else "b-")
         if xi == 0.0:
-            ax.text(xs[1], ys[1], zs[1], str(f"{N[0]:.5}"))
+            ax.text(xs[1], ys[1], zs[1], str(f"{N[0]:.5}"),
+                    bbox=dict(facecolor='white', boxstyle='round'))
     return ax
 
 

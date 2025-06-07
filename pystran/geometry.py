@@ -213,7 +213,7 @@ def member_2d_geometry(i, j):
     return e_x, e_z, h
 
 
-def member_3d_geometry(i, j, xz_vector):
+def member_3d_geometry(i, j, xz_vector = []):
     r"""
     Compute 3d member geometry.
 

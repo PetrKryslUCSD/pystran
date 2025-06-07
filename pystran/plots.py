@@ -442,7 +442,7 @@ def plot_member_ids(m):
     return ax
 
 
-def plot_joint_ids(m):
+def plot_joint_ids(m, offsets = []):
     """
     Plot the joint identifiers.
 
@@ -450,20 +450,29 @@ def plot_joint_ids(m):
     ----------
     m
         Model dictionary.
+        
+    offsets
+        Optional: vector by which joint ID numbers should be offset 
+        from the location of the joint. Default is
+        an empty list, which means the offsets will be zero.
     """
+    if len(offsets) == 0:
+        offsets = [0, 0, 0]
     ax = plt.gca()
     for j in m["joints"].values():
         if m["dim"] == 3:
             ax.plot(j["coordinates"][0], j["coordinates"][1], j["coordinates"][2], "ro")
             ax.text(
-                j["coordinates"][0],
-                j["coordinates"][1],
-                j["coordinates"][2],
+                j["coordinates"][0] + offsets[0],
+                j["coordinates"][1] + offsets[1],
+                j["coordinates"][2] + offsets[2],
                 str(j["jid"]),
             )
         else:
             ax.plot(j["coordinates"][0], j["coordinates"][1], "ro")
-            ax.text(j["coordinates"][0], j["coordinates"][1], str(j["jid"]))
+            ax.text(j["coordinates"][0] + offsets[0], 
+                    j["coordinates"][1] + offsets[1], 
+                    str(j["jid"]))
     return ax
 
 

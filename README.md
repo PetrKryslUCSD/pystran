@@ -11,6 +11,7 @@ and beam members, springs, and rigid bodies, both in two dimensions and in three
 
 ## News
 
+- 11/08/2025: Add publishing workflow.
 - 03/13/2025: Update documentation for the sphinx system.
 - 03/10/2025: Add rigid links and general springs.
 

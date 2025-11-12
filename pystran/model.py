@@ -638,7 +638,7 @@ def solve_statics(m):
                     gr = joint["dof"][dof]
                     U[gr] = value
     # # Solve for displacements
-    U[0:nf] = numpy.linalg.solve(K[0:nf, 0:nf], F[0:nf] - dot(K[0:nf, nf:nt], U[nf:nt]))
+    U[0:nf] = scipy.linalg.solve(K[0:nf, 0:nf], F[0:nf] - dot(K[0:nf, nf:nt], U[nf:nt]))
 
     m["U"] = U
 

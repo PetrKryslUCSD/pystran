@@ -32,7 +32,7 @@ def rigid_link_stiffness(e_x, h, Gamma):
             0 & 1 \\
         \end{bmatrix}.
     
-    Here :math:` \widetilde{r}` is a skew matrix corresponding to the 
+    Here :math:`\widetilde{r}` is a skew matrix corresponding to the 
     vector :math:`r`, and :math:`0` and :math:`1` stand for :math:`3\times3` zero 
     and identity matrices respectively.
 

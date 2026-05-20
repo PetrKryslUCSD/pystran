@@ -40,7 +40,7 @@ F = 1.0e3
 
 # The rigid link formulation requires a penalty for each degree of freedom.
 # This penalty needs to be of appropriate magnitude, commensurate with the
-# other stiffness in the system. This particular formulation does not require
+# other stiffnesses in the system. This particular formulation does not require
 # the penalty to be many times larger, just in the ballpark. Here we take a
 # fraction of the `E*A`  product.
 sr = section.rigid_link_section("sr", Gamma=1e8 * numpy.diagflat([1.0, 1.0, 1.0]))
@@ -55,7 +55,7 @@ model.add_joint(m, 4, (h, -0.2))
 # Here are the two beam members.
 model.add_beam_member(m, 1, (1, 2), sb)
 model.add_beam_member(m, 2, (3, 4), sb)
-# There free ends are linked together rigidly.
+# The free ends are linked together rigidly.
 model.add_rigid_link_member(m, 1, (2, 4), sr)
 
 # The rigid link is shown with a slightly thicker line.
@@ -73,12 +73,14 @@ plots.plot_members(m)
 plots.plot_applied_forces(m)
 plots.show(m)
 
+# Solve the system. 
 model.number_dofs(m)
 model.solve_statics(m)
 
 # Using the stiffness coefficients of a beam in the basic configuration, we
 # can calculate the deflection from the relationship between the shear force
-# in the beams (there are two!) and the applied force:
+# in the beams (there are two!) and the applied force, assuming 
+# the bars are nearly incompressible in the axial direction.
 
 w2 = F / (12 * E * I / h**3) / 2
 print("Analytical deflection in the direction of the force: ", w2)

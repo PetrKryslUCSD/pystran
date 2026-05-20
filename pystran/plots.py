@@ -495,7 +495,7 @@ def _largest_mag_on_beam_members(m, fun):
             for xi in linspace(-1, +1, 2):
                 mmag = abs(fun(member, i, j, xi))
                 maxmag = max(maxmag, mmag)
-    return maxmag
+    return maxmag[0]
 
 
 def _largest_mag_on_truss_members(m, fun):
@@ -506,7 +506,7 @@ def _largest_mag_on_truss_members(m, fun):
             i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
             mmag = abs(fun(member, i, j))
             maxmag = max(maxmag, mmag)
-    return maxmag
+    return maxmag[0]
 
 
 def _plot_2d_beam_moments(ax, member, i, j, scale, nearly_zero = 1000 * _myeps):
@@ -520,10 +520,10 @@ def _plot_2d_beam_moments(ax, member, i, j, scale, nearly_zero = 1000 * _myeps):
         xs = zeros(2)
         ys = zeros(2)
         xs[0] = x[0]
-        xs[1] = x[0] + scale * M * e_z[0]
+        xs[1] = x[0] + scale * M[0] * e_z[0]
         ys[0] = x[1]
-        ys[1] = x[1] + scale * M * e_z[1]
-        ax.plot(xs, ys, "r-" if (M > 0) else "b-")
+        ys[1] = x[1] + scale * M[0] * e_z[1]
+        ax.plot(xs, ys, "r-" if (M[0] > 0) else "b-")
         if abs(M) < nearly_zero / scale: M[0] = 0.0
         if xi == -1.0:
             ax.text(xs[1], ys[1], str(f"{M[0]:.5}"), bbox=forc_mom_bbox_prop)

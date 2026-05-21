@@ -2,12 +2,11 @@
 Define the functions for defining and manipulating a model.
 """
 
-from math import sqrt
-import numpy
-from numpy import array, zeros, dot, mean, concatenate
-import scipy
-import pystran
-from pystran import freedoms
+from math import sqrt, pi
+from numpy import array, zeros, dot, mean, concatenate, float64, int32, inf
+from scipy.linalg import solve, eigh
+from collections import namedtuple
+from pystran import truss, beam, spring, rigid
 
 
 def create(dim=2):
@@ -21,28 +20,57 @@ def create(dim=2):
 
     Returns
     -------
-    dict
+    dict 
+        The model is represented as a dictionary. The keys of 
+        the dictionary are described in the documentation of the functions that manipulate the model.
+        Initially, the model contains only values for the the key ``dim`` that gives the dimension of the model, 
+        and for the key ``freedoms``, which is an enumeration of the degrees of freedom at a joint.
+
+        2D models have three degrees of freedom at a joint: two translations (`m['freedoms'].U1`,
+        `m['freedoms'].U2`) and one rotation (`m['freedoms'].UR3`).
+
+        3D models have six degrees of freedom at a joint: three translations (`m['freedoms'].U1`,
+        `m['freedoms'].U2`, `m['freedoms'].U3`) and three rotations (`m['freedoms'].UR1`, 
+        `m['freedoms'].UR2`, `m['freedoms'].UR3`).
+
+    See Also
+    --------
+        :func:`add_joint`
+        :func:`add_truss_member`
+        :func:`add_beam_member`
+        :func:`add_rigid_link_member`
+        :func:`add_spring_member`
+        :func:`add_support`
+        :func:`add_load`
+        :func:`add_mass`
+        :func:`add_dof_links`
+        :func:`number_dofs`
+        :func:`solve_statics`
+        :func:`statics_reactions`
+        :func:`solve_eigenvalue`
+        :func:`solve_eigenvalue_modal`
+
     """
     m = {}
     m["dim"] = dim  # Dimension of the model
-    m["joints"] = {}
-    # Depending on the number of space dimensions, a set of degrees of freedom
-    # will consist of either two translations and one rotation, or three
-    # translations and three rotations.
     if m["dim"] == 2:
-        freedoms.U1 = 0
-        freedoms.U2 = 1
-        freedoms.UR3 = 2
-        freedoms.U3 = -1000  # invalid
-        freedoms.UR1 = -1000  # invalid
-        freedoms.UR2 = -1000  # invalid
+        Freedoms = namedtuple("Freedoms", ["U1", "U2", "UR3", 
+                                           "TRANSLATION_DOFS", 
+                                           "ROTATION_DOFS", 
+                                           "ALL_DOFS"])
+        m["freedoms"] = Freedoms(U1=0, U2=1, UR3=2, 
+                                 TRANSLATION_DOFS=(0, 1),
+                                 ROTATION_DOFS=(2,), 
+                                 ALL_DOFS=(0, 1, 2))
     else:
-        freedoms.U1 = 0
-        freedoms.U2 = 1
-        freedoms.U3 = 2
-        freedoms.UR1 = 3
-        freedoms.UR2 = 4
-        freedoms.UR3 = 5
+        Freedoms = namedtuple("Freedoms", ["U1", "U2", "U3", "UR1", "UR2", "UR3", 
+                                           "TRANSLATION_DOFS", 
+                                           "ROTATION_DOFS", 
+                                           "ALL_DOFS"])
+        m["freedoms"] = Freedoms(U1=0, U2=1, U3=2, UR1=3, UR2=4, UR3=5, 
+                                 TRANSLATION_DOFS=(0, 1, 2),
+                                 ROTATION_DOFS=(3, 4, 5), 
+                                 ALL_DOFS=(0, 1, 2, 3, 4, 5))
     return m
 
 
@@ -69,14 +97,16 @@ def add_joint(m, jid, coordinates, dof=None):
     dict
         Newly created joint.
     """
+    if "joints" not in m:
+        m["joints"] = {}
     if jid in m["joints"]:
         raise RuntimeError("Joint already exists")
-    coordinates = array(coordinates, dtype=numpy.float64)
+    coordinates = array(coordinates, dtype=float64)
     if coordinates.shape != (m["dim"],):
         raise RuntimeError("Coordinate dimension mismatch")
     m["joints"][jid] = {"jid": jid, "coordinates": coordinates}
     if dof is not None:
-        m["joints"][jid]["dof"] = array(dof, dtype=numpy.int32)
+        m["joints"][jid]["dof"] = array(dof, dtype=int32)
     return m["joints"][jid]
 
 
@@ -220,13 +250,20 @@ def add_spring_member(m, mid, connectivity, sect):
         m["spring_members"] = {}
     if mid in m["spring_members"]:
         raise RuntimeError("Spring member already exists")
+    if sect['kind'] == "extension":
+        dof = m["freedoms"].TRANSLATION_DOFS
+    else:  # torsion
+        dof = m["freedoms"].ROTATION_DOFS
     m["spring_members"][mid] = {
         "mid": mid,
         "connectivity": connectivity,
         "section": sect,
+        "dofkind": dof
     }
     return m["spring_members"][mid]
 
+def _dof_is_int(dof):
+    return dof in range(6)
 
 def add_support(j, dof, value=0.0):
     """
@@ -237,7 +274,7 @@ def add_support(j, dof, value=0.0):
     j
         The joint (obtained from the model as ``m["joints"][jid]``).
     dof
-        The degree of freedom (0, 1, ...). Refer to the module ``freedoms``.
+        The degree of freedom (0, 1, ...). Refer to the model key ``'freedoms'``.
     value
         The signed magnitude of the support motion (default is zero).
 
@@ -245,15 +282,16 @@ def add_support(j, dof, value=0.0):
     -------
     None
 
-    See Also
-    --------
-    `pystran.freedoms`
+    
     """
     if "supports" not in j:
         j["supports"] = {}
     dim = len(j["coordinates"])
-    for d, v in zip(*freedoms.prescribed_dofs_and_values(dim, dof, value)):
-        j["supports"][d] = v
+    if not _dof_is_int(dof):
+        for d in dof:
+            j["supports"][d] = value
+    else:
+        j["supports"][dof] = value
 
 
 def add_load(j, dof, value):
@@ -265,7 +303,7 @@ def add_load(j, dof, value):
     j
         The joint (obtained from the model as ``m["joints"][jid]``).
     dof
-        The degree of freedom (0, 1, ...).
+        The degree of freedom (0, 1, ...). Refer to the model key ``'freedoms'``.
     value
         The signed magnitude of the load.
 
@@ -273,9 +311,7 @@ def add_load(j, dof, value):
     -------
     None
 
-    See Also
-    --------
-    `pystran.freedoms`
+    
     """
     if "loads" not in j:
         j["loads"] = {}
@@ -293,7 +329,7 @@ def add_mass(j, dof, value):
     j
         The joint (obtained from the model as ``m["joints"][jid]``).
     dof
-        The degree of freedom (0, 1, ...). Refer to the module ``freedoms``.
+        The degree of freedom (0, 1, ...). Refer to the model key ``'freedoms'``.
     value
         The magnitude of the added mass.
 
@@ -301,9 +337,7 @@ def add_mass(j, dof, value):
     -------
     None
 
-    See Also
-    --------
-    `pystran.freedoms`
+    
     """
     if "masses" not in j:
         j["masses"] = {}
@@ -328,9 +362,7 @@ def add_dof_links(m, jids, dof):
     -------
     None
 
-    See Also
-    --------
-    `pystran.freedoms`
+    
     """
     # Now add the mutual links between the joints
     for jid1 in jids:
@@ -341,10 +373,11 @@ def add_dof_links(m, jids, dof):
                     j1["links"] = {}
                 if jid2 not in j1["links"]:
                     j1["links"][jid2] = []
-                for d, _ in zip(
-                    *freedoms.prescribed_dofs_and_values(m["dim"], dof, 0.0)
-                ):
-                    j1["links"][jid2].append(d)
+                if _dof_is_int(dof):
+                    j1["links"][jid2].append(dof)
+                else:
+                    for d in dof:
+                        j1["links"][jid2].append(d)
 
 
 def bounding_box(m):
@@ -363,8 +396,8 @@ def bounding_box(m):
         encloses all the joints).
     """
     dim = m["dim"]
-    box = numpy.array(
-        concatenate([[numpy.inf for i in range(dim)], [-numpy.inf for i in range(dim)]])
+    box = array(
+        concatenate([[inf for i in range(dim)], [-inf for i in range(dim)]])
     )
     for j in m["joints"].values():
         cj = j["coordinates"]
@@ -408,10 +441,13 @@ def _have_rotations(m):
     with_rotations = "beam_members" in m and m["beam_members"]
     if with_rotations:
         return True
+    f = m['freedoms']
     for j in m["joints"].values():
         if "supports" in j and j["supports"]:
             for dof in j["supports"].keys():
-                if dof == freedoms.UR1 or dof == freedoms.UR2 or dof == freedoms.UR3:
+                if (m['dim'] == 2) and dof == f.UR3:
+                    return True
+                if (m['dim'] == 3) and (dof == f.UR1 or dof == f.UR2 or dof == f.UR3 or dof == f.UR3):
                     return True
     return False
 
@@ -469,7 +505,7 @@ def number_dofs(m):
     # Generate arrays for storing the degrees of freedom
     for j in m["joints"].values():
         if "dof" not in j:
-            j["dof"] = zeros((ndpn,), dtype=numpy.int32)
+            j["dof"] = zeros((ndpn,), dtype=int32)
         j["dof"][:] = -1  # -1 means not yet numbered
     # For each linked pair of joints, make sure they share the same supports
     for j in m["joints"].values():
@@ -510,22 +546,22 @@ def _build_stiffness_matrix(m):
         for member in m["truss_members"].values():
             connectivity = member["connectivity"]
             i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
-            pystran.truss.assemble_stiffness(K, member, i, j)
+            truss.assemble_stiffness(K, member, i, j)
     if "beam_members" in m:
         for member in m["beam_members"].values():
             connectivity = member["connectivity"]
             i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
-            pystran.beam.assemble_stiffness(K, member, i, j)
+            beam.assemble_stiffness(K, member, i, j)
     if "rigid_link_members" in m:
         for member in m["rigid_link_members"].values():
             connectivity = member["connectivity"]
             i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
-            pystran.rigid.assemble_stiffness(K, member, i, j)
+            rigid.assemble_stiffness(K, member, i, j)
     if "spring_members" in m:
         for member in m["spring_members"].values():
             connectivity = member["connectivity"]
             i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
-            pystran.spring.assemble_stiffness(K, member, i, j)
+            spring.assemble_stiffness(K, member, i, j)
 
     return K
 
@@ -537,12 +573,12 @@ def _build_mass_matrix(m):
         for member in m["truss_members"].values():
             connectivity = member["connectivity"]
             i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
-            pystran.truss.assemble_mass(M, member, i, j)
+            truss.assemble_mass(M, member, i, j)
     if "beam_members" in m:
         for member in m["beam_members"].values():
             connectivity = member["connectivity"]
             i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
-            pystran.beam.assemble_mass(M, member, i, j)
+            beam.assemble_mass(M, member, i, j)
     for j in m["joints"].values():
         if "masses" in j:
             for dof, value in j["masses"].items():
@@ -638,7 +674,7 @@ def solve_statics(m):
                     gr = joint["dof"][dof]
                     U[gr] = value
     # # Solve for displacements
-    U[0:nf] = scipy.linalg.solve(K[0:nf, 0:nf], F[0:nf] - dot(K[0:nf, nf:nt], U[nf:nt]))
+    U[0:nf] = solve(K[0:nf, 0:nf], F[0:nf] - dot(K[0:nf, nf:nt], U[nf:nt]))
 
     m["U"] = U
 
@@ -764,10 +800,10 @@ def solve_free_vibration(m):
     m["U"] = U
 
     # Solved the eigenvalue problem
-    eigvals, eigvecs = scipy.linalg.eigh(K[0:nf, 0:nf], M[0:nf, 0:nf])
+    eigvals, eigvecs = eigh(K[0:nf, 0:nf], M[0:nf, 0:nf])
 
     m["eigvals"] = eigvals
-    m["frequencies"] = [sqrt(ev) / 2 / numpy.pi for ev in eigvals]
+    m["frequencies"] = [sqrt(ev) / 2 / pi for ev in eigvals]
     m["eigvecs"] = eigvecs
 
     return

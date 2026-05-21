@@ -132,7 +132,7 @@ def spring_section(name, kind, direction, stiffness_coefficient=1.0):
         to displacement or to rotation.
     direction
         The spring acts *along* this direction for extension springs, or about
-        this direction for torsion springs.
+        this direction for torsion springs. Supply as a vector.
     stiffness_coefficient
         Stiffness coefficient of the spring.
 
@@ -148,6 +148,8 @@ def spring_section(name, kind, direction, stiffness_coefficient=1.0):
     """
     s = dict()
     s["name"] = name
+    if kind not in ["extension", "torsion"]:
+        raise ValueError("kind must be either 'extension' or 'torsion'")
     s["kind"] = kind
     s["direction"] = direction
     s["stiffness_coefficient"] = stiffness_coefficient

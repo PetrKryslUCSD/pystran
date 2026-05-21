@@ -23,7 +23,6 @@ from numpy.linalg import norm
 import context
 from pystran import model
 from pystran import section
-from pystran import freedoms
 from pystran import geometry
 from pystran import plots
 
@@ -48,6 +47,8 @@ q = 2.0e3  # kN/m
 # member is used for the left span. Two members are used for the right span,
 # because there is a concentrated force at an intermediate point.
 m = model.create(2)
+freedoms = m["freedoms"]
+
 # The minimum number of joints is four (three members).
 model.add_joint(m, "a", [0.0, 0.0])  # Roller.
 model.add_joint(m, "b", [8.0, 0.0])  # Roller.

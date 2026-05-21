@@ -26,7 +26,6 @@ import context
 from pystran import model
 from pystran import section
 from pystran import geometry
-from pystran import freedoms
 from pystran import plots
 
 # US SI(m) units
@@ -72,6 +71,7 @@ def add_thermal_loads(_m):
 
 # Create the model by defining joints and truss members.
 m = model.create(2)
+freedoms = m["freedoms"]
 
 model.add_joint(m, 1, [0.0, 0.0])  # A
 model.add_joint(m, 2, [0.0, 4.0])

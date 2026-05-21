@@ -24,11 +24,12 @@ from numpy.linalg import norm
 import context
 from pystran import model
 from pystran import section
-from pystran import freedoms
+
 from pystran import plots
 
 # Create a two dimensional (planar) model.
 m = model.create(2)
+freedoms = m["freedoms"]
 
 # There are three joints.
 model.add_joint(m, "j1", [0.0, 0.0])

@@ -64,7 +64,6 @@ readily using numerical integration.
 # Define the __all__ variable
 __all__ = [
     "gauss",
-    "freedoms",
     "model",
     "section",
     "rotation",
@@ -78,7 +77,6 @@ __all__ = [
 ]
 
 # Import the submodules
-from . import freedoms
 from . import model
 from . import section
 from . import rotation

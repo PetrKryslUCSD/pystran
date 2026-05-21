@@ -30,7 +30,6 @@ from numpy import array
 import context
 from pystran import model
 from pystran import section
-from pystran import freedoms
 from pystran import plots
 from pystran import beam
 
@@ -48,6 +47,7 @@ F = 10000
 
 # The model is created as three dimensional.
 m = model.create(3)
+freedoms = m["freedoms"]
 
 # Joints are added at their locations. The original source refers to the nodes
 # (joints) as N_A, N_B, etc. N_A and N_B are supported, N_H1 and N_H2 form the

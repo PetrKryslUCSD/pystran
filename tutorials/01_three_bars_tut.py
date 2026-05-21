@@ -18,7 +18,6 @@ Structures Second Edition by Robert Levy and William R. Spillers.
 """
 
 # The following imports are necessary for the example to work.
-import numpy
 from numpy.linalg import norm
 from numpy import concatenate, dot
 import context
@@ -32,6 +31,7 @@ from pystran import plots
 # constituent parts of the system. The model is created for a planar structure
 # (2). The deformation is assumed to occur in the plane `x-z`.
 m = model.create(2)
+freedoms = m["freedoms"]
 
 # There are four joints. Note that the coordinates are supplied without physical
 # units. Everything needs to be provided in consistent units.

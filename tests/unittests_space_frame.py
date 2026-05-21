@@ -11,7 +11,7 @@ from numpy.linalg import norm
 from pystran import model
 from pystran import section
 from pystran import geometry
-from pystran import freedoms
+
 from pystran import beam
 from pystran import truss
 from pystran import rotation
@@ -43,6 +43,7 @@ class UnitTestsSpaceFrames(unittest.TestCase):
         P = 60000
 
         m = model.create(3)
+        freedoms = m["freedoms"]
 
         jA, jB, jC, jD, jE = 3, 1, 2, 4, 5
         model.add_joint(m, jA, [0.0, 0.0, 0.0])
@@ -157,6 +158,7 @@ class UnitTestsSpaceFrames(unittest.TestCase):
         M = 120
 
         m = model.create(3)
+        freedoms = m["freedoms"]
 
         model.add_joint(m, 3, [0.0, 0.0, 0.0])
         model.add_joint(m, 1, [0.0, L, 0.0])
@@ -246,6 +248,7 @@ class UnitTestsSpaceFrames(unittest.TestCase):
         M = 120
 
         m = model.create(3)
+        freedoms = m["freedoms"]
 
         model.add_joint(m, 3, [0.0, 0.0, 0.0])
         model.add_joint(m, 1, [0.0, L, 0.0])
@@ -406,6 +409,7 @@ class UnitTestsSpaceFrames(unittest.TestCase):
         )
 
         m = model.create(3)
+        freedoms = m["freedoms"]
 
         model.add_joint(m, 1, [0.0, 0.0, 0.0])
         model.add_joint(m, 2, [L, 0, 0.0])
@@ -499,6 +503,7 @@ class UnitTestsSpaceFrames(unittest.TestCase):
         )
 
         m = model.create(3)
+        freedoms = m["freedoms"]
 
         model.add_joint(m, 1, [0.0, 0.0, 0.0])
         model.add_joint(m, 2, [L, 0, 0.0])
@@ -590,6 +595,7 @@ class UnitTestsSpaceFrames(unittest.TestCase):
         )
 
         m = model.create(3)
+        freedoms = m["freedoms"]
 
         model.add_joint(m, 1, [0.0, 0.0, 0.0])
         model.add_joint(m, 2, [0.0, 0.0, 0.0])
@@ -684,6 +690,7 @@ class UnitTestsSpaceFrames(unittest.TestCase):
         G = E / (2 * (1 + 0.3))
 
         m = model.create(3)
+        freedoms = m["freedoms"]
 
         model.add_joint(m, 1, [0.0, 0.0, 0.0])
         model.add_joint(m, 2, [8000.0, 0.0, 0.0])
@@ -867,6 +874,7 @@ class UnitTestsSpaceFrames(unittest.TestCase):
         b = 3.66
 
         m = model.create(3)
+        freedoms = m["freedoms"]
 
         # Bottoms of columns.
         model.add_joint(m, 1, [0.0, 0.0, 0.0])
@@ -970,7 +978,7 @@ class UnitTestsSpaceFrames(unittest.TestCase):
         # import context
         # from pystran import model
         # from pystran import section
-        # from pystran import freedoms
+        # 
         # from pystran import plots
         # from pystran import beam
 
@@ -988,6 +996,7 @@ class UnitTestsSpaceFrames(unittest.TestCase):
 
         # The model is created as three dimensional.
         m = model.create(3)
+        freedoms = m["freedoms"]
 
         # Joints are added at their locations. The original source refers to the nodes
         # (joints) as N_A, N_B, etc. N_A and N_B are supported, N_H1 and N_H2 form the
@@ -1214,6 +1223,7 @@ class UnitTestsSpaceFrames(unittest.TestCase):
         # from pystran import section
 
         m = model.create(3)
+        freedoms = m["freedoms"]
 
         # General orientation
         model.add_joint(m, 1, [-1.0, 2.0, 3.0])
@@ -1334,6 +1344,7 @@ class UnitTestsSpaceFrames(unittest.TestCase):
         G = 7.6923e4  # MPa
 
         m = model.create(3)
+        freedoms = m["freedoms"]
 
         # The mesh is generated along the arc.
         NUM_JOINTS = 15

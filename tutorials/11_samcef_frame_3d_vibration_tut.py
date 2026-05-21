@@ -26,7 +26,7 @@ Samtech SA Liège, Belgium.
 import context
 from pystran import model
 from pystran import section
-from pystran import freedoms
+
 from pystran import plots
 
 # The material is steel, SI units (m).
@@ -63,6 +63,7 @@ a = 5.49
 b = 3.66
 
 m = model.create(3)
+freedoms = m["freedoms"]
 
 # Bottoms of columns.
 model.add_joint(m, 1, [0.0, 0.0, 0.0])

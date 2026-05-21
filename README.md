@@ -11,9 +11,8 @@ and beam members, springs, and rigid bodies, both in two dimensions and in three
 
 ## News
 
-- 11/08/2025: Add publishing workflow.
-- 03/13/2025: Update documentation for the sphinx system.
-- 03/10/2025: Add rigid links and general springs.
+- 05/21/2026: Refactoring.
+
 
 
 [Past news](#past-news)
@@ -62,8 +61,13 @@ More details about the generation of the documentation are [here](docs/make_docs
 
 ## Running
 
-This package is not distributed through the official Python channels.
-It needs to be downloaded from GitHub as a zip file, and expanded in some convenient location. 
+This package is distributed through the official Python channels (https://pypi.org).
+Just do
+```
+pip install pystran
+```
+
+It may also to be downloaded from GitHub as a zip file, and expanded in some convenient location. 
 
 The __`pystran` folder__ can be located by looking for this README.md file.
 
@@ -94,6 +98,9 @@ and analogously for the other unit test files.
 
 ## <a name="past-news"></a>Past news
 
+- 11/08/2025: Add publishing workflow.
+- 03/13/2025: Update documentation for the sphinx system.
+- 03/10/2025: Add rigid links and general springs.
 - 03/05/2025: Describe the operation of the scripts.
 - 02/12/2025: Make it possible to use general joint and member identifiers.
 - 02/05/2025: Add general springs to ground.

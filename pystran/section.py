@@ -148,6 +148,8 @@ def spring_section(name, kind, direction, stiffness_coefficient=1.0):
     """
     s = dict()
     s["name"] = name
+    if kind not in ["extension", "torsion"]:
+        raise ValueError("kind must be either 'extension' or 'torsion'")
     s["kind"] = kind
     s["direction"] = direction
     s["stiffness_coefficient"] = stiffness_coefficient

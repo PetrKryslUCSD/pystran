@@ -23,7 +23,6 @@ from numpy.linalg import norm
 import context
 from pystran import model
 from pystran import section
-from pystran import freedoms
 from pystran import plots
 
 # US customary units, inches, pounds, seconds are assumed.
@@ -36,6 +35,7 @@ A = 10.0  # cross-sectional area does not influence the results
 L = 10 * 12  # span in inches
 
 m = model.create(2)
+freedoms = m["freedoms"]
 
 # First we create the four joints given in the textbook.
 model.add_joint(m, 1, [0.0, 0.0])

@@ -22,7 +22,7 @@ Robert E. Sennett, ISBN 978-1577661436 (Section 3.8).
 import context
 from pystran import model
 from pystran import section
-from pystran import freedoms
+
 from pystran import beam
 from pystran import plots
 
@@ -37,6 +37,7 @@ L = 10 * 12  # span in inchesc
 
 # The model is created as two dimensional.
 m = model.create(2)
+freedoms = m["freedoms"]
 
 model.add_joint(m, 1, [0.0, 0.0])
 model.add_joint(m, 2, [L, 0.0])

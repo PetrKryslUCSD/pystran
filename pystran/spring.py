@@ -4,9 +4,7 @@ Define mechanical quantities of general springs.
 
 from numpy import array, outer, concatenate
 from pystran import assemble
-from pystran import freedoms
-
-
+10
 def _spring_2d_stiffness(kind, direction, stiffness_coefficient):
     if kind == "torsion":
         return array([stiffness_coefficient])
@@ -52,18 +50,12 @@ def assemble_stiffness(Kg, member, i, j):
     :func:`pystran.assemble.assemble`
     """
     sect = member["section"]
-    kind = sect["kind"]
     stiffness_coefficient = sect["stiffness_coefficient"]
     direction = sect["direction"]
     dim = len(j["coordinates"])
     if dim == 2:
-        k = _spring_2d_stiffness(kind, direction, stiffness_coefficient)
+        k = _spring_2d_stiffness(sect['kind'], direction, stiffness_coefficient)
     else:
         k = _spring_3d_stiffness(direction, stiffness_coefficient)
-    if kind == "extension":
-        dr = freedoms.translation_dofs(dim)
-        dof = [i["dof"][d] for d in dr] + [j["dof"][d] for d in dr]
-    else:  # torsion
-        dr = freedoms.rotation_dofs(dim)
-        dof = [i["dof"][d] for d in dr] + [j["dof"][d] for d in dr]
+    dof = [i["dof"][d] for d in member["dofkind"]] + [j["dof"][d] for d in member["dofkind"]]
     Kg = assemble.assemble(Kg, dof, k)

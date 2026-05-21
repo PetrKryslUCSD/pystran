@@ -556,7 +556,7 @@ def beam_2d_moment(member, i, j, xi):
     ui, uj = i["displacements"], j["displacements"]
     u = concatenate([ui, uj])
     B = beam_2d_curv_displ_matrix(e_z, h, xi)
-    return -E * I * dot(B, u)
+    return (-E * I * dot(B, u))[0] # return a scalar
 
 
 def beam_3d_moment(member, i, j, axis, xi):
@@ -604,7 +604,7 @@ def beam_3d_moment(member, i, j, axis, xi):
     else:
         B = beam_3d_xy_curv_displ_matrix(e_y, e_z, h, xi)
         M = +E * Iz * dot(B, u)
-    return M
+    return M[0] # return a scalar
 
 
 def beam_3d_torsion_moment(member, i, j, xi):
@@ -643,7 +643,7 @@ def beam_3d_torsion_moment(member, i, j, xi):
     u = concatenate([ui, uj])
     B = beam_3d_torsion_displ_matrix(e_x, h, 0.0)  # single-point integration
     T = G * J * dot(B, u)
-    return T
+    return T[0] # return a scalar
 
 
 def beam_2d_axial_force(member, i, j, xi):
@@ -684,7 +684,7 @@ def beam_2d_axial_force(member, i, j, xi):
     u = concatenate([ui, uj])
     B = truss.truss_strain_displacement(e_x, h)
     N = E * A * dot(B, u)
-    return N
+    return N[0] # return a scalar
 
 
 def beam_3d_axial_force(member, i, j, xi):
@@ -721,7 +721,7 @@ def beam_3d_axial_force(member, i, j, xi):
     u = concatenate([ui, uj])
     B = beam_3d_stretch_displ_matrix(e_x, h, 0.0)  # single-point integration
     N = E * A * dot(B, u)
-    return N
+    return N[0] # return a scalar
 
 
 def beam_3d_shear_force(member, i, j, axis, xi):
@@ -761,7 +761,7 @@ def beam_3d_shear_force(member, i, j, axis, xi):
     else:
         B = beam_3d_xy_3rd_deriv_displ_matrix(e_y, e_z, h)
         Q = -E * Iz * dot(B, u)
-    return Q
+    return Q[0]
 
 
 def beam_2d_shear_force(member, i, j, xi):
@@ -794,7 +794,7 @@ def beam_2d_shear_force(member, i, j, xi):
     ui, uj = i["displacements"], j["displacements"]
     u = concatenate([ui, uj])
     B = beam_2d_3rd_deriv_displ_matrix(e_z, h)
-    return -E * I * dot(B, u)
+    return (-E * I * dot(B, u))[0] # return a scalar
 
 
 def beam_3d_stretch_displ_matrix(e_x, h, xi):
@@ -1216,18 +1216,18 @@ def beam_3d_end_forces(member, i, j):
     Qzi = beam_3d_shear_force(member, i, j, "z", -1.0)
     Qzj = -beam_3d_shear_force(member, i, j, "z", +1.0)
     return dict(
-        Ni=Ni[0],
-        Qyi=Qyi[0],
-        Qzi=Qzi[0],
-        Ti=Ti[0],
-        Myi=Myi[0],
-        Mzi=Mzi[0],
-        Nj=Nj[0],
-        Qyj=Qyj[0],
-        Qzj=Qzj[0],
-        Tj=Tj[0],
-        Myj=Myj[0],
-        Mzj=Mzj[0],
+        Ni=Ni,
+        Qyi=Qyi,
+        Qzi=Qzi,
+        Ti=Ti,
+        Myi=Myi,
+        Mzi=Mzi,
+        Nj=Nj,
+        Qyj=Qyj,
+        Qzj=Qzj,
+        Tj=Tj,
+        Myj=Myj,
+        Mzj=Mzj,
     )
 
 
@@ -1260,10 +1260,10 @@ def beam_2d_end_forces(member, i, j):
     Qzi = beam_2d_shear_force(member, i, j, -1.0)
     Qzj = -beam_2d_shear_force(member, i, j, +1.0)
     return dict(
-        Ni=Ni[0],
-        Qzi=Qzi[0],
-        Myi=Myi[0],
-        Nj=Nj[0],
-        Qzj=Qzj[0],
-        Myj=Myj[0],
+        Ni=Ni,
+        Qzi=Qzi,
+        Myi=Myi,
+        Nj=Nj,
+        Qzj=Qzj,
+        Myj=Myj,
     )

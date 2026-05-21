@@ -27,7 +27,7 @@ from pystran import model
 from pystran import section
 from pystran import plots
 from pystran import beam
-from pystran import freedoms
+
 
 # Define a few constants:
 # US customary units, inches, pounds, seconds are assumed.
@@ -40,6 +40,7 @@ Ttop = 70  # temperature at the top of beam 2
 depth = 10  # depth of the beam section
 
 m = model.create(2)
+freedoms = m["freedoms"]
 
 # The locations are in inches.
 model.add_joint(m, 1, [0.0, 0.0])

@@ -11,7 +11,6 @@ from numpy.linalg import norm
 from pystran import model
 from pystran import section
 from pystran import geometry
-from pystran import freedoms
 from pystran import beam
 from pystran import truss
 from pystran import rotation
@@ -32,13 +31,6 @@ class UnitTestsPlanarFrames(unittest.TestCase):
         only the added masses.
         """
 
-        from math import sqrt, pi
-        from numpy import array
-        from numpy.linalg import norm
-        from pystran import model
-        from pystran import section
-        from pystran import plots
-
         E = 2.0e11
         G = E / (2 * (1 + 0.3))
         rho = 7.85e3 / 10000  # artificially reduce the mass density of the beam
@@ -53,6 +45,7 @@ class UnitTestsPlanarFrames(unittest.TestCase):
         g = 9.81
 
         m = model.create(2)
+        freedoms = m["freedoms"]
 
         model.add_joint(m, 1, [0.0, 3 * L])
         model.add_joint(m, 2, [0.0, 2 * L])
@@ -118,6 +111,7 @@ class UnitTestsPlanarFrames(unittest.TestCase):
         L = 10 * 12  # span in inchesc
 
         m = model.create(2)
+        freedoms = m["freedoms"]
 
         model.add_joint(m, 1, [0.0, 0.0])
         model.add_joint(m, 2, [L, 0.0])
@@ -206,6 +200,7 @@ class UnitTestsPlanarFrames(unittest.TestCase):
         L = 10 * 12  # span in inches
 
         m = model.create(2)
+        freedoms = m["freedoms"]
 
         model.add_joint(m, 1, [0.0, 0.0])
         model.add_joint(m, 2, [0, L])
@@ -319,6 +314,7 @@ class UnitTestsPlanarFrames(unittest.TestCase):
         I = H * B**3 / 12
 
         m = model.create(2)
+        freedoms = m["freedoms"]
 
         model.add_joint(m, 1, [-0.3, 0.0])
         model.add_joint(m, 2, [-0.3, 0.810])
@@ -418,6 +414,7 @@ class UnitTestsPlanarFrames(unittest.TestCase):
         rho = 1e-12  # artificially reduce the mass density of the beam
 
         m = model.create(2)
+        freedoms = m["freedoms"]
 
         model.add_joint(m, 1, [0.0, 0.0])
         model.add_joint(m, 2, [da, 0.0])

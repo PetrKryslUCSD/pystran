@@ -29,7 +29,7 @@ from numpy.linalg import norm
 import context
 from pystran import model
 from pystran import section
-from pystran import freedoms
+
 from pystran import plots
 from pystran import beam
 
@@ -52,6 +52,7 @@ M = 41000 * 12  # Applied moment at joint 2 in lb-in
 
 # The model is created as three dimensional (3 as argument!).
 m = model.create(3)
+freedoms = m["freedoms"]
 
 # Joints are added at their locations, and the supports of the clamped
 # joints are specified.

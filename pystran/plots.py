@@ -494,7 +494,7 @@ def _largest_mag_on_beam_members(m, fun):
             i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
             for xi in linspace(-1, +1, 2):
                 mmag = abs(fun(member, i, j, xi))
-                maxmag = max(maxmag, mmag[0])
+                maxmag = max(maxmag, mmag)
     return maxmag
 
 
@@ -505,7 +505,7 @@ def _largest_mag_on_truss_members(m, fun):
             connectivity = member["connectivity"]
             i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
             mmag = abs(fun(member, i, j))
-            maxmag = max(maxmag, mmag[0])
+            maxmag = max(maxmag, mmag)
     return maxmag
 
 
@@ -520,15 +520,15 @@ def _plot_2d_beam_moments(ax, member, i, j, scale, nearly_zero = 1000 * _myeps):
         xs = zeros(2)
         ys = zeros(2)
         xs[0] = x[0]
-        xs[1] = x[0] + scale * M[0] * e_z[0]
+        xs[1] = x[0] + scale * M * e_z[0]
         ys[0] = x[1]
-        ys[1] = x[1] + scale * M[0] * e_z[1]
-        ax.plot(xs, ys, "r-" if (M[0] > 0) else "b-")
-        if abs(M) < nearly_zero / scale: M[0] = 0.0
+        ys[1] = x[1] + scale * M * e_z[1]
+        ax.plot(xs, ys, "r-" if (M > 0) else "b-")
+        if abs(M) < nearly_zero / scale: M = 0.0
         if xi == -1.0:
-            ax.text(xs[1], ys[1], str(f"{M[0]:.5}"), bbox=forc_mom_bbox_prop)
+            ax.text(xs[1], ys[1], str(f"{M:.5}"), bbox=forc_mom_bbox_prop)
         elif xi == +1.0:
-            ax.text(xs[1], ys[1], str(f"{M[0]:.5}"), bbox=forc_mom_bbox_prop)
+            ax.text(xs[1], ys[1], str(f"{M:.5}"), bbox=forc_mom_bbox_prop)
     return ax
 
 
@@ -554,12 +554,12 @@ def _plot_3d_beam_moments(ax, member, i, j, axis, scale, nearly_zero = 1000 * _m
         zs[0] = x[2]
         zs[1] = zs[0] + scale * M * dirv[2]
         ax.plot(xs, ys, zs, "r-" if (M > 0) else "b-")
-        if abs(M) < nearly_zero / scale: M[0] = 0.0
+        if abs(M) < nearly_zero / scale: M = 0.0
         if xi == -1.0:
-            ax.text(xs[1], ys[1], zs[1], str(f"{M[0]:.5}"), 
+            ax.text(xs[1], ys[1], zs[1], str(f"{M:.5}"), 
                     bbox=forc_mom_bbox_prop)
         elif xi == +1.0:
-            ax.text(xs[1], ys[1], zs[1], str(f"{M[0]:.5}"), 
+            ax.text(xs[1], ys[1], zs[1], str(f"{M:.5}"), 
                     bbox=forc_mom_bbox_prop)
     return ax
 
@@ -619,13 +619,13 @@ def _plot_2d_beam_shear_forces(ax, member, i, j, scale, nearly_zero = 1000 * _my
         xs = zeros(2)
         ys = zeros(2)
         xs[0] = x[0]
-        xs[1] = x[0] + scale * Q[0] * e_z[0]
+        xs[1] = x[0] + scale * Q * e_z[0]
         ys[0] = x[1]
-        ys[1] = x[1] + scale * Q[0] * e_z[1]
-        ax.plot(xs, ys, "r-" if (Q[0] > 0) else "b-")
-        if abs(Q) < nearly_zero / scale: Q[0] = 0.0
+        ys[1] = x[1] + scale * Q * e_z[1]
+        ax.plot(xs, ys, "r-" if (Q > 0) else "b-")
+        if abs(Q) < nearly_zero / scale: Q = 0.0
         if xi == 0.0:
-            ax.text(xs[1], ys[1], str(f"{Q[0]:.5}"), bbox=forc_mom_bbox_prop)
+            ax.text(xs[1], ys[1], str(f"{Q:.5}"), bbox=forc_mom_bbox_prop)
     return ax
 
 
@@ -644,18 +644,18 @@ def _plot_3d_beam_shear_forces(ax, member, i, j, axis, scale, nearly_zero = 1000
         ys = zeros(2)
         zs = zeros(2)
         xs[0] = x[0]
-        xs[1] = xs[0] + scale * Q[0] * dirv[0]
+        xs[1] = xs[0] + scale * Q * dirv[0]
         ys[0] = x[1]
-        ys[1] = ys[0] + scale * Q[0] * dirv[1]
+        ys[1] = ys[0] + scale * Q * dirv[1]
         zs[0] = x[2]
-        zs[1] = zs[0] + scale * Q[0] * dirv[2]
-        ax.plot(xs, ys, zs, "r-" if (Q[0] > 0) else "b-")
-        if abs(Q) < nearly_zero / scale: Q[0] = 0.0
+        zs[1] = zs[0] + scale * Q * dirv[2]
+        ax.plot(xs, ys, zs, "r-" if (Q > 0) else "b-")
+        if abs(Q) < nearly_zero / scale: Q = 0.0
         if xi == -1.0:
-            ax.text(xs[1], ys[1], zs[1], str(f"{Q[0]:.5}"), 
+            ax.text(xs[1], ys[1], zs[1], str(f"{Q:.5}"), 
                     bbox=forc_mom_bbox_prop)
         elif xi == +1.0:
-            ax.text(xs[1], ys[1], zs[1], str(f"{Q[0]:.5}"),
+            ax.text(xs[1], ys[1], zs[1], str(f"{Q:.5}"),
                     bbox=forc_mom_bbox_prop)
     return ax
 
@@ -714,12 +714,12 @@ def _plot_2d_beam_axial_forces(ax, member, i, j, scale):
         xs = zeros(2)
         ys = zeros(2)
         xs[0] = x[0]
-        xs[1] = x[0] + scale * N[0] * e_z[0]
+        xs[1] = x[0] + scale * N * e_z[0]
         ys[0] = x[1]
-        ys[1] = x[1] + scale * N[0] * e_z[1]
-        ax.plot(xs, ys, "r-" if (N[0] > 0) else "b-")
+        ys[1] = x[1] + scale * N * e_z[1]
+        ax.plot(xs, ys, "r-" if (N > 0) else "b-")
         if xi == 0.0:
-            ax.text(xs[1], ys[1], str(f"{N[0]:.5}"),
+            ax.text(xs[1], ys[1], str(f"{N:.5}"),
                     bbox=forc_mom_bbox_prop)
     return ax
 
@@ -734,12 +734,12 @@ def _plot_2d_truss_axial_forces(ax, member, i, j, scale):
         xs = zeros(2)
         ys = zeros(2)
         xs[0] = x[0]
-        xs[1] = x[0] + scale * N[0] * e_z[0]
+        xs[1] = x[0] + scale * N * e_z[0]
         ys[0] = x[1]
-        ys[1] = x[1] + scale * N[0] * e_z[1]
-        ax.plot(xs, ys, "r-" if (N[0] > 0) else "b-")
+        ys[1] = x[1] + scale * N * e_z[1]
+        ax.plot(xs, ys, "r-" if (N > 0) else "b-")
         if xi == 0.0:
-            ax.text(xs[1], ys[1], str(f"{N[0]:.5}"), 
+            ax.text(xs[1], ys[1], str(f"{N:.5}"), 
                     bbox=forc_mom_bbox_prop)
     return ax
 
@@ -761,14 +761,14 @@ def _plot_3d_truss_beam_axial_forces(ax, member, i, j, scale):
         ys = zeros(2)
         zs = zeros(2)
         xs[0] = x[0]
-        xs[1] = xs[0] + scale * N[0] * dirv[0]
+        xs[1] = xs[0] + scale * N * dirv[0]
         ys[0] = x[1]
-        ys[1] = ys[0] + scale * N[0] * dirv[1]
+        ys[1] = ys[0] + scale * N * dirv[1]
         zs[0] = x[2]
-        zs[1] = zs[0] + scale * N[0] * dirv[2]
-        ax.plot(xs, ys, zs, "r-" if (N[0] > 0) else "b-")
+        zs[1] = zs[0] + scale * N * dirv[2]
+        ax.plot(xs, ys, zs, "r-" if (N > 0) else "b-")
         if xi == 0.0:
-            ax.text(xs[1], ys[1], zs[1], str(f"{N[0]:.5}"),
+            ax.text(xs[1], ys[1], zs[1], str(f"{N:.5}"),
                     bbox=forc_mom_bbox_prop)
     return ax
 
@@ -845,14 +845,14 @@ def _plot_3d_beam_torsion_moments(ax, member, i, j, scale):
         ys = zeros(2)
         zs = zeros(2)
         xs[0] = x[0]
-        xs[1] = xs[0] + scale * T[0] * dirv[0]
+        xs[1] = xs[0] + scale * T * dirv[0]
         ys[0] = x[1]
-        ys[1] = ys[0] + scale * T[0] * dirv[1]
+        ys[1] = ys[0] + scale * T * dirv[1]
         zs[0] = x[2]
-        zs[1] = zs[0] + scale * T[0] * dirv[2]
-        ax.plot(xs, ys, zs, "r-" if (T[0] > 0) else "b-")
+        zs[1] = zs[0] + scale * T * dirv[2]
+        ax.plot(xs, ys, zs, "r-" if (T > 0) else "b-")
         if xi == 0.0:
-            ax.text(xs[1], ys[1], zs[1], str(f"{T[0]:.5}"), 
+            ax.text(xs[1], ys[1], zs[1], str(f"{T:.5}"), 
                     bbox=forc_mom_bbox_prop)
     return ax
 

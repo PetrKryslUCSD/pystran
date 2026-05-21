@@ -11,7 +11,7 @@ from numpy.linalg import norm
 from pystran import model
 from pystran import section
 from pystran import geometry
-from pystran import freedoms
+
 from pystran import beam
 from pystran import truss
 from pystran import rotation
@@ -41,6 +41,7 @@ class UnitTestsPlanarTrusses(unittest.TestCase):
         """
 
         m = model.create(3)
+        freedoms = m["freedoms"]
 
         model.add_joint(m, 1, [0.0, 0.0, 0.32346000e1])
         model.add_joint(m, 2, [0.49212500e1, 0.85239000e1, 0.24472000e1])
@@ -123,7 +124,7 @@ class UnitTestsPlanarTrusses(unittest.TestCase):
         # from pystran import section
         # from pystran import truss
         # from pystran import geometry
-        # from pystran import freedoms
+        # 
         # from pystran import plots
 
         # US SI(m) units
@@ -131,6 +132,9 @@ class UnitTestsPlanarTrusses(unittest.TestCase):
         CTE = 1.4e-5  # 1/degC
         A = 900  # mm^2
         DeltaT = {1: 20.0, 2: 70.0, 3: 20.0}  # temperatures of the bars
+
+        m = model.create(2)
+        freedoms = m["freedoms"]
 
         def add_thermal_loads(m):
             for member in m["truss_members"].values():
@@ -146,8 +150,6 @@ class UnitTestsPlanarTrusses(unittest.TestCase):
                 model.add_load(i, freedoms.U2, -nd[1] * N_T)
                 model.add_load(j, freedoms.U1, +nd[0] * N_T)
                 model.add_load(j, freedoms.U2, +nd[1] * N_T)
-
-        m = model.create(2)
 
         model.add_joint(m, 1, [-2121.32, 2121.32])
         model.add_joint(m, 2, [0.0, 2121.32])
@@ -231,7 +233,7 @@ class UnitTestsPlanarTrusses(unittest.TestCase):
         #         # from pystran import model
         # from pystran import section
         # from pystran import geometry
-        # from pystran import freedoms
+        # 
         # from pystran import plots
 
         # US SI(m) units
@@ -255,6 +257,10 @@ class UnitTestsPlanarTrusses(unittest.TestCase):
         # thermally expand since its coefficient of thermal expansion is set to zero.
         sr = section.truss_section("sr", E=E, A=Ar, CTE=0.0)
 
+        # Create the model by defining joints and truss members.
+        m = model.create(2)
+        freedoms = m["freedoms"]
+
         # A helper function to set up the thermal loads.
         def add_thermal_loads(m):
             """Set up thermal loads."""
@@ -272,9 +278,6 @@ class UnitTestsPlanarTrusses(unittest.TestCase):
                     model.add_load(_i, freedoms.U2, -nd[1] * N_T)
                     model.add_load(_j, freedoms.U1, +nd[0] * N_T)
                     model.add_load(_j, freedoms.U2, +nd[1] * N_T)
-
-        # Create the model by defining joints and truss members.
-        m = model.create(2)
 
         model.add_joint(m, 1, [0.0, 0.0])  # A
         model.add_joint(m, 2, [0.0, 4.0])

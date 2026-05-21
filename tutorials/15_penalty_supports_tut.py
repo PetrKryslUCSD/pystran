@@ -26,7 +26,6 @@ import context
 from pystran import model
 from pystran import section
 from pystran import geometry
-from pystran import freedoms
 from pystran import plots
 
 # Define a few constants:
@@ -51,6 +50,7 @@ def compute_area(_m, connectivity, _E, _kbars):
 
 # Set up the model and the joints.
 m = model.create(2)
+freedoms = m["freedoms"]
 model.add_joint(m, 1, [-20 * 12, -10 * 12])
 model.add_joint(m, 2, [-10 * 12, 0.0])
 model.add_joint(m, 3, [0.0, -10 * 12])

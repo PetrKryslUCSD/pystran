@@ -24,7 +24,6 @@ from numpy.linalg import norm
 import context
 from pystran import model
 from pystran import section
-from pystran import freedoms
 from pystran import plots
 
 # The material properties and the geometry of the truss are assumed here at
@@ -47,6 +46,7 @@ def normalized_analyt(om2):
 
 # The geometry is given in Figure 5.15 of the reference book.
 m = model.create(2)
+freedoms = m["freedoms"]
 
 model.add_joint(m, 1, [0.0, 0.0])
 model.add_joint(m, 2, [1 * L, 0.0])

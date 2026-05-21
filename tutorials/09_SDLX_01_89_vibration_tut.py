@@ -20,7 +20,7 @@ SCIA Engineer 24.0.1020 test case SDLX 01/89
 import context
 from pystran import model
 from pystran import section
-from pystran import freedoms
+
 from pystran import plots
 
 # The material is steel, SI units (m).
@@ -33,6 +33,7 @@ A = H * B
 I = H * B**3 / 12
 
 m = model.create(2)
+freedoms = m["freedoms"]
 
 model.add_joint(m, 1, [-0.3, 0.0])
 model.add_joint(m, 2, [-0.3, 0.810])

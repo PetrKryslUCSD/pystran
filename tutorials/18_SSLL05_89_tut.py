@@ -26,7 +26,6 @@ Force. www.icab.fr
 import context
 from pystran import model
 from pystran import section
-from pystran import freedoms
 from pystran import plots
 import numpy
 
@@ -46,6 +45,7 @@ F = 1.0e3
 sr = section.rigid_link_section("sr", Gamma=1e8 * numpy.diagflat([1.0, 1.0, 1.0]))
 
 m = model.create(2)
+freedoms = m["freedoms"]
 
 model.add_joint(m, 1, (0.0, 0.0))
 model.add_joint(m, 2, (h, 0.0))

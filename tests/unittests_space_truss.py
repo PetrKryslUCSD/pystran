@@ -11,7 +11,7 @@ from numpy.linalg import norm
 from pystran import model
 from pystran import section
 from pystran import geometry
-from pystran import freedoms
+
 from pystran import beam
 from pystran import truss
 from pystran import rotation
@@ -46,6 +46,7 @@ class UnitTestsSpaceTruss(unittest.TestCase):
         # from pystran import plots
 
         m = model.create(3)
+        freedoms = m["freedoms"]
 
         model.add_joint(m, 1, [0.0, 0.0, 0.32346000e1])
         model.add_joint(m, 2, [0.49212500e1, 0.85239000e1, 0.24472000e1])

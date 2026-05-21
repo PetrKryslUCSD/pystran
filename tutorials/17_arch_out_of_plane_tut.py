@@ -29,7 +29,6 @@ Force. www.icab.fr
 import context
 from pystran import model
 from pystran import section
-from pystran import freedoms
 from pystran import rotation
 from pystran import plots
 from numpy import array, dot, pi
@@ -43,6 +42,7 @@ E = 2e5  # MPa
 G = 7.6923e4  # MPa
 
 m = model.create(3)
+freedoms = m["freedoms"]
 
 # The mesh is generated along the arc.
 NUM_JOINTS = 15

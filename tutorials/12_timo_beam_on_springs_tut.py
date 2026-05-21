@@ -24,7 +24,6 @@ from math import sqrt, pi
 import context
 from pystran import model
 from pystran import section
-from pystran import freedoms
 from pystran import plots
 
 # US customary units, converted to inches, lbf, and lbm
@@ -39,6 +38,7 @@ I = 1.0
 rho = 1e-12  # artificially reduce the mass density of the beam
 
 m = model.create(2)
+freedoms = m["freedoms"]
 
 model.add_joint(m, 1, [0.0, 0.0])
 model.add_joint(m, 2, [da, 0.0])

@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.abspath("../.."))
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "pystran"
-copyright = "2025, Petr Krysl"
+copyright = "2025-2026, Petr Krysl"
 author = "Petr Krysl"
 release = "0.1.0"
 

@@ -213,7 +213,7 @@ def member_2d_geometry(i, j):
     return e_x, e_z, h
 
 
-def member_3d_geometry(i, j, xz_vector = []):
+def member_3d_geometry(i, j, xz_vector = None):
     r"""
     Compute 3d member geometry.
 
@@ -239,7 +239,7 @@ def member_3d_geometry(i, j, xz_vector = []):
         The vector that defines the :math:`x-z` plane of the member-local
         coordinate system. It does not need to be of unit length, but it must
         not be parallel to the member axis. This vector is not defined for a
-        truss member, and will be passed in as empty. Heuristics will be then
+        truss member, and will be passed in as `None`. Heuristics will be then
         used to orient the planes.
 
     Returns
@@ -256,7 +256,7 @@ def member_3d_geometry(i, j, xz_vector = []):
     if h <= 0.0:
         raise ZeroDivisionError("Length of element must be positive")
     e_x /= h  # normalize the unit length
-    if len(xz_vector) == 0:
+    if xz_vector is None:
         xz_vector = array([1.0, 0.0, 0.0])
         if abs(dot(e_x, xz_vector)) > 0.99 * norm(xz_vector):
             xz_vector = array([0.0, 1.0, 0.0])

@@ -44,11 +44,6 @@ def create(dim=2):
     :func:`add_load`
     :func:`add_mass`
     :func:`add_dof_links`
-    :func:`number_dofs`
-    :func:`solve_statics`
-    :func:`statics_reactions`
-    :func:`solve_eigenvalue`
-    :func:`solve_eigenvalue_modal`
 
     """
     m = {}
@@ -310,8 +305,6 @@ def add_load(j, dof, value):
     Returns
     -------
     None
-
-    
     """
     if "loads" not in j:
         j["loads"] = {}
@@ -361,10 +354,11 @@ def add_dof_links(m, jids, dof):
     Returns
     -------
     None
-
     
     """
     # Now add the mutual links between the joints
+    if 'joints' not in m:
+        raise RuntimeError("No joints in the model")
     for jid1 in jids:
         for jid2 in jids:
             if jid1 != jid2:
@@ -464,7 +458,7 @@ def ndof_per_joint(m):
     Returns
     -------
     int
-        Number of the degrees of freedom per joint. Depends on the space
+        How many degrees of freedom are there per joint? Depends on the space
         dimension of the model and the presence or absence of beams.
     """
     ndpn = m["dim"]
@@ -500,6 +494,8 @@ def number_dofs(m):
     -------
     None
     """
+    if "joints" not in m:
+        raise RuntimeError("No joints in the model")
     # Determine the number of degrees of freedom per joint
     ndpn = ndof_per_joint(m)
     # Generate arrays for storing the degrees of freedom

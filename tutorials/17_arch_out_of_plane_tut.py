@@ -109,6 +109,6 @@ plots.show(m)
 # Also plot the torsion moment.
 ax = plots.setup(m)
 plots.plot_members(m)
-plots.plot_torsion_moments(m)
+plots.plot_torsion_moments(m, scale=0.01)
 ax.set_title("Torsion moment")
 plots.show(m)

@@ -256,7 +256,7 @@ def member_3d_geometry(i, j, xz_vector = None):
     if h <= 0.0:
         raise ZeroDivisionError("Length of element must be positive")
     e_x /= h  # normalize the unit length
-    if xz_vector is None:
+    if xz_vector is None or norm(xz_vector) <= 0.0:
         xz_vector = array([1.0, 0.0, 0.0])
         if abs(dot(e_x, xz_vector)) > 0.99 * norm(xz_vector):
             xz_vector = array([0.0, 1.0, 0.0])

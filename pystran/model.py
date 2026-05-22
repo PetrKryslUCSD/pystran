@@ -7,7 +7,7 @@ from numpy import array, zeros, dot, mean, concatenate, float64, int32, inf
 from scipy.linalg import solve, eigh
 from collections import namedtuple
 from pystran import truss, beam, spring, rigid
-
+from numbers import Integral
 
 def create(dim=2):
     """
@@ -35,20 +35,20 @@ def create(dim=2):
 
     See Also
     --------
-        :func:`add_joint`
-        :func:`add_truss_member`
-        :func:`add_beam_member`
-        :func:`add_rigid_link_member`
-        :func:`add_spring_member`
-        :func:`add_support`
-        :func:`add_load`
-        :func:`add_mass`
-        :func:`add_dof_links`
-        :func:`number_dofs`
-        :func:`solve_statics`
-        :func:`statics_reactions`
-        :func:`solve_eigenvalue`
-        :func:`solve_eigenvalue_modal`
+    :func:`add_joint`
+    :func:`add_truss_member`
+    :func:`add_beam_member`
+    :func:`add_rigid_link_member`
+    :func:`add_spring_member`
+    :func:`add_support`
+    :func:`add_load`
+    :func:`add_mass`
+    :func:`add_dof_links`
+    :func:`number_dofs`
+    :func:`solve_statics`
+    :func:`statics_reactions`
+    :func:`solve_eigenvalue`
+    :func:`solve_eigenvalue_modal`
 
     """
     m = {}
@@ -263,7 +263,7 @@ def add_spring_member(m, mid, connectivity, sect):
     return m["spring_members"][mid]
 
 def _dof_is_int(dof):
-    return dof in range(6)
+    return isinstance(dof, Integral)
 
 def add_support(j, dof, value=0.0):
     """

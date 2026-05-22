@@ -256,6 +256,10 @@ def member_3d_geometry(i, j, xz_vector = None):
     if h <= 0.0:
         raise ZeroDivisionError("Length of element must be positive")
     e_x /= h  # normalize the unit length
+    # If the xz_vector is not provided, or if it is supplied as empty, 
+    # we need to heuristically orient the planes. We choose the xz_vector 
+    # to be along the global x axis, unless that is parallel to the beam 
+    # axis, in which case we choose the global y axis.
     if xz_vector is None or norm(xz_vector) <= 0.0:
         xz_vector = array([1.0, 0.0, 0.0])
         if abs(dot(e_x, xz_vector)) > 0.99 * norm(xz_vector):

@@ -4,7 +4,7 @@ Define mechanical quantities of general springs.
 
 from numpy import array, outer, concatenate
 from pystran import assemble
-10
+
 def _spring_2d_stiffness(kind, direction, stiffness_coefficient):
     if kind == "torsion":
         return array([stiffness_coefficient])

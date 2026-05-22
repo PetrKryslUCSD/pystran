@@ -282,5 +282,5 @@ def truss_axial_force(member, i, j, xi):
         ui, uj = i["displacements"][0:3], j["displacements"][0:3]
     u = concatenate([ui, uj])
     B = truss_strain_displacement(e_x, h)
-    N = E * A * dot(B, u)
+    N = (E * A * dot(B, u))[0]
     return N

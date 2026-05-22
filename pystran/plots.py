@@ -449,7 +449,7 @@ def plot_member_ids(m):
     return ax
 
 
-def plot_joint_ids(m, offsets = []):
+def plot_joint_ids(m, offsets = None):
     """
     Plot the joint identifiers.
 
@@ -463,7 +463,7 @@ def plot_joint_ids(m, offsets = []):
         from the location of the joint. Default is
         an empty list, which means the offsets will be zero.
     """
-    if len(offsets) == 0:
+    if offsets is None:
         offsets = [0, 0, 0]
     ax = plt.gca()
     for j in m["joints"].values():

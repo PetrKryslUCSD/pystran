@@ -40,8 +40,6 @@ _myeps = numpy.finfo(float).eps
 
 forc_mom_bbox_prop = dict(facecolor='white', boxstyle='round,pad=0.5')
 
-# fig = plt.figure(figsize=(9,9))
-# ax = plt.gca()
 def _drawcirc(ax, radius, centX, centY, angle_, theta2_, sense, color_="black"):
     "A little circle helper"
     # ========Line
@@ -146,6 +144,7 @@ def setup(m, set_limits=False):
         returned.
     """
     fig = plt.figure()
+    m['fig'] = fig # plotting objects saved
     if m["dim"] == 3:
         ax = fig.add_subplot(projection="3d")
     else:
@@ -155,6 +154,7 @@ def setup(m, set_limits=False):
             cd = characteristic_dimension(m)
             ax.set_xlim([box[0] - cd / 10, box[2] + cd / 10])
             ax.set_ylim([box[1] - cd / 10, box[3] + cd / 10])
+    m['ax'] = ax # plotting objects saved
     return ax
 
 
@@ -203,6 +203,8 @@ def plot_members(m, max_area=0.0, max_linewidth=2, min_area=0.0, min_linewidth=2
 
     All truss, rigid link, and beam members will be included.
     """
+    if not ('fig' in m):
+        setup(m)
     all_members = [m[k].values() for k in ["truss_members", "beam_members"] if k in m]
     if max_area == 0.0:
         _, max_area = _area_extrema(all_members)
@@ -212,7 +214,7 @@ def plot_members(m, max_area=0.0, max_linewidth=2, min_area=0.0, min_linewidth=2
     def lw(member):
         return _linewidth(area(member), min_area, max_area, minlw, maxlw)
 
-    ax = plt.gca()
+    ax = m['ax']
     if m["dim"] == 3:
         for members in all_members:
             for member in members:
@@ -352,6 +354,8 @@ def plot_deformations(m, scale=0.0):
     and rigid links will be displayed as straight; beam members will be
     displayed using the cubic shape functions.
     """
+    if not ('fig' in m):
+        setup(m)
     cd = characteristic_dimension(m)
 
     def fun(j):
@@ -365,7 +369,7 @@ def plot_deformations(m, scale=0.0):
         if maxmag != 0:
             scale = cd / 5 / maxmag
 
-    ax = plt.gca()
+    ax = m['ax']
     if "truss_members" in m:
         for member in m["truss_members"].values():
             connectivity = member["connectivity"]
@@ -388,7 +392,7 @@ def plot_deformations(m, scale=0.0):
 
 
 def _plot_member_ids_2d(m):
-    ax = plt.gca()
+    ax = m['ax']
     if "truss_members" in m:
         for jid in m["truss_members"].keys():
             member = m["truss_members"][jid]
@@ -411,7 +415,7 @@ def _plot_member_ids_2d(m):
 
 
 def _plot_member_ids_3d(m):
-    ax = plt.gca()
+    ax = m['ax']
     if "truss_members" in m:
         for jid in m["truss_members"].keys():
             member = m["truss_members"][jid]
@@ -442,6 +446,8 @@ def plot_member_ids(m):
     m
         Model dictionary.
     """
+    if not ('fig' in m):
+        setup(m)
     if m["dim"] == 3:
         ax = _plot_member_ids_3d(m)
     else:
@@ -463,9 +469,11 @@ def plot_joint_ids(m, offsets = None):
         from the location of the joint. Default is
         an empty list, which means the offsets will be zero.
     """
+    if not ('fig' in m):
+        setup(m)
     if offsets is None:
         offsets = [0, 0, 0]
-    ax = plt.gca()
+    ax = m['ax']
     for j in m["joints"].values():
         if m["dim"] == 3:
             ax.plot(j["coordinates"][0], j["coordinates"][1], j["coordinates"][2], "ro")
@@ -578,6 +586,8 @@ def plot_bending_moments(m, axis="y", scale=0.0):
         Optional: scale factor for the ordinate. Default is
         0.0, which means the scale will be computed internally.
     """
+    if not ('fig' in m):
+        setup(m)
 
     def fun(member, i, j, xi):
         if m["dim"] == 3:
@@ -591,7 +601,7 @@ def plot_bending_moments(m, axis="y", scale=0.0):
         if maxmag != 0:
             scale = cd / 5 / maxmag
 
-    ax = plt.gca()
+    ax = m['ax']
     for member in m["beam_members"].values():
         connectivity = member["connectivity"]
         i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
@@ -674,6 +684,8 @@ def plot_shear_forces(m, axis="z", scale=0.0):
         Optional: scale factor for the ordinate. Default is
         0.0, which means the scale will be computed internally.
     """
+    if not ('fig' in m):
+        setup(m)
 
     def fun(member, i, j, _):
         if m["dim"] == 3:
@@ -686,7 +698,7 @@ def plot_shear_forces(m, axis="z", scale=0.0):
         maxmag = _largest_mag_on_beam_members(m, fun)
         scale = cd / 5 / maxmag
 
-    ax = plt.gca()
+    ax = m['ax']
     for member in m["beam_members"].values():
         connectivity = member["connectivity"]
         i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
@@ -786,6 +798,8 @@ def plot_axial_forces(m, scale=0.0):
         0.0, which means the scale will be computed internally.
 
     """
+    if not ('fig' in m):
+        setup(m)
 
     def funb(member, i, j, _):
         if m["dim"] == 3:
@@ -805,7 +819,7 @@ def plot_axial_forces(m, scale=0.0):
         if maxmag != 0.0:
             scale = cd / 5 / maxmag
 
-    ax = plt.gca()
+    ax = m['ax']
     if "truss_members" in m:
         for member in m["truss_members"].values():
             connectivity = member["connectivity"]
@@ -870,6 +884,8 @@ def plot_torsion_moments(m, scale=0.0):
         0.0, which means the scale will be computed internally.
 
     """
+    if not ('fig' in m):
+        setup(m)
 
     def fun(member, i, j, _):
         if m["dim"] == 3:
@@ -882,7 +898,7 @@ def plot_torsion_moments(m, scale=0.0):
         maxmag = _largest_mag_on_beam_members(m, fun)
         scale = cd / 5 / maxmag
 
-    ax = plt.gca()
+    ax = m['ax']
     for member in m["beam_members"].values():
         connectivity = member["connectivity"]
         i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
@@ -911,11 +927,14 @@ def plot_member_orientation(m, scale=0.0):
         0.0, which means the scale will be computed internally.
 
     """
+    if not ('fig' in m):
+        setup(m)
+
     if scale == 0.0:
         cd = characteristic_dimension(m)
         scale = cd / 15
 
-    ax = plt.gca()
+    ax = m['ax']
     all_members = [m[k].values() for k in ["truss_members", "beam_members"] if k in m]
     for members in all_members:
         for member in members:
@@ -1006,7 +1025,10 @@ def plot_applied_forces(m, scale=0.0):
         arrows. Default is 0.0, which means compute this internally.
 
     """
-    ax = plt.gca()
+    if not ('fig' in m):
+        setup(m)
+
+    ax = m['ax']
     dim = m["dim"]
     cd = characteristic_dimension(m)
 
@@ -1071,7 +1093,10 @@ def plot_applied_moments(m, scale=0.0, radius=0.0):
         Radius of the circle to represent the moment (2D only). Default is 0.0,
         which means compute this internally.
     """
-    ax = plt.gca()
+    if not ('fig' in m):
+        setup(m)
+
+    ax = m['ax']
     dim = m["dim"]
     ndpn = ndof_per_joint(m)
     cd = characteristic_dimension(m)
@@ -1148,7 +1173,10 @@ def plot_translation_supports(m, scale=0.0, shortest_arrow=1.0e-6):
     shortest_arrow
         How long should the shortest arrow be? Default is 1.0e-6.
     """
-    ax = plt.gca()
+    if not ('fig' in m):
+        setup(m)
+
+    ax = m['ax']
     dim = m["dim"]
     cd = characteristic_dimension(m)
 
@@ -1219,7 +1247,10 @@ def plot_rotation_supports(m, scale=0.0, radius=0.0, shortest_arrow=1.0e-6):
     shortest_arrow
         How long should the shortest arrow be? Default is 1.0e-6.
     """
-    ax = plt.gca()
+    if not ('fig' in m):
+        setup(m)
+
+    ax = m['ax']
     dim = m["dim"]
     ndpn = ndof_per_joint(m)
     if ndpn == dim:
@@ -1298,7 +1329,9 @@ def show(m):
         Model dictionary.
 
     """
-    ax = plt.gca()
+    if not ('fig' in m):
+        setup(m)
+    ax = m['ax']
     ax.set_aspect("equal")
     ax.set_xlabel("X")
     ax.set_ylabel("Z")
@@ -1321,7 +1354,10 @@ def plot_reaction_forces(m, scale=0.0):
         arrows. Default is 0.0, which means compute this internally.
 
     """
-    ax = plt.gca()
+    if not ('fig' in m):
+        setup(m)
+
+    ax = m['ax']
     dim = m["dim"]
     cd = characteristic_dimension(m)
 
@@ -1386,7 +1422,10 @@ def plot_reaction_moments(m, scale=0.0, radius=0.0):
         Radius of the circle to represent the moment (2D only). Default is 0.0,
         which means compute this internally.
     """
-    ax = plt.gca()
+    if not ('fig' in m):
+        setup(m)
+
+    ax = m['ax']
     dim = m["dim"]
     ndpn = ndof_per_joint(m)
     cd = characteristic_dimension(m)

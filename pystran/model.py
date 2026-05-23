@@ -573,8 +573,13 @@ def _build_mass_matrix(m):
     for j in m["joints"].values():
         if "masses" in j:
             for dof, value in j["masses"].items():
-                gr = j["dof"][dof]
-                M[gr, gr] += value
+                if _dof_is_int(dof):
+                    gr = j["dof"][dof]
+                    M[gr, gr] += value
+                else:
+                    for d in dof:
+                        gr = j["dof"][d]
+                        M[gr, gr] += value
     return M
 
 

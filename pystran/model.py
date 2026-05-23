@@ -804,7 +804,7 @@ def solve_free_vibration(m):
     eigvals, eigvecs = eigh(K[0:nf, 0:nf], M[0:nf, 0:nf])
 
     m["eigvals"] = eigvals
-    m["frequencies"] = [sqrt(ev) / 2 / pi for ev in eigvals]
+    m["frequencies"] = [sqrt(abs(ev)) / 2 / pi for ev in eigvals]
     m["eigvecs"] = eigvecs
 
 

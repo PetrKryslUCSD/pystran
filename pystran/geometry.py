@@ -265,7 +265,7 @@ def member_3d_geometry(i, j, xz_vector = None):
         if abs(dot(e_x, xz_vector)) > 0.99 * norm(xz_vector):
             xz_vector = array([0.0, 1.0, 0.0])
     if abs(dot(e_x, xz_vector)) > 0.99 * norm(xz_vector):
-        raise ZeroDivisionError("xz_vector must not be parallel to the beam axis")
+        raise ZeroDivisionError(f"xz_vector must not be parallel to the ({i['jid']}, {j['jid']}) beam axis")
     e_y = cross(xz_vector, e_x)
     e_y = e_y / norm(e_y)
     e_z = cross(e_x, e_y)

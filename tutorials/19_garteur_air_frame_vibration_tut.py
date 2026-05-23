@@ -59,8 +59,9 @@ sbody = section.beam_3d_section(
     "sbody", E=E, rho=rho, G=G, A=A, Ix=Ix, Iy=Iy, Iz=Iz, J=J, xz_vector=xz_vector
 )
 
-# Wings.
-A, Ix, Iy, Iz, J = section.rectangle(10.0, 100.0)
+# Wings. Note we compensate for the absence of the damping layer by adding 1mm
+# thickness to the wing thickness.
+A, Ix, Iy, Iz, J = section.rectangle(11.0, 100.0)
 swing = section.beam_3d_section(
     "swing", E=E, rho=rho, G=G, A=A, Ix=Ix, Iy=Iy, Iz=Iz, J=J, xz_vector=xz_vector
 )
@@ -101,13 +102,13 @@ model.add_joint(m, 6, [0.0, 1000.0, 150.0 / 2 + 16 + 10.0 / 2])
 
 # The midpoint on the left drum.
 model.add_joint(m, 16, [0.0, 1000.0 - 50, 150.0 / 2 + 16 + 10.0 / 2 + 10.0 / 2])
-# Right drum tips.
+# Left drum tips.
 model.add_joint(m, 9, [200.0, 1000.0 - 50, 150.0 / 2 + 16 + 10.0 / 2 + 10.0 / 2])
 model.add_joint(m, 10, [-200.0, 1000.0 - 50, 150.0 / 2 + 16 + 10.0 / 2 + 10.0 / 2])
 
 # The midpoint on the right drum.
 model.add_joint(m, 15, [0.0, -1000.0 + 50, 150.0 / 2 + 16 + 10.0 / 2 + 10.0 / 2])
-# Left drum tips.
+# Right drum tips.
 model.add_joint(m, 7, [200.0, -1000.0 + 50, 150.0 / 2 + 16 + 10.0 / 2 + 10.0 / 2])
 model.add_joint(m, 8, [-200.0, -1000.0 + 50, 150.0 / 2 + 16 + 10.0 / 2 + 10.0 / 2])
 
@@ -120,6 +121,12 @@ model.add_joint(m, 17, [-850.0, 0.0, 300 + 50.0 + 10 / 2])
 # Tailplane tips.
 model.add_joint(m, 14, [-850.0, 200.0, 300 + 50.0 + 10 / 2])
 model.add_joint(m, 13, [-850.0, -200.0, 300 + 50.0 + 10 / 2])
+
+# Add attachment point for the concentrated mass on the left drum.
+model.add_joint(m, 20, [200.0 - 20.0, 1000.0 - 50 - 20, 150.0 / 2 + 16 + 10.0 / 2 + 10.0])
+
+# Add attachment point for the concentrated mass on the left drum.
+model.add_joint(m, 19, [200.0 - 20.0, -1000.0 + 50 + 20, 150.0 / 2 + 16 + 10.0 / 2 + 10.0])
 
 # Add the body members.
 model.add_beam_member(m, 'b1', [1, 2], sbody)
@@ -159,21 +166,33 @@ model.add_rigid_link_member(m, 'dwrlink', (6, 16), sr)
 # Connect the body and the tail
 model.add_rigid_link_member(m, 'btlink', (3, 11), sr)
 
-# Connect the tale and the tailplane
+# Connect the tail and the tailplane
 model.add_rigid_link_member(m, 'tplink', (12, 17), sr)
 
+# Connect the left drum and the added mass
+model.add_rigid_link_member(m, 'mllink', (9, 20), sr)
 
+# Connect the right drum and the added mass
+model.add_rigid_link_member(m, 'mrlink', (7, 19), sr)
 
+# Add the masses on the drums.
+model.add_mass(m['joints'][19], freedoms.TRANSLATION_DOFS, 0.2 / 1000)
+model.add_mass(m['joints'][19], freedoms.ROTATION_DOFS, 0.2 / 1000 / 100)
+model.add_mass(m['joints'][20], freedoms.TRANSLATION_DOFS, 0.2 / 1000)
+model.add_mass(m['joints'][20], freedoms.ROTATION_DOFS, 0.2 / 1000 / 100)
+
+# Add the mass of the attachment between the body and the wing.
+model.add_mass(m['joints'][4], freedoms.TRANSLATION_DOFS, 16 * 70 * 130 * 7.85e-9)
 
 # nref = 3
 # for i in range(16):
 #     model.refine_member(m, i + 1, nref)
 
-plots.setup(m)
-# plots.plot_joint_ids(m)
-plots.plot_members(m)
-plots.plot_member_orientation(m)
-plots.show(m)
+# plots.setup(m)
+# # plots.plot_joint_ids(m)
+# plots.plot_members(m)
+# plots.plot_member_orientation(m)
+# plots.show(m)
 
 # # Solve the problem.
 model.number_dofs(m)
@@ -183,8 +202,7 @@ model.solve_free_vibration(m)
 
 # Plot the modes and compare the frequencies. The mode shapes correlate with
 # those published in the reference.
-print("Note: we use multiple elements per member. Our frequencies will be lower.")
-for mode in range(0, 10):
+for mode in range(0, 12):
     print(f"Mode {mode}: {m['frequencies'][mode]:.3f} Hz")
     ax = plots.setup(m)
     plots.plot_members(m)

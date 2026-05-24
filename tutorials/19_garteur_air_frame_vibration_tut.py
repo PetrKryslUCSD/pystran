@@ -42,9 +42,11 @@ from pystran import section
 from pystran import plots
 
 # The material is aluminum, SI units (mm).
-E = 69000.0
-G = E / (2 * (1 + 0.34))
-rho = 2.73e-9
+# [GARTEUR] has an indication which material properties were considered
+# in the original finite element simulations.
+E = 72000.0
+G = E / (2 * (1 + 0.3))
+rho = 2.7e-9
 
 # The cross section properties are given in SI units (mm).
 
@@ -59,9 +61,10 @@ sbody = section.beam_3d_section(
     "sbody", E=E, rho=rho, G=G, A=A, Ix=Ix, Iy=Iy, Iz=Iz, J=J, xz_vector=xz_vector
 )
 
-# Wings. Note we compensate for the absence of the damping layer by adding 1mm
+# Wings. Note we could approximately compensate 
+# for the absence of the damping layer by adding ~1mm
 # thickness to the wing thickness.
-A, Ix, Iy, Iz, J = section.rectangle(11.0, 100.0)
+A, Ix, Iy, Iz, J = section.rectangle(10.0, 100.0)
 swing = section.beam_3d_section(
     "swing", E=E, rho=rho, G=G, A=A, Ix=Ix, Iy=Iy, Iz=Iz, J=J, xz_vector=xz_vector
 )
@@ -211,8 +214,8 @@ model.solve_free_vibration(m)
 
 # Plot the modes and compare the frequencies. The mode shapes correlate with
 # those published in the reference.
-for mode in range(0, 12):
-    print(f"Mode {mode}: {m['frequencies'][mode]:.3f} Hz")
+for mode in range(6, 20):
+    print(f"Mode {mode+1-6}: {m['frequencies'][mode]:.3f} Hz")
     ax = plots.setup(m)
     plots.plot_members(m)
     model.set_solution(m, m["eigvecs"][:, mode])

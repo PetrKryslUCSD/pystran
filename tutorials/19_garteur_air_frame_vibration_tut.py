@@ -44,7 +44,7 @@ from pystran import plots
 # The material is aluminum, SI units (mm).
 E = 69000.0
 G = E / (2 * (1 + 0.34))
-rho = 2.7e-9
+rho = 2.73e-9
 
 # The cross section properties are given in SI units (mm).
 
@@ -176,17 +176,23 @@ model.add_rigid_link_member(m, 'mllink', (9, 20), sr)
 model.add_rigid_link_member(m, 'mrlink', (7, 19), sr)
 
 # Add the masses on the drums.
-model.add_mass(m['joints'][19], freedoms.TRANSLATION_DOFS, 0.2 / 1000)
-model.add_mass(m['joints'][19], freedoms.ROTATION_DOFS, 0.2 / 1000 / 100)
-model.add_mass(m['joints'][20], freedoms.TRANSLATION_DOFS, 0.2 / 1000)
-model.add_mass(m['joints'][20], freedoms.ROTATION_DOFS, 0.2 / 1000 / 100)
+drum_added_mass = 0.2 / 1000 # convert to metric tons
+model.add_mass(m['joints'][19], freedoms.TRANSLATION_DOFS, drum_added_mass)
+model.add_mass(m['joints'][19], freedoms.ROTATION_DOFS, drum_added_mass / 100)
+model.add_mass(m['joints'][20], freedoms.TRANSLATION_DOFS, drum_added_mass)
+model.add_mass(m['joints'][20], freedoms.ROTATION_DOFS, drum_added_mass / 100)
 
 # Add the mass of the attachment between the body and the wing.
-model.add_mass(m['joints'][4], freedoms.TRANSLATION_DOFS, 16 * 70 * 130 * 7.85e-9)
+body_wing_attachment_mass = 16 * 70 * 130 * 7.85e-9 # steel
+model.add_mass(m['joints'][4], freedoms.TRANSLATION_DOFS, body_wing_attachment_mass)
 
 # Add the mass of the auxiliary metal on the tail
-model.add_mass(m['joints'][12], freedoms.TRANSLATION_DOFS, 2 * 15 * 15 * 100 * 7.85e-9)
+fin_tail_plan_attachment_mass = 2 * 15 * 15 * 100 * 7.85e-9
+model.add_mass(m['joints'][12], freedoms.TRANSLATION_DOFS, fin_tail_plan_attachment_mass)
 
+vol = model.volume(m)
+mass = (rho * vol) + drum_added_mass + body_wing_attachment_mass + fin_tail_plan_attachment_mass
+print('Model mass = ', mass * 1000, '[kg]')
 # nref = 3
 # for i in range(16):
 #     model.refine_member(m, i + 1, nref)

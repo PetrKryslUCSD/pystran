@@ -148,7 +148,7 @@ def setup(m, set_limits=False):
     if m["dim"] == 3:
         ax = fig.add_subplot(projection="3d")
     else:
-        ax = fig.gca()
+        ax = fig.add_subplot()
         if set_limits:
             box = bounding_box(m)
             cd = characteristic_dimension(m)

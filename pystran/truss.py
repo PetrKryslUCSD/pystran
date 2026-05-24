@@ -278,9 +278,37 @@ def truss_axial_force(member, i, j, xi):
         e_x, _, h = geometry.member_2d_geometry(i, j)
         ui, uj = i["displacements"][0:2], j["displacements"][0:2]
     else:
-        e_x, _, _, h = geometry.member_3d_geometry(i, j, array([]))
+        e_x, _, _, h = geometry.member_3d_geometry(i, j, None)
         ui, uj = i["displacements"][0:3], j["displacements"][0:3]
     u = concatenate([ui, uj])
     B = truss_strain_displacement(e_x, h)
     N = (E * A * dot(B, u))[0]
     return N
+
+
+def truss_volume(member, i, j):
+    r"""
+    Compute truss volume.
+
+    Parameters
+    ----------
+    member
+        Dictionary that defines the data of the member.
+    i
+        Dictionary that defines the data of the first joint of the member.
+    j
+        Dictionary that defines the data of the second joint of the member.
+    
+    Returns
+    -------
+    float
+        The volume.
+    """
+    truss_is_2d = len(i["coordinates"]) == len(j["coordinates"]) == 2
+    A = member["section"]["A"]
+    if truss_is_2d:
+        _, _, h = geometry.member_2d_geometry(i, j)
+        return A * h
+    else:
+        _, _, _, h = geometry.member_3d_geometry(i, j, None)
+        return A * h

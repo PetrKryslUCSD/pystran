@@ -686,6 +686,42 @@ def beam_2d_axial_force(member, i, j, xi):
     N = E * A * dot(B, u)
     return N[0] # return a scalar
 
+def _beam_2d_volume(member, i, j):
+    sect = member["section"]
+    _, _, h = geometry.member_2d_geometry(i, j)
+    A = sect["A"]
+    return A * h  # return the volume
+
+def _beam_3d_volume(member, i, j):
+    sect = member["section"]
+    _, _, _, h = geometry.member_3d_geometry(i, j, sect["xz_vector"])
+    A = sect["A"]
+    return A * h  # return the volume
+
+def beam_volume(member, i, j):
+    r"""
+    Compute beam volume.
+
+    Parameters
+    ----------
+    member
+        Dictionary that defines the data of the member.
+    i
+        Dictionary that defines the data of the first joint of the member.
+    j
+        Dictionary that defines the data of the second joint of the member.
+    
+    Returns
+    -------
+    float
+        The volume.
+    """
+    beam_is_2d = len(i["coordinates"]) == len(j["coordinates"]) == 2
+    if beam_is_2d:
+        return _beam_2d_volume(member, i, j)
+    else:
+        return _beam_3d_volume(member, i, j)
+
 
 def beam_3d_axial_force(member, i, j, xi):
     r"""

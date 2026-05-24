@@ -1046,3 +1046,31 @@ def remove_supports(m):
         if "supports" in joint:
             joint["supports"] = {}
     return None
+
+
+def volume(m):
+    """
+
+
+    Compute the total volume of the members in the model.
+    Parameters
+    ----------
+    m
+        The model.
+    Returns
+    -------
+    float
+        Total volume of the members in the model.
+    """
+    total_volume = 0.0
+    if "truss_members" in m:
+        for member in m["truss_members"].values():
+            connectivity = member["connectivity"]
+            i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
+            total_volume += truss.truss_volume(member, i, j)
+    if "beam_members" in m:
+        for member in m["beam_members"].values():
+            connectivity = member["connectivity"]
+            i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
+            total_volume += beam.beam_volume(member, i, j)
+    return total_volume

@@ -184,6 +184,9 @@ model.add_mass(m['joints'][20], freedoms.ROTATION_DOFS, 0.2 / 1000 / 100)
 # Add the mass of the attachment between the body and the wing.
 model.add_mass(m['joints'][4], freedoms.TRANSLATION_DOFS, 16 * 70 * 130 * 7.85e-9)
 
+# Add the mass of the auxiliary metal on the tail
+model.add_mass(m['joints'][12], freedoms.TRANSLATION_DOFS, 2 * 15 * 15 * 100 * 7.85e-9)
+
 # nref = 3
 # for i in range(16):
 #     model.refine_member(m, i + 1, nref)

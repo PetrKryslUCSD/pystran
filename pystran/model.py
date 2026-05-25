@@ -1050,9 +1050,8 @@ def remove_supports(m):
 
 def volume(m):
     """
-
-
     Compute the total volume of the members in the model.
+    
     Parameters
     ----------
     m

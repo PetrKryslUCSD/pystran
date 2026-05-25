@@ -88,6 +88,9 @@ stplane = section.beam_3d_section(
     "stplane", E=E, rho=rho, G=G, A=A, Ix=Ix, Iy=Iy, Iz=Iz, J=J, xz_vector=xz_vector
 )
 
+# The offset beams are connected through rigid links.
+srig = section.rigid_link_section("sr", Gamma=E * 100**3 * 10 / 50 * 10 * eye(6))
+
 # Create the model.
 m = model.create(3)
 freedoms = m["freedoms"]
@@ -154,29 +157,26 @@ model.add_beam_member(m, 't', [11, 12], stail)
 model.add_beam_member(m, 'tp1', [17, 13], stplane)
 model.add_beam_member(m, 'tp2', [17, 14], stplane)
 
-# The offset beams are connected through rigid links.
-sr = section.rigid_link_section("sr", Gamma=E * 10000 * eye(6))
-
 # Connect the body and the wing
-model.add_rigid_link_member(m, 'bwlink', (2, 4), sr)
+model.add_rigid_link_member(m, 'bwlink', (2, 4), srig)
 
 # Connect the left drum and the wing
-model.add_rigid_link_member(m, 'dwllink', (5, 15), sr)
+model.add_rigid_link_member(m, 'dwllink', (5, 15), srig)
 
 # Connect the right drum and the wing
-model.add_rigid_link_member(m, 'dwrlink', (6, 16), sr)
+model.add_rigid_link_member(m, 'dwrlink', (6, 16), srig)
 
 # Connect the body and the tail
-model.add_rigid_link_member(m, 'btlink', (3, 11), sr)
+model.add_rigid_link_member(m, 'btlink', (3, 11), srig)
 
 # Connect the tail and the tailplane
-model.add_rigid_link_member(m, 'tplink', (12, 17), sr)
+model.add_rigid_link_member(m, 'tplink', (12, 17), srig)
 
 # Connect the left drum and the added mass
-model.add_rigid_link_member(m, 'mllink', (9, 20), sr)
+model.add_rigid_link_member(m, 'mllink', (9, 20), srig)
 
 # Connect the right drum and the added mass
-model.add_rigid_link_member(m, 'mrlink', (7, 19), sr)
+model.add_rigid_link_member(m, 'mrlink', (7, 19), srig)
 
 # Add the masses on the drums.
 drum_added_mass = 0.2 / 1000 # convert to metric tons

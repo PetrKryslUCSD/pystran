@@ -750,7 +750,7 @@ def statics_reactions(m):
                 reactions[dof] = R[gr]
             joint["reactions"] = reactions
 
-def solve_free_vibration(m):
+def solve_free_vibration(m, frequency_shift=0.0):
     r"""
     Solve the free vibration of the discrete model.
 
@@ -773,6 +773,13 @@ def solve_free_vibration(m):
     ----------
     m
         The model.
+    frequency_shift
+        Optional: a frequency shift to apply to the eigenvalues, in order to
+        compute the frequencies around a certain value. The shifted eigenvalue
+        problem is (with :math:`\bar\omega=2\pi\text{frequency\_shift}` being the shifted angular frequency)
+
+        .. math::
+            (K + \bar\omega^2 M) \cdot V = (\omega^2 - \bar\omega^2) M \cdot V
 
     Returns
     -------
@@ -805,8 +812,15 @@ def solve_free_vibration(m):
                 U[gr] = 0.0
     m["U"] = U
 
-    # Solved the eigenvalue problem
-    eigvals, eigvecs = eigh(K[0:nf, 0:nf], M[0:nf, 0:nf])
+    # Solve the eigenvalue problem. Potentially with shifting for better convergence around a certain frequency.
+    Kff = K[0:nf, 0:nf]
+    Mff = M[0:nf, 0:nf]
+    if frequency_shift != 0.0:
+        baromega = (2 * pi * frequency_shift) 
+        eigvals, eigvecs = eigh(Kff + baromega**2 * Mff, Mff)
+        eigvals -= baromega**2
+    else:
+        eigvals, eigvecs = eigh(Kff, Mff)
 
     m["eigvals"] = eigvals
     m["frequencies"] = [sqrt(abs(ev)) / 2 / pi for ev in eigvals]

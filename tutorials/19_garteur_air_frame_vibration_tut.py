@@ -196,9 +196,6 @@ model.add_mass(m['joints'][12], freedoms.TRANSLATION_DOFS, fin_tail_plan_attachm
 vol = model.volume(m)
 mass = (rho * vol) + drum_added_mass + body_wing_attachment_mass + fin_tail_plan_attachment_mass
 print('Model mass = ', mass * 1000, '[kg]')
-# nref = 3
-# for i in range(16):
-#     model.refine_member(m, i + 1, nref)
 
 # plots.setup(m)
 # # plots.plot_joint_ids(m)
@@ -210,15 +207,15 @@ print('Model mass = ', mass * 1000, '[kg]')
 model.number_dofs(m)
 # # The number of free degrees of freedom is
 print(f"Number of degrees of freedom: {m['nfreedof']}")
-model.solve_free_vibration(m)
+model.solve_free_vibration(m, 5.0)
 
 # Plot the modes and compare the frequencies. The mode shapes correlate with
 # those published in the reference.
-for mode in range(6, 20):
+for mode in range(6, 14):
     print(f"Mode {mode+1-6}: {m['frequencies'][mode]:.3f} Hz")
     ax = plots.setup(m)
     plots.plot_members(m)
     model.set_solution(m, m["eigvecs"][:, mode])
     plots.plot_deformations(m, 5.0)
-    ax.set_title(f"Mode {mode}, frequency = {m['frequencies'][mode]:.2f} Hz")
+    ax.set_title(f"Mode {mode+1-6}, frequency = {m['frequencies'][mode]:.2f} Hz")
     plots.show(m)

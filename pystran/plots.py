@@ -146,7 +146,6 @@ def setup(m, set_limits=False, fontsize=0):
         This function creates a figure and an axis object. The axes are
         returned.
     """
-    print(set_limits, fontsize)
     if fontsize != 0:
         plt.rcParams['font.size'] = fontsize
     fig = plt.figure()

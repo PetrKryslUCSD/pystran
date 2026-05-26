@@ -124,7 +124,7 @@ def _arrow3D(ax, x, y, z, dx, dy, dz, *args, **kwargs):
 setattr(Axes3D, "arrow3D", _arrow3D)
 
 
-def setup(m, set_limits=False):
+def setup(m, set_limits=False, fontsize=0):
     """
     Setup the plot.
 
@@ -136,13 +136,19 @@ def setup(m, set_limits=False):
         Optional: set the limits of the graphics manually or not? Default is
         ``False``. If ``True``, the bounding box of the structure and its
         characteristic dimension are used to calculate the limits of the plot.
-
+    fontsize
+        Optional: set the font size for the plot. Default is 0, which means the
+        default font size of matplotlib will be used.
+        
     Returns
     -------
     axes
         This function creates a figure and an axis object. The axes are
         returned.
     """
+    print(set_limits, fontsize)
+    if fontsize != 0:
+        plt.rcParams['font.size'] = fontsize
     fig = plt.figure()
     m['fig'] = fig # plotting objects saved
     if m["dim"] == 3:
@@ -234,7 +240,7 @@ def plot_members(m, max_area=0.0, max_linewidth=2, min_area=0.0, min_linewidth=2
                 i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
                 ci, cj = i["coordinates"], j["coordinates"]
                 plt.plot(
-                    [ci[0], cj[0]], [ci[1], cj[1]], [ci[2], cj[2]], "k-", linewidth=3
+                    [ci[0], cj[0]], [ci[1], cj[1]], [ci[2], cj[2]], "g-", linewidth=3
                 )
     else:
         for members in all_members:
@@ -455,6 +461,26 @@ def plot_member_ids(m):
     return ax
 
 
+def plot_joints(m):
+    """
+    Plot the joint markers.
+
+    Parameters
+    ----------
+    m
+        Model dictionary.
+    """
+    if not ('fig' in m):
+        setup(m)
+    ax = m['ax']
+    for j in m["joints"].values():
+        if m["dim"] == 3:
+            ax.plot(j["coordinates"][0], j["coordinates"][1], j["coordinates"][2], "ro")
+        else:
+            ax.plot(j["coordinates"][0], j["coordinates"][1], "ro")
+    return ax
+
+
 def plot_joint_ids(m, offsets = None):
     """
     Plot the joint identifiers.
@@ -476,7 +502,6 @@ def plot_joint_ids(m, offsets = None):
     ax = m['ax']
     for j in m["joints"].values():
         if m["dim"] == 3:
-            ax.plot(j["coordinates"][0], j["coordinates"][1], j["coordinates"][2], "ro")
             ax.text(
                 j["coordinates"][0] + offsets[0],
                 j["coordinates"][1] + offsets[1],
@@ -485,7 +510,6 @@ def plot_joint_ids(m, offsets = None):
                 bbox=dict(facecolor='white', boxstyle='circle')
             )
         else:
-            ax.plot(j["coordinates"][0], j["coordinates"][1], "ro")
             ax.text(j["coordinates"][0] + offsets[0], 
                     j["coordinates"][1] + offsets[1], 
                     str(j["jid"]),

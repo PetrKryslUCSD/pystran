@@ -165,9 +165,14 @@ def setup(m, set_limits=False, fontsize=0):
     m['ax'] = ax # plotting objects saved
     # zoom in 3d will change ticks
     def update_ticks(ax, n_max=6):
+        dim = m['dim']
         # set an appropriate number of major ticks for each axis based on span
-        for axis in (ax.xaxis, ax.yaxis, ax.zaxis):
-            axis.set_major_locator(MaxNLocator(n_max))
+        if dim == 2:
+            for axis in (ax.xaxis, ax.yaxis,):
+                axis.set_major_locator(MaxNLocator(n_max))
+        else:
+            for axis in (ax.xaxis, ax.yaxis, ax.zaxis):
+                axis.set_major_locator(MaxNLocator(n_max))
         fig.canvas.draw_idle()
     
     def on_limits_change(event_ax):

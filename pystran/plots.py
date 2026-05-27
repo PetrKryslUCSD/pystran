@@ -3,11 +3,13 @@ Implement simple plots for truss and beam structures.
 """
 
 from math import sqrt
+import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
 from matplotlib.patches import Arc, RegularPolygon
 from mpl_toolkits.mplot3d.proj3d import proj_transform
 from mpl_toolkits.mplot3d.axes3d import Axes3D
+from matplotlib.ticker import MaxNLocator
 import numpy
 from numpy import linspace, dot, zeros
 from numpy import radians as rad
@@ -146,6 +148,7 @@ def setup(m, set_limits=False, fontsize=0):
         This function creates a figure and an axis object. The axes are
         returned.
     """
+    plt.rcParams['figure.figsize'] = (5, 5)
     if fontsize != 0:
         plt.rcParams['font.size'] = fontsize
     fig = plt.figure()
@@ -160,6 +163,20 @@ def setup(m, set_limits=False, fontsize=0):
             ax.set_xlim([box[0] - cd / 10, box[2] + cd / 10])
             ax.set_ylim([box[1] - cd / 10, box[3] + cd / 10])
     m['ax'] = ax # plotting objects saved
+    # zoom in 3d will change ticks
+    def update_ticks(ax, n_max=6):
+        # set an appropriate number of major ticks for each axis based on span
+        for axis in (ax.xaxis, ax.yaxis, ax.zaxis):
+            axis.set_major_locator(MaxNLocator(n_max))
+        fig.canvas.draw_idle()
+    
+    def on_limits_change(event_ax):
+        # event_ax is the axis object passed by the callback
+        update_ticks(ax, n_max=6)
+    # Connect per-axis limit-change callbacks
+    ax.callbacks.connect('xlim_changed', on_limits_change)
+    ax.callbacks.connect('ylim_changed', on_limits_change)
+    ax.callbacks.connect('zlim_changed', on_limits_change)
     return ax
 
 

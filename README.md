@@ -55,6 +55,12 @@ The finite-element principles and development of the techniques is described in 
 
 These requirements can be easily satisfied by running the examples in the [Spyder IDE](docs/spyder/spyder.md).
 
+Alternatively, run 
+```
+python -m pip -r ./requirements.txt
+```
+in the `pystran` folder.
+
 ## Documentation
 
 Documentation of the package is provided in these [HTML pages](https://petrkryslucsd.github.io/pystran).

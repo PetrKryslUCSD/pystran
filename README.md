@@ -57,9 +57,10 @@ These requirements can be easily satisfied by running the examples in the [Spyde
 
 Alternatively, run 
 ```
-python -m pip -r ./requirements.txt
+python -m pip install -r ./requirements.txt
 ```
 in the `pystran` folder.
+
 
 ## Documentation
 

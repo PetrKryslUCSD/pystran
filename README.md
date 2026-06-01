@@ -5,6 +5,9 @@
 
 A simple structural analysis tool in Python, for structures consisting of truss
 and beam members, springs, and rigid bodies, both in two dimensions and in three dimensions.
+The finite-element principles and development of the techniques is described in the [textbook "Finite Element Modeling of Structures with Shells and Beams
+"]
+(http://hogwarts.ucsd.edu/~pkrysl/femstructures-book/).
 
 
 ![Alt pystran capabilities in graphic abstract](docs/splash.png)
@@ -58,6 +61,11 @@ These requirements can be easily satisfied by running the examples in the [Spyde
 Documentation of the package is provided in these [HTML pages](https://petrkryslucsd.github.io/pystran).
 
 More details about the generation of the documentation are [here](docs/make_docs.md).
+
+If you are interested in how the techniques in the code are developed from the principles 
+of weight-residual methods (modern finite element analysis), check out the [textbook "Finite Element Modeling of Structures with Shells and Beams
+"]
+(http://hogwarts.ucsd.edu/~pkrysl/femstructures-book/).
 
 ## Running
 

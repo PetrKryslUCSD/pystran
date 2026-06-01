@@ -62,16 +62,6 @@ python -m pip install -r ./requirements.txt
 in the `pystran` folder.
 
 
-## Documentation
-
-Documentation of the package is provided in these [HTML pages](https://petrkryslucsd.github.io/pystran).
-
-More details about the generation of the documentation are [here](docs/make_docs.md).
-
-If you are interested in how the techniques in the code are developed from the principles 
-of weighted-residual methods (modern finite element analysis), check out the [textbook "Finite Element Modeling of Structures with Shells and Beams
-"](http://hogwarts.ucsd.edu/~pkrysl/femstructures-book/).
-
 ## Running
 
 This package is distributed through the official Python channels (https://pypi.org).
@@ -108,6 +98,16 @@ In the `pystran/tests` folder, run
 py unittests_planar_truss.py 
 ```
 and analogously for the other unit test files.
+
+## Documentation
+
+Documentation of the package is provided in these [HTML pages](https://petrkryslucsd.github.io/pystran).
+
+More details about the generation of the documentation are [here](docs/make_docs.md).
+
+If you are interested in how the techniques in the code are developed from the principles 
+of weighted-residual methods (modern finite element analysis), check out the [textbook "Finite Element Modeling of Structures with Shells and Beams
+"](http://hogwarts.ucsd.edu/~pkrysl/femstructures-book/).
 
 ## <a name="past-news"></a>Past news
 

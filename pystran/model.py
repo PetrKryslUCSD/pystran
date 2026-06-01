@@ -4,6 +4,7 @@ Define the functions for defining and manipulating a model.
 
 from math import sqrt, pi
 from numpy import array, zeros, dot, mean, concatenate, float64, int32, inf
+import scipy
 from scipy.linalg import solve, eigh
 from collections import namedtuple
 from pystran import truss, beam, spring, rigid

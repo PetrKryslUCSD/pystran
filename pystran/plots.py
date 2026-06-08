@@ -141,6 +141,8 @@ def setup(m, set_limits=False, fontsize=0):
     fontsize
         Optional: set the font size for the plot. Default is 0, which means the
         default font size of matplotlib will be used.
+        The default can also be set globally with
+        ``plt.rcParams['font.size']=6``.
         
     Returns
     -------
@@ -163,25 +165,6 @@ def setup(m, set_limits=False, fontsize=0):
             ax.set_xlim([box[0] - cd / 10, box[2] + cd / 10])
             ax.set_ylim([box[1] - cd / 10, box[3] + cd / 10])
     m['ax'] = ax # plotting objects saved
-    # zoom in 3d will change ticks
-    def update_ticks(ax, n_max=6):
-        dim = m['dim']
-        # set an appropriate number of major ticks for each axis based on span
-        if dim == 2:
-            for axis in (ax.xaxis, ax.yaxis,):
-                axis.set_major_locator(MaxNLocator(n_max))
-        else:
-            for axis in (ax.xaxis, ax.yaxis, ax.zaxis):
-                axis.set_major_locator(MaxNLocator(n_max))
-        fig.canvas.draw_idle()
-    
-    def on_limits_change(event_ax):
-        # event_ax is the axis object passed by the callback
-        update_ticks(ax, n_max=6)
-    # Connect per-axis limit-change callbacks
-    ax.callbacks.connect('xlim_changed', on_limits_change)
-    ax.callbacks.connect('ylim_changed', on_limits_change)
-    ax.callbacks.connect('zlim_changed', on_limits_change)
     return ax
 
 
@@ -231,7 +214,7 @@ def plot_members(m, max_area=0.0, max_linewidth=2, min_area=0.0, min_linewidth=2
     All truss, rigid link, and beam members will be included.
     """
     if not ('fig' in m):
-        setup(m)
+        raise RuntimeError('Please first call plots.setup(m)')
     all_members = [m[k].values() for k in ["truss_members", "beam_members"] if k in m]
     if max_area == 0.0:
         _, max_area = _area_extrema(all_members)
@@ -382,7 +365,7 @@ def plot_deformations(m, scale=0.0):
     displayed using the cubic shape functions.
     """
     if not ('fig' in m):
-        setup(m)
+        raise RuntimeError('Please first call plots.setup(m)')
     cd = characteristic_dimension(m)
 
     def fun(j):
@@ -474,7 +457,7 @@ def plot_member_ids(m):
         Model dictionary.
     """
     if not ('fig' in m):
-        setup(m)
+        raise RuntimeError('Please first call plots.setup(m)')
     if m["dim"] == 3:
         ax = _plot_member_ids_3d(m)
     else:
@@ -492,7 +475,7 @@ def plot_joints(m):
         Model dictionary.
     """
     if not ('fig' in m):
-        setup(m)
+        raise RuntimeError('Please first call plots.setup(m)')
     ax = m['ax']
     for j in m["joints"].values():
         if m["dim"] == 3:
@@ -517,7 +500,7 @@ def plot_joint_ids(m, offsets = None):
         an empty list, which means the offsets will be zero.
     """
     if not ('fig' in m):
-        setup(m)
+        raise RuntimeError('Please first call plots.setup(m)')
     if offsets is None:
         offsets = [0, 0, 0]
     ax = m['ax']
@@ -632,7 +615,7 @@ def plot_bending_moments(m, axis="y", scale=0.0):
         0.0, which means the scale will be computed internally.
     """
     if not ('fig' in m):
-        setup(m)
+        raise RuntimeError('Please first call plots.setup(m)')
 
     def fun(member, i, j, xi):
         if m["dim"] == 3:
@@ -730,7 +713,7 @@ def plot_shear_forces(m, axis="z", scale=0.0):
         0.0, which means the scale will be computed internally.
     """
     if not ('fig' in m):
-        setup(m)
+        raise RuntimeError('Please first call plots.setup(m)')
 
     def fun(member, i, j, _):
         if m["dim"] == 3:
@@ -844,7 +827,7 @@ def plot_axial_forces(m, scale=0.0):
 
     """
     if not ('fig' in m):
-        setup(m)
+        raise RuntimeError('Please first call plots.setup(m)')
 
     def funb(member, i, j, _):
         if m["dim"] == 3:
@@ -930,7 +913,7 @@ def plot_torsion_moments(m, scale=0.0):
 
     """
     if not ('fig' in m):
-        setup(m)
+        raise RuntimeError('Please first call plots.setup(m)')
 
     def fun(member, i, j, _):
         if m["dim"] == 3:
@@ -973,7 +956,7 @@ def plot_member_orientation(m, scale=0.0):
 
     """
     if not ('fig' in m):
-        setup(m)
+        raise RuntimeError('Please first call plots.setup(m)')
 
     if scale == 0.0:
         cd = characteristic_dimension(m)
@@ -1071,7 +1054,7 @@ def plot_applied_forces(m, scale=0.0):
 
     """
     if not ('fig' in m):
-        setup(m)
+        raise RuntimeError('Please first call plots.setup(m)')
 
     ax = m['ax']
     dim = m["dim"]
@@ -1139,7 +1122,7 @@ def plot_applied_moments(m, scale=0.0, radius=0.0):
         which means compute this internally.
     """
     if not ('fig' in m):
-        setup(m)
+        raise RuntimeError('Please first call plots.setup(m)')
 
     ax = m['ax']
     dim = m["dim"]
@@ -1219,7 +1202,7 @@ def plot_translation_supports(m, scale=0.0, shortest_arrow=1.0e-6):
         How long should the shortest arrow be? Default is 1.0e-6.
     """
     if not ('fig' in m):
-        setup(m)
+        raise RuntimeError('Please first call plots.setup(m)')
 
     ax = m['ax']
     dim = m["dim"]
@@ -1293,7 +1276,7 @@ def plot_rotation_supports(m, scale=0.0, radius=0.0, shortest_arrow=1.0e-6):
         How long should the shortest arrow be? Default is 1.0e-6.
     """
     if not ('fig' in m):
-        setup(m)
+        raise RuntimeError('Please first call plots.setup(m)')
 
     ax = m['ax']
     dim = m["dim"]
@@ -1375,14 +1358,43 @@ def show(m):
 
     """
     if not ('fig' in m):
-        setup(m)
+        raise RuntimeError('Please first call plots.setup(m)')
+    fig = m['fig']
     ax = m['ax']
     ax.set_aspect("equal")
-    ax.set_xlabel("X")
-    ax.set_ylabel("Z")
+    box = bounding_box(m)
+    cd = characteristic_dimension(m)
     if m["dim"] == 3:
+        ax.set_xlim([box[0] - cd / 10, box[3] + cd / 10])
+        ax.set_ylim([box[1] - cd / 10, box[4] + cd / 10])
+        ax.set_zlim([box[2] - cd / 10, box[5] + cd / 10])
+        ax.set_xlabel("X")
         ax.set_ylabel("Y")
         ax.set_zlabel("Z")
+    else:
+        ax.set_xlim([box[0] - cd / 10, box[2] + cd / 10])
+        ax.set_ylim([box[1] - cd / 10, box[3] + cd / 10])
+        ax.set_xlabel("X")
+        ax.set_ylabel("Z")
+    # zoom in 3d will change ticks
+    def update_ticks(ax, n_max=6):
+        dim = m['dim']
+        # set an appropriate number of major ticks for each axis based on span
+        if dim == 2:
+            for axis in (ax.xaxis, ax.yaxis,):
+                axis.set_major_locator(MaxNLocator(n_max))
+        else:
+            for axis in (ax.xaxis, ax.yaxis, ax.zaxis):
+                axis.set_major_locator(MaxNLocator(n_max))
+        fig.canvas.draw_idle()
+    
+    def on_limits_change(event_ax):
+        # event_ax is the axis object passed by the callback
+        update_ticks(ax, n_max=6)
+    # Connect per-axis limit-change callbacks
+    ax.callbacks.connect('xlim_changed', on_limits_change)
+    ax.callbacks.connect('ylim_changed', on_limits_change)
+    ax.callbacks.connect('zlim_changed', on_limits_change)
     plt.show()
 
 
@@ -1400,7 +1412,7 @@ def plot_reaction_forces(m, scale=0.0):
 
     """
     if not ('fig' in m):
-        setup(m)
+        raise RuntimeError('Please first call plots.setup(m)')
 
     ax = m['ax']
     dim = m["dim"]
@@ -1468,7 +1480,7 @@ def plot_reaction_moments(m, scale=0.0, radius=0.0):
         which means compute this internally.
     """
     if not ('fig' in m):
-        setup(m)
+        raise RuntimeError('Please first call plots.setup(m)')
 
     ax = m['ax']
     dim = m["dim"]

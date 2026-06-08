@@ -16,6 +16,9 @@ Important note: Our orientation of the local coordinate system is such that web
 of the H-beams is parallel to beam z axis! This is different from the
 orientation in the book, where the web is parallel to the y axis.
 
+W8x24 dimensions: height 7.93'', width 6.5'', 
+    thickness of flange 0.4'', thickness of web 0.245''
+
 ## References
 
 This example is completely solved in the book Matrix Analysis of Structures by

@@ -305,6 +305,124 @@ def read_abaqus_nsets(inp_path: str) -> List[Dict]:
         blocks.append(current)
     return blocks
 
+def read_abaqus_elsets(inp_path: str) -> List[Dict]:
+    """
+    Parse all *Elset sections from an Abaqus .inp file.
+
+    Returns a list of dicts:
+      {
+        "block_id": int,
+        "keyword_line": str,
+        "name": Optional[str],    # elset name lower-cased if present
+        "generate": bool,         # True if 'generate' option present
+        "elements": [int, ...]    # list of element ids in the set
+      }
+    """
+    blocks: List[Dict] = []
+    current = None
+    block_counter = 0
+
+    with open(inp_path, 'r', encoding='utf-8') as f:
+        for raw_line in f:
+            line = raw_line.rstrip('\n')
+            stripped = line.strip()
+            if not stripped:
+                continue
+            if stripped.startswith('**'):
+                continue
+
+            kwm = _KEYWORD_RE.match(line)
+            if kwm:
+                kw = kwm.group(1).lower()
+                rest = kwm.group(2)
+                rest = rest.strip() if rest else None
+                if kw == '*elset' or kw == '*elset ':
+                    # start new elset block
+                    if current is not None:
+                        blocks.append(current)
+                        current = None
+                    block_counter += 1
+                    opts = _parse_keyword_options(rest)
+                    name = opts.get('elset') or opts.get('name') or None
+                    generate = 'generate' in opts
+                    current = {
+                        "block_id": block_counter,
+                        # "keyword_line": line.strip(),
+                        "name": name.lower() if name else None,
+                        "generate": generate,
+                        "elements": []
+                    }
+                    continue
+                else:
+                    # other keyword ends current elset block
+                    if current is not None:
+                        blocks.append(current)
+                        current = None
+                    continue
+
+            # inside an elset block
+            if current is None:
+                continue
+
+            # remove inline comments if any
+            dataline = re.split(r'!|--|;', line, maxsplit=1)[0].strip()
+            if not dataline:
+                continue
+
+            # handle generate option lines like "1, 10, 1"
+            if current["generate"]:
+                parts = [p.strip() for p in dataline.split(',') if p.strip()]
+                try:
+                    nums = [int(p) for p in parts]
+                except ValueError:
+                    continue
+                if len(nums) == 3:
+                    start, end, inc = nums
+                    if inc == 0:
+                        continue
+                    step = inc
+                    if (step > 0 and end >= start) or (step < 0 and end <= start):
+                        rng = list(range(start, end + (1 if step > 0 else -1), step))
+                    else:
+                        rng = []
+                    current["elements"].extend(rng)
+                elif len(nums) == 2:
+                    start, end = nums
+                    step = 1 if end >= start else -1
+                    rng = list(range(start, end + (1 if step > 0 else -1), step))
+                    current["elements"].extend(rng)
+                else:
+                    for n in nums:
+                        current["elements"].append(n)
+                continue
+
+            # non-generate: comma or whitespace separated element ids (or element-id, property combos — only first token parsed)
+            # Abaqus elset lines can be "e1, e2, e3" or "1,2,3" or "elid, prop" forms; we parse integers only.
+            parts = [p for p in re.split(r'[\s,]+', dataline) if p != '']
+            for p in parts:
+                try:
+                    eid = int(p)
+                except ValueError:
+                    # skip non-integer tokens (e.g., field names); if token contains digits separated by '/', take digits
+                    continue
+                current["elements"].append(eid)
+
+    if current is not None:
+        blocks.append(current)
+    return blocks
+
+
+def read_abaqus_elset_by_name(inp_path: str, name: str) -> Dict:
+    """
+    Return the first *Elset block whose name matches `name` (case-insensitive).
+    Raises KeyError if not found.
+    """
+    target = name.lower()
+    for blk in read_abaqus_elsets(inp_path):
+        if blk.get("name") == target:
+            return blk
+    raise KeyError(f"Elset named '{name}' not found.")
+
 def read_abaqus_beam_general_sections(inp_path: str) -> List[Dict]:
     """
     Parse *Beam General sections from an Abaqus .inp file.

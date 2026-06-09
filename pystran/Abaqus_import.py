@@ -20,7 +20,75 @@ _KEYWORD_RE = re.compile(r'^\s*(\*(?:[A-Za-z0-9_]+(?:\s+[A-Za-z0-9_]+)*))\s*(?:,
 
 # Match any section keyword
 _RECORD_RE = re.compile(r'^\s*\*')
-    
+_NODE_DATA_RE = re.compile(r'^\s*(\d+)\s*,\s*([\-\dEe+.]+)(?:\s*,\s*([\-\dEe+.]+))?(?:\s*,\s*([\-\dEe+.]+))?\s*$')
+_COMMENT_SPLIT_RE = re.compile(r'!|--|;')
+
+def _strip_inline_comment(line: str) -> str:
+    return _COMMENT_SPLIT_RE.split(line, maxsplit=1)[0].strip()
+
+
+def _split_tokens(line: str) -> List[str]:
+    return [p for p in re.split(r'[\s,]+', line) if p != '']
+
+
+def _iter_inp_lines(inp_path: str):
+    with open(inp_path, 'r', encoding='utf-8') as f:
+        for raw_line in f:
+            stripped = raw_line.strip()
+            if not stripped or stripped.startswith('**'):
+                continue
+            yield raw_line.rstrip('\n')
+
+
+def _iter_keyword_blocks(inp_path: str):
+    current_keyword = None
+    current_rest = None
+    current_keyword_line = None
+    current_lines: List[str] = []
+
+    for line in _iter_inp_lines(inp_path):
+        kwm = _KEYWORD_RE.match(line)
+        if kwm:
+            if current_keyword is not None:
+                yield current_keyword, current_rest, current_keyword_line, current_lines
+            current_keyword = kwm.group(1).lower()
+            current_rest = kwm.group(2)
+            if current_rest:
+                current_rest = current_rest.strip()
+            current_keyword_line = line.strip()
+            current_lines = []
+            continue
+        if current_keyword is not None:
+            current_lines.append(line)
+
+    if current_keyword is not None:
+        yield current_keyword, current_rest, current_keyword_line, current_lines
+
+
+def _parse_generate_line(dataline: str) -> List[int]:
+    parts = [p.strip() for p in dataline.split(',') if p.strip()]
+    try:
+        nums = [int(p) for p in parts]
+    except ValueError:
+        return []
+
+    if len(nums) == 3:
+        start, end, inc = nums
+        if inc == 0:
+            return []
+        step = inc
+        if (step > 0 and end >= start) or (step < 0 and end <= start):
+            return list(range(start, end + (1 if step > 0 else -1), step))
+        return []
+
+    if len(nums) == 2:
+        start, end = nums
+        step = 1 if end >= start else -1
+        return list(range(start, end + (1 if step > 0 else -1), step))
+
+    return nums
+
+
 def read_abaqus_nodes(inp_path: str) -> List[Tuple[int, Tuple[float, float, float]]]:
     """
     Parse the first *Node section found in an Abaqus .inp file and return a list of
@@ -31,54 +99,27 @@ def read_abaqus_nodes(inp_path: str) -> List[Tuple[int, Tuple[float, float, floa
     # nodes = read_abaqus_nodes("model.inp")
     # print(nodes[:10])
     """
-    data_re = re.compile(r'^\s*(\d+)\s*,\s*([-\dEe+.]+)(?:\s*,\s*([-\dEe+.]+))?(?:\s*,\s*([-\dEe+.]+))?\s*$')
-
     nodes = []
-    in_node_section = False
-
-    with open(inp_path, 'r', encoding='utf-8') as f:
-        for raw_line in f:
-            line = raw_line.strip()
-            if not line or line.startswith('**'):  # blank or comment line
+    for kw, rest, keyword_line, lines in _iter_keyword_blocks(inp_path):
+        if kw != '*node':
+            continue
+        for line in lines:
+            dataline = _strip_inline_comment(line)
+            if not dataline:
                 continue
-
-            if not in_node_section:
-                kwm = _KEYWORD_RE.match(line)
-                if kwm:
-                    # It's a keyword line
-                    kw = kwm.group(1).lower()
-                    rest = kwm.group(2)
-                    if rest:
-                        rest = rest.strip()
-                    if kw == '*node':
-                        in_node_section = True
-                    continue
-
-            # we are inside *Node section
-            if _RECORD_RE.match(line):  # new record starts; exit node section
-                break
-
-            # some files may split records with continuation commas or extra spaces; remove inline comments if any
-            # Abaqus uses ** for full-line comments; inline comments are uncommon — ignore after '**' if present
-            if '**' in line:
-                line = line.split('**', 1)[0].strip()
-                if not line:
-                    continue
-
-            m = data_re.match(line)
+            m = _NODE_DATA_RE.match(dataline)
             if not m:
-                # skip lines that don't look like node data
                 continue
             nid = int(m.group(1))
             x = float(m.group(2))
             y = float(m.group(3)) if m.group(3) is not None else 0.0
             z = float(m.group(4)) if m.group(4) is not None else 0.0
             nodes.append((nid, (x, y, z)))
+        break
 
     if not nodes:
         raise ValueError("No *NODE section found or it contains no node data.")
     return nodes
-
 
 
 
@@ -105,84 +146,49 @@ def read_abaqus_elements(inp_path: str) -> List[Dict]:
       - Lines starting with '**' are Abaqus comments and ignored.
       - Element data lines are expected as: id, n1, n2, ..., (commas or spaces tolerated).
     """
-    blocks = []
-    current = None
+    blocks: List[Dict] = []
     block_counter = 0
 
-    def finish_block():
-        nonlocal current
-        if current is not None:
-            blocks.append(current)
-            current = None
+    for kw, rest, keyword_line, lines in _iter_keyword_blocks(inp_path):
+        if kw != '*element':
+            continue
 
-    with open(inp_path, 'r', encoding='utf-8') as f:
-        for raw_line in f:
-            line = raw_line.rstrip('\n')
-            stripped = line.strip()
-            if not stripped:
-                continue
-            # Ignore comment lines that start with '**'
-            if stripped.startswith('**'):
-                continue
-    
-            kwm = _KEYWORD_RE.match(line)
-            if kwm:
-                # It's a keyword line
-                kw = kwm.group(1).lower()
-                rest = kwm.group(2)
-                if rest:
-                    rest = rest.strip()
-                # rest = kwm.group(2).strip()
-                if kw == '*element':
-                    # start a new element block
-                    finish_block()
-                    block_counter += 1
-                    # try to parse type option if present (e.g., type=C3D8R)
-                    elem_type = None
-                    # split options by comma, look for type=
-                    if rest:
-                        opts = [o.strip() for o in rest.split(',') if o.strip()]
-                        for o in opts:
-                            if o.lower().startswith('type='):
-                                elem_type = o.split('=', 1)[1]
-                                break
-                    current = {
-                        "block_id": block_counter,
-                        # "keyword_line": line.strip(),
-                        "type": elem_type,
-                        "elements": []
-                    }
-                    continue
-                else:
-                    # another keyword — end current element block if any
-                    finish_block()
-                    continue
-    
-            # If we reach here and are inside an element block, parse element lines
-            if current is not None:
-                # Clean inline comment after '!' if present (Abaqus sometimes uses '!'?),
-                # also ignore trailing comments starting with '--' or ';' rarely used.
-                dataline = re.split(r'!|--|;', line, maxsplit=1)[0].strip()
-                if not dataline:
-                    continue
-                # Split by comma or whitespace
-                parts = [p for p in re.split(r'[\s,]+', dataline) if p != '']
-                if not parts:
-                    continue
-                # First token is element id
-                try:
-                    elem_id = int(parts[0])
-                    nodes = [int(p) for p in parts[1:]]
-                except ValueError:
-                    # Skip malformed lines (could log or raise instead)
-                    continue
-                current["elements"].append((elem_id, nodes))
-            else:
-                # Not inside an element block; ignore other data lines
-                continue
+        block_counter += 1
+        elem_type = None
+        if rest:
+            opts = [o.strip() for o in rest.split(',') if o.strip()]
+            for o in opts:
+                if o.lower().startswith('type='):
+                    elem_type = o.split('=', 1)[1]
+                    break
 
-    # finalise last block
-    finish_block()
+        current: Dict = {
+            "block_id": block_counter,
+            "keyword_line": keyword_line,
+            "type": elem_type,
+            "elements": []
+        }
+
+        for line in lines:
+            dataline = _strip_inline_comment(line)
+            if not dataline:
+                continue
+            parts = _split_tokens(dataline)
+            if not parts:
+                continue
+            try:
+                elem_id = int(parts[0])
+                nodes = [int(p) for p in parts[1:]]
+            except ValueError:
+                continue
+            current["elements"].append({
+                "id": elem_id,
+                "nodes": nodes,
+                "raw": dataline
+            })
+
+        blocks.append(current)
+
     return blocks
 
 def _parse_keyword_options(keyword_rest: Optional[str]) -> Dict[str, str]:
@@ -213,97 +219,45 @@ def read_abaqus_nsets(inp_path: str) -> List[Dict]:
       }
     """
     blocks: List[Dict] = []
-    current = None
     block_counter = 0
 
-    with open(inp_path, 'r', encoding='utf-8') as f:
-        for raw_line in f:
-            line = raw_line.rstrip('\n')
-            stripped = line.strip()
-            if not stripped:
-                continue
-            if stripped.startswith('**'):
-                continue
+    for kw, rest, keyword_line, lines in _iter_keyword_blocks(inp_path):
+        if kw != '*nset':
+            continue
 
-            kwm = _KEYWORD_RE.match(line)
-            if kwm:
-                kw = kwm.group(1).lower()
-                rest = kwm.group(2)
-                rest = rest.strip() if rest else None
-                if kw == '*nset':
-                    # start new nset block
-                    if current is not None:
-                        blocks.append(current)
-                        current = None
-                    block_counter += 1
-                    opts = _parse_keyword_options(rest)
-                    name = opts.get('nset') or opts.get('name') or None
-                    generate = 'generate' in opts
-                    current = {
-                        "block_id": block_counter,
-                        # "keyword_line": line.strip(),
-                        "name": name.lower() if name else None,
-                        "generate": generate,
-                        "nodes": []
-                    }
-                    continue
-                else:
-                    # other keyword ends current nset block
-                    if current is not None:
-                        blocks.append(current)
-                        current = None
-                    continue
+        block_counter += 1
+        opts = _parse_keyword_options(rest)
+        name = opts.get('nset') or opts.get('name') or None
+        generate = 'generate' in opts
 
-            # inside an nset block
-            if current is None:
-                continue
+        current: Dict = {
+            "block_id": block_counter,
+            "keyword_line": keyword_line,
+            "name": name.lower() if name else None,
+            "generate": generate,
+            "nodes": []
+        }
 
-            # remove inline comments if any
-            dataline = re.split(r'!|--|;', line, maxsplit=1)[0].strip()
+        for line in lines:
+            dataline = _strip_inline_comment(line)
             if not dataline:
                 continue
 
-            # handle generate option lines like "1, 10, 1" or ranges "1,5,2"
-            if current["generate"]:
-                parts = [p.strip() for p in dataline.split(',') if p.strip()]
-                try:
-                    nums = [int(p) for p in parts]
-                except ValueError:
-                    continue
-                if len(nums) == 3:
-                    start, end, inc = nums
-                    if inc == 0:
-                        continue
-                    step = inc
-                    # inclusive end handling
-                    if (step > 0 and end >= start) or (step < 0 and end <= start):
-                        rng = list(range(start, end + (1 if step > 0 else -1), step))
-                    else:
-                        rng = []
-                    current["nodes"].extend(rng)
-                elif len(nums) == 2:
-                    start, end = nums
-                    step = 1 if end >= start else -1
-                    rng = list(range(start, end + (1 if step > 0 else -1), step))
-                    current["nodes"].extend(rng)
-                else:
-                    # single or multiple single values
-                    for n in nums:
-                        current["nodes"].append(n)
+            if generate:
+                current["nodes"].extend(_parse_generate_line(dataline))
                 continue
 
-            # non-generate: comma or whitespace separated node ids
-            parts = [p for p in re.split(r'[\s,]+', dataline) if p != '']
-            for p in parts:
+            for p in _split_tokens(dataline):
                 try:
                     nid = int(p)
                 except ValueError:
                     continue
                 current["nodes"].append(nid)
 
-    if current is not None:
         blocks.append(current)
+
     return blocks
+
 
 def read_abaqus_elsets(inp_path: str) -> List[Dict]:
     """
@@ -319,96 +273,43 @@ def read_abaqus_elsets(inp_path: str) -> List[Dict]:
       }
     """
     blocks: List[Dict] = []
-    current = None
     block_counter = 0
 
-    with open(inp_path, 'r', encoding='utf-8') as f:
-        for raw_line in f:
-            line = raw_line.rstrip('\n')
-            stripped = line.strip()
-            if not stripped:
-                continue
-            if stripped.startswith('**'):
-                continue
+    for kw, rest, keyword_line, lines in _iter_keyword_blocks(inp_path):
+        if kw != '*elset':
+            continue
 
-            kwm = _KEYWORD_RE.match(line)
-            if kwm:
-                kw = kwm.group(1).lower()
-                rest = kwm.group(2)
-                rest = rest.strip() if rest else None
-                if kw == '*elset' or kw == '*elset ':
-                    # start new elset block
-                    if current is not None:
-                        blocks.append(current)
-                        current = None
-                    block_counter += 1
-                    opts = _parse_keyword_options(rest)
-                    name = opts.get('elset') or opts.get('name') or None
-                    generate = 'generate' in opts
-                    current = {
-                        "block_id": block_counter,
-                        # "keyword_line": line.strip(),
-                        "name": name.lower() if name else None,
-                        "generate": generate,
-                        "elements": []
-                    }
-                    continue
-                else:
-                    # other keyword ends current elset block
-                    if current is not None:
-                        blocks.append(current)
-                        current = None
-                    continue
+        block_counter += 1
+        opts = _parse_keyword_options(rest)
+        name = opts.get('elset') or opts.get('name') or None
+        generate = 'generate' in opts
 
-            # inside an elset block
-            if current is None:
-                continue
+        current: Dict = {
+            "block_id": block_counter,
+            "keyword_line": keyword_line,
+            "name": name.lower() if name else None,
+            "generate": generate,
+            "elements": []
+        }
 
-            # remove inline comments if any
-            dataline = re.split(r'!|--|;', line, maxsplit=1)[0].strip()
+        for line in lines:
+            dataline = _strip_inline_comment(line)
             if not dataline:
                 continue
 
-            # handle generate option lines like "1, 10, 1"
-            if current["generate"]:
-                parts = [p.strip() for p in dataline.split(',') if p.strip()]
-                try:
-                    nums = [int(p) for p in parts]
-                except ValueError:
-                    continue
-                if len(nums) == 3:
-                    start, end, inc = nums
-                    if inc == 0:
-                        continue
-                    step = inc
-                    if (step > 0 and end >= start) or (step < 0 and end <= start):
-                        rng = list(range(start, end + (1 if step > 0 else -1), step))
-                    else:
-                        rng = []
-                    current["elements"].extend(rng)
-                elif len(nums) == 2:
-                    start, end = nums
-                    step = 1 if end >= start else -1
-                    rng = list(range(start, end + (1 if step > 0 else -1), step))
-                    current["elements"].extend(rng)
-                else:
-                    for n in nums:
-                        current["elements"].append(n)
+            if generate:
+                current["elements"].extend(_parse_generate_line(dataline))
                 continue
 
-            # non-generate: comma or whitespace separated element ids (or element-id, property combos — only first token parsed)
-            # Abaqus elset lines can be "e1, e2, e3" or "1,2,3" or "elid, prop" forms; we parse integers only.
-            parts = [p for p in re.split(r'[\s,]+', dataline) if p != '']
-            for p in parts:
+            for p in _split_tokens(dataline):
                 try:
                     eid = int(p)
                 except ValueError:
-                    # skip non-integer tokens (e.g., field names); if token contains digits separated by '/', take digits
                     continue
                 current["elements"].append(eid)
 
-    if current is not None:
         blocks.append(current)
+
     return blocks
 
 
@@ -422,6 +323,7 @@ def read_abaqus_elset_by_name(inp_path: str, name: str) -> Dict:
         if blk.get("name") == target:
             return blk
     raise KeyError(f"Elset named '{name}' not found.")
+
 
 def read_abaqus_beam_general_sections(inp_path: str) -> List[Dict]:
     """
@@ -447,68 +349,39 @@ def read_abaqus_beam_general_sections(inp_path: str) -> List[Dict]:
         or property definitions; this function captures each non-comment line as a tokenized record.
     """
     sections: List[Dict] = []
-    current = None
     block_counter = 0
 
-    with open(inp_path, 'r', encoding='utf-8') as f:
-        for raw_line in f:
-            line = raw_line.rstrip('\n')
-            stripped = line.strip()
-            if not stripped:
-                continue
-            if stripped.startswith('**'):
-                continue
+    for kw, rest, keyword_line, lines in _iter_keyword_blocks(inp_path):
+        if kw != '*beam general section':
+            continue
 
-            kwm = _KEYWORD_RE.match(line)
-            if kwm:
-                kw = kwm.group(1).lower()
-                rest = kwm.group(2)
-                rest = rest.strip() if rest else None
-                if kw == '*beam general section':
-                    # finish previous
-                    if current is not None:
-                        sections.append(current)
-                        current = None
-                    block_counter += 1
-                    # parse options into dict
-                    opts = _parse_keyword_options(rest) if rest else {}
-                    current = {
-                        "block_id": block_counter,
-                        # "keyword_line": line.strip(),
-                        "options": opts,
-                        "definitions": []
-                    }
-                    continue
-                else:
-                    # other keyword closes current block
-                    if current is not None:
-                        sections.append(current)
-                        current = None
-                    continue
+        block_counter += 1
+        opts = _parse_keyword_options(rest) if rest else {}
+        current: Dict = {
+            "block_id": block_counter,
+            "keyword_line": keyword_line,
+            "options": opts,
+            "definitions": []
+        }
 
-            # inside a Beam General block
-            if current is None:
-                continue
-
-            # remove inline comments if any
-            dataline = re.split(r'!|--|;', line, maxsplit=1)[0].strip()
+        for line in lines:
+            dataline = _strip_inline_comment(line)
             if not dataline:
                 continue
 
-            # Tokenize by commas but preserve quoted strings if any (simple approach)
             tokens = [t.strip() for t in re.split(r'(?<!"),(?!")', dataline) if t.strip()]
-            # Fallback: split by commas and whitespace
             if not tokens:
-                tokens = [t for t in re.split(r'[\s,]+', dataline) if t != '']
+                tokens = _split_tokens(dataline)
 
             current["definitions"].append({
-                # "raw": dataline,
-                "data": tokens
+                "raw": dataline,
+                "tokens": tokens
             })
 
-    if current is not None:
         sections.append(current)
+
     return sections
+
 
 def read_abaqus_cloads(inp_path: str) -> List[Dict]:
     """
@@ -532,83 +405,39 @@ def read_abaqus_cloads(inp_path: str) -> List[Dict]:
       - Stops a block when a new keyword (line starting with '*') is encountered.
     """
     blocks: List[Dict] = []
-    current = None
     block_counter = 0
 
-    with open(inp_path, 'r', encoding='utf-8') as f:
-        for raw_line in f:
-            line = raw_line.rstrip('\n')
-            stripped = line.strip()
-            if not stripped:
-                continue
-            if stripped.startswith('**'):
-                continue
+    for kw, rest, keyword_line, lines in _iter_keyword_blocks(inp_path):
+        if kw != '*cload':
+            continue
 
-            kwm = _KEYWORD_RE.match(line)
-            if kwm:
-                kw = kwm.group(1).lower()
-                rest = kwm.group(2)
-                rest = rest.strip() if rest else None
-                if kw == '*cload':
-                    # finish previous
-                    if current is not None:
-                        blocks.append(current)
-                        current = None
-                    block_counter += 1
-                    opts = _parse_keyword_options(rest)
-                    current = {
-                        "block_id": block_counter,
-                        "keyword_line": line.strip(),
-                        "node": None,
-                        "options": opts,
-                        "loads": []
-                    }
-                    continue
-                else:
-                    # other keyword closes current CLOAD block
-                    if current is not None:
-                        blocks.append(current)
-                        current = None
-                    continue
+        block_counter += 1
+        opts = _parse_keyword_options(rest)
+        current: Dict = {
+            "block_id": block_counter,
+            "keyword_line": keyword_line,
+            "node": None,
+            "options": opts,
+            "loads": []
+        }
 
-            # inside a CLOAD block
-            if current is None:
-                continue
-
-            # remove inline comments
-            dataline = re.split(r'!|--|;', line, maxsplit=1)[0].strip()
+        for line in lines:
+            dataline = _strip_inline_comment(line)
             if not dataline:
                 continue
 
-            # CLOAD data lines expected: node, dof, magnitude
-            # Tokens can be separated by commas or whitespace; allow scientific notation for magnitude
-            parts = [p for p in re.split(r'[\s,]+', dataline) if p != '']
+            parts = _split_tokens(dataline)
             if not parts:
                 continue
 
-            # Some variants may include node ranges or references; we only parse numeric node ids and dof/value here.
-            # Handle lines with at least 3 tokens; if more tokens exist, we take the first three.
-            # If magnitude is missing, skip the line.
             if len(parts) < 3:
-                # skip malformed or partial lines
                 continue
 
             try:
                 node = int(parts[0])
-            except ValueError:
-                # skip non-integer node tokens
-                node = parts[0]
-
-            try:
                 dof = int(parts[1])
-            except ValueError:
-                # sometimes DOF may be given as a field name; skip such lines
-                continue
-
-            try:
                 value = float(parts[2])
             except ValueError:
-                # skip if magnitude not parseable as float
                 continue
 
             current["loads"].append({
@@ -618,7 +447,7 @@ def read_abaqus_cloads(inp_path: str) -> List[Dict]:
                 # "raw": dataline
             })
 
-    if current is not None:
         blocks.append(current)
+
     return blocks
 

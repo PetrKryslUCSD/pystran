@@ -18,6 +18,9 @@ from typing import List, Dict, Optional, Iterable, Tuple
 # is followed by either a comma or the end of line (possibly with trailing whitespace).
 _KEYWORD_RE = re.compile(r'^\s*(\*(?:[A-Za-z0-9_]+(?:\s+[A-Za-z0-9_]+)*))\s*(?:,(.*)|$)', re.IGNORECASE)
 
+# Match any section keyword
+_RECORD_RE = re.compile(r'^\s*\*')
+    
 def read_abaqus_nodes(inp_path: str) -> List[Tuple[int, Tuple[float, float, float]]]:
     """
     Parse the first *Node section found in an Abaqus .inp file and return a list of
@@ -28,8 +31,6 @@ def read_abaqus_nodes(inp_path: str) -> List[Tuple[int, Tuple[float, float, floa
     # nodes = read_abaqus_nodes("model.inp")
     # print(nodes[:10])
     """
-    
-    record_re = re.compile(r'^\s*\*')  # start of a new record
     data_re = re.compile(r'^\s*(\d+)\s*,\s*([-\dEe+.]+)(?:\s*,\s*([-\dEe+.]+))?(?:\s*,\s*([-\dEe+.]+))?\s*$')
 
     nodes = []
@@ -54,7 +55,7 @@ def read_abaqus_nodes(inp_path: str) -> List[Tuple[int, Tuple[float, float, floa
                     continue
 
             # we are inside *Node section
-            if record_re.match(line):  # new record starts; exit node section
+            if _RECORD_RE.match(line):  # new record starts; exit node section
                 break
 
             # some files may split records with continuation commas or extra spaces; remove inline comments if any
@@ -147,7 +148,7 @@ def read_abaqus_elements(inp_path: str) -> List[Dict]:
                                 break
                     current = {
                         "block_id": block_counter,
-                        "keyword_line": line.strip(),
+                        # "keyword_line": line.strip(),
                         "type": elem_type,
                         "elements": []
                     }
@@ -183,3 +184,211 @@ def read_abaqus_elements(inp_path: str) -> List[Dict]:
     # finalise last block
     finish_block()
     return blocks
+
+def _parse_keyword_options(keyword_rest: Optional[str]) -> Dict[str, str]:
+    """Parse comma-separated keyword options like 'nset=SET1, generate' -> dict."""
+    opts: Dict[str, str] = {}
+    if not keyword_rest:
+        return opts
+    for part in [p.strip() for p in keyword_rest.split(',') if p.strip()]:
+        if '=' in part:
+            k, v = part.split('=', 1)
+            opts[k.strip().lower()] = v.strip()
+        else:
+            opts[part.strip().lower()] = ''
+    return opts
+
+
+def read_abaqus_nsets(inp_path: str) -> List[Dict]:
+    """
+    Parse all *Nset sections from an Abaqus .inp file.
+
+    Returns a list of dicts:
+      {
+        "block_id": int,           # sequential block number starting at 1
+        "keyword_line": str,       # original keyword line
+        "name": Optional[str],     # value of NSET= option if present (lower-cased)
+        "generate": bool,          # True if 'generate' option present
+        "nodes": [int, ...]        # list of node ids included in the set
+      }
+    """
+    blocks: List[Dict] = []
+    current = None
+    block_counter = 0
+
+    with open(inp_path, 'r', encoding='utf-8') as f:
+        for raw_line in f:
+            line = raw_line.rstrip('\n')
+            stripped = line.strip()
+            if not stripped:
+                continue
+            if stripped.startswith('**'):
+                continue
+
+            kwm = _KEYWORD_RE.match(line)
+            if kwm:
+                kw = kwm.group(1).lower()
+                rest = kwm.group(2)
+                rest = rest.strip() if rest else None
+                if kw == '*nset':
+                    # start new nset block
+                    if current is not None:
+                        blocks.append(current)
+                        current = None
+                    block_counter += 1
+                    opts = _parse_keyword_options(rest)
+                    name = opts.get('nset') or opts.get('name') or None
+                    generate = 'generate' in opts
+                    current = {
+                        "block_id": block_counter,
+                        # "keyword_line": line.strip(),
+                        "name": name.lower() if name else None,
+                        "generate": generate,
+                        "nodes": []
+                    }
+                    continue
+                else:
+                    # other keyword ends current nset block
+                    if current is not None:
+                        blocks.append(current)
+                        current = None
+                    continue
+
+            # inside an nset block
+            if current is None:
+                continue
+
+            # remove inline comments if any
+            dataline = re.split(r'!|--|;', line, maxsplit=1)[0].strip()
+            if not dataline:
+                continue
+
+            # handle generate option lines like "1, 10, 1" or ranges "1,5,2"
+            if current["generate"]:
+                parts = [p.strip() for p in dataline.split(',') if p.strip()]
+                try:
+                    nums = [int(p) for p in parts]
+                except ValueError:
+                    continue
+                if len(nums) == 3:
+                    start, end, inc = nums
+                    if inc == 0:
+                        continue
+                    step = inc
+                    # inclusive end handling
+                    if (step > 0 and end >= start) or (step < 0 and end <= start):
+                        rng = list(range(start, end + (1 if step > 0 else -1), step))
+                    else:
+                        rng = []
+                    current["nodes"].extend(rng)
+                elif len(nums) == 2:
+                    start, end = nums
+                    step = 1 if end >= start else -1
+                    rng = list(range(start, end + (1 if step > 0 else -1), step))
+                    current["nodes"].extend(rng)
+                else:
+                    # single or multiple single values
+                    for n in nums:
+                        current["nodes"].append(n)
+                continue
+
+            # non-generate: comma or whitespace separated node ids
+            parts = [p for p in re.split(r'[\s,]+', dataline) if p != '']
+            for p in parts:
+                try:
+                    nid = int(p)
+                except ValueError:
+                    continue
+                current["nodes"].append(nid)
+
+    if current is not None:
+        blocks.append(current)
+    return blocks
+
+def read_abaqus_beam_general_sections(inp_path: str) -> List[Dict]:
+    """
+    Parse *Beam General sections from an Abaqus .inp file.
+
+    Returns a list of dicts:
+      {
+        "block_id": int,           # sequential block number starting at 1
+        "keyword_line": str,       # original keyword line (e.g., "*Beam Section, elset=EALL, material=STEEL")
+        "options": Dict[str,str],  # parsed keyword options (lower-cased keys)
+        "definitions": [           # list of beam property definitions found in the block
+            {
+              "raw": str,          # the raw data line (trimmed)
+              "tokens": [str,...]  # tokens split by comma/whitespace
+            }, ...
+        ]
+      }
+
+    Notes:
+      - Stops collecting when the next keyword line is encountered.
+      - Lines starting with '**' are ignored.
+      - Beam General block content may include element-based property assignments, orientation lines,
+        or property definitions; this function captures each non-comment line as a tokenized record.
+    """
+    sections: List[Dict] = []
+    current = None
+    block_counter = 0
+
+    with open(inp_path, 'r', encoding='utf-8') as f:
+        for raw_line in f:
+            line = raw_line.rstrip('\n')
+            stripped = line.strip()
+            if not stripped:
+                continue
+            if stripped.startswith('**'):
+                continue
+
+            kwm = _KEYWORD_RE.match(line)
+            if kwm:
+                kw = kwm.group(1).lower()
+                rest = kwm.group(2)
+                rest = rest.strip() if rest else None
+                if kw == '*beam general section':
+                    # finish previous
+                    if current is not None:
+                        sections.append(current)
+                        current = None
+                    block_counter += 1
+                    # parse options into dict
+                    opts = _parse_keyword_options(rest) if rest else {}
+                    current = {
+                        "block_id": block_counter,
+                        # "keyword_line": line.strip(),
+                        "options": opts,
+                        "definitions": []
+                    }
+                    continue
+                else:
+                    # other keyword closes current block
+                    if current is not None:
+                        sections.append(current)
+                        current = None
+                    continue
+
+            # inside a Beam General block
+            if current is None:
+                continue
+
+            # remove inline comments if any
+            dataline = re.split(r'!|--|;', line, maxsplit=1)[0].strip()
+            if not dataline:
+                continue
+
+            # Tokenize by commas but preserve quoted strings if any (simple approach)
+            tokens = [t.strip() for t in re.split(r'(?<!"),(?!")', dataline) if t.strip()]
+            # Fallback: split by commas and whitespace
+            if not tokens:
+                tokens = [t for t in re.split(r'[\s,]+', dataline) if t != '']
+
+            current["definitions"].append({
+                # "raw": dataline,
+                "data": tokens
+            })
+
+    if current is not None:
+        sections.append(current)
+    return sections
+

@@ -1,12 +1,22 @@
 # -*- coding: utf-8 -*-
 """
+Import selected sections from an Abaqus input file.
+
 Created on Mon Jun  8 17:11:08 2026
 
-@author: pkonl
+@author: Petr Krysl
 """
 
 import re
 from typing import List, Dict, Optional, Iterable, Tuple
+
+
+# Match a keyword line where:
+#  - group(1) = the keyword phrase (the '*' plus one or more words, e.g. '*element' or '*element output')
+#  - group(2) = the remainder (options) which starts after a comma or end of line
+# The regex allows whitespace between words in the keyword phrase and requires that the keyword phrase
+# is followed by either a comma or the end of line (possibly with trailing whitespace).
+_KEYWORD_RE = re.compile(r'^\s*(\*(?:[A-Za-z0-9_]+(?:\s+[A-Za-z0-9_]+)*))\s*(?:,(.*)|$)', re.IGNORECASE)
 
 def read_abaqus_nodes(inp_path: str) -> List[Tuple[int, Tuple[float, float, float]]]:
     """
@@ -18,7 +28,7 @@ def read_abaqus_nodes(inp_path: str) -> List[Tuple[int, Tuple[float, float, floa
     # nodes = read_abaqus_nodes("model.inp")
     # print(nodes[:10])
     """
-    node_re = re.compile(r'^\s*\*NODE', re.IGNORECASE)
+    
     record_re = re.compile(r'^\s*\*')  # start of a new record
     data_re = re.compile(r'^\s*(\d+)\s*,\s*([-\dEe+.]+)(?:\s*,\s*([-\dEe+.]+))?(?:\s*,\s*([-\dEe+.]+))?\s*$')
 
@@ -32,9 +42,16 @@ def read_abaqus_nodes(inp_path: str) -> List[Tuple[int, Tuple[float, float, floa
                 continue
 
             if not in_node_section:
-                if node_re.match(line):
-                    in_node_section = True
-                continue
+                kwm = _KEYWORD_RE.match(line)
+                if kwm:
+                    # It's a keyword line
+                    kw = kwm.group(1).lower()
+                    rest = kwm.group(2)
+                    if rest:
+                        rest = rest.strip()
+                    if kw == '*node':
+                        in_node_section = True
+                    continue
 
             # we are inside *Node section
             if record_re.match(line):  # new record starts; exit node section
@@ -62,13 +79,6 @@ def read_abaqus_nodes(inp_path: str) -> List[Tuple[int, Tuple[float, float, floa
     return nodes
 
 
-
-# Match a keyword line where:
-#  - group(1) = the keyword phrase (the '*' plus one or more words, e.g. '*element' or '*element output')
-#  - group(2) = the remainder (options) which starts after a comma or end of line
-# The regex allows whitespace between words in the keyword phrase and requires that the keyword phrase
-# is followed by either a comma or the end of line (possibly with trailing whitespace).
-_KEYWORD_RE = re.compile(r'^\s*(\*(?:[A-Za-z0-9_]+(?:\s+[A-Za-z0-9_]+)*))\s*(?:,(.*)|$)', re.IGNORECASE)
 
 
 def read_abaqus_elements(inp_path: str) -> List[Dict]:

@@ -510,3 +510,115 @@ def read_abaqus_beam_general_sections(inp_path: str) -> List[Dict]:
         sections.append(current)
     return sections
 
+def read_abaqus_cloads(inp_path: str) -> List[Dict]:
+    """
+    Parse all *CLOAD sections from an Abaqus .inp file.
+
+    Returns a list of dicts:
+      {
+        "block_id": int,
+        "keyword_line": str,
+        "node": Optional[int],       # if a single node/id is placed on the keyword line (rare)
+        "options": Dict[str,str],    # parsed keyword options (lower-cased keys)
+        "loads": [                   # list of loads (node_or_nodepart, dof, value) or (node, dof, value)
+            {"node": int, "dof": int, "value": float, "raw": str}, ...
+        ]
+      }
+
+    Notes:
+      - Supports keyword options like 'amplitude=AMPL1' and 'create' etc.
+      - Lines are expected as: node, dof, magnitude
+      - Skips comment lines starting with '**' and inline comments after '!' or '--' or ';'
+      - Stops a block when a new keyword (line starting with '*') is encountered.
+    """
+    blocks: List[Dict] = []
+    current = None
+    block_counter = 0
+
+    with open(inp_path, 'r', encoding='utf-8') as f:
+        for raw_line in f:
+            line = raw_line.rstrip('\n')
+            stripped = line.strip()
+            if not stripped:
+                continue
+            if stripped.startswith('**'):
+                continue
+
+            kwm = _KEYWORD_RE.match(line)
+            if kwm:
+                kw = kwm.group(1).lower()
+                rest = kwm.group(2)
+                rest = rest.strip() if rest else None
+                if kw == '*cload':
+                    # finish previous
+                    if current is not None:
+                        blocks.append(current)
+                        current = None
+                    block_counter += 1
+                    opts = _parse_keyword_options(rest)
+                    current = {
+                        "block_id": block_counter,
+                        "keyword_line": line.strip(),
+                        "node": None,
+                        "options": opts,
+                        "loads": []
+                    }
+                    continue
+                else:
+                    # other keyword closes current CLOAD block
+                    if current is not None:
+                        blocks.append(current)
+                        current = None
+                    continue
+
+            # inside a CLOAD block
+            if current is None:
+                continue
+
+            # remove inline comments
+            dataline = re.split(r'!|--|;', line, maxsplit=1)[0].strip()
+            if not dataline:
+                continue
+
+            # CLOAD data lines expected: node, dof, magnitude
+            # Tokens can be separated by commas or whitespace; allow scientific notation for magnitude
+            parts = [p for p in re.split(r'[\s,]+', dataline) if p != '']
+            if not parts:
+                continue
+
+            # Some variants may include node ranges or references; we only parse numeric node ids and dof/value here.
+            # Handle lines with at least 3 tokens; if more tokens exist, we take the first three.
+            # If magnitude is missing, skip the line.
+            if len(parts) < 3:
+                # skip malformed or partial lines
+                continue
+
+            try:
+                node = int(parts[0])
+            except ValueError:
+                # skip non-integer node tokens
+                node = parts[0]
+
+            try:
+                dof = int(parts[1])
+            except ValueError:
+                # sometimes DOF may be given as a field name; skip such lines
+                continue
+
+            try:
+                value = float(parts[2])
+            except ValueError:
+                # skip if magnitude not parseable as float
+                continue
+
+            current["loads"].append({
+                "node": node,
+                "dof": dof,
+                "value": value,
+                # "raw": dataline
+            })
+
+    if current is not None:
+        blocks.append(current)
+    return blocks
+

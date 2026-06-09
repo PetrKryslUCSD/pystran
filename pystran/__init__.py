@@ -1,7 +1,7 @@
 """
 pystran - Python package for structural analysis with trusses and beams
 
-(C) 2025, Petr Krysl
+(C) 2025-2026, Petr Krysl
 
 This package is intended for educational purposes.
 
@@ -74,6 +74,7 @@ __all__ = [
     "beam",
     "spring",
     "plots",
+    "Abaqus_import"
 ]
 
 # Import the submodules
@@ -88,3 +89,4 @@ from . import rigid
 from . import beam
 from . import spring
 from . import plots
+from . import Abaqus_import

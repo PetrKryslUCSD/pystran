@@ -88,39 +88,65 @@ def _parse_generate_line(dataline: str) -> List[int]:
 
     return nums
 
+def read_abaqus_nodes(inp_path: str) -> List[Dict]:
+    """
+    Parse *Node options from an Abaqus .inp file.
 
-def read_abaqus_nodes(inp_path: str) -> List[Tuple[int, Tuple[float, float, float]]]:
+    Returns a list of dictionaries, one for each *Node block found:
+      {
+        "block_id": int,         # sequential block number starting at 1
+        "nodes": [               # list of elements in this block
+            {"id": int, "coordinates": [float, ...], "raw": "..."}, ...
+        ]
+      }
+
+    Usage:
+      with open('model.inp') as f:
+          blocks = read_abaqus_nodes(f)
+
+    Notes:
+      - Stops collecting when it encounters the next keyword (line starting with '*').
+      - Lines starting with '**' are Abaqus comments and ignored.
+      - Node data lines are expected as: id, x, y [, z] (commas or spaces tolerated).
+      - Parameters such as INPUT, NSET, etc. are not parsed from the keyword line 
+      in this function; it focuses on node data.
     """
-    Parse the first *Node section found in an Abaqus .inp file and return a list of
-    (node_id, (x, y, z)) tuples. If multiple *Node sections exist, this returns the first.
-    Raises ValueError if no *Node section is found.
-    
-    # Example usage:
-    # nodes = read_abaqus_nodes("model.inp")
-    # print(nodes[:10])
-    """
-    nodes = []
+    blocks: List[Dict] = []
+    block_counter = 0
+
     for kw, rest, keyword_line, lines in _iter_keyword_blocks(inp_path):
         if kw != '*node':
             continue
+
+        block_counter += 1
+        
+        current: Dict = {
+            "block_id": block_counter,
+            "keyword_line": keyword_line,
+            "nodes": []
+        }
+
         for line in lines:
             dataline = _strip_inline_comment(line)
             if not dataline:
                 continue
-            m = _NODE_DATA_RE.match(dataline)
-            if not m:
+            parts = _split_tokens(dataline)
+            if not parts:
                 continue
-            nid = int(m.group(1))
-            x = float(m.group(2))
-            y = float(m.group(3)) if m.group(3) is not None else 0.0
-            z = float(m.group(4)) if m.group(4) is not None else 0.0
-            nodes.append((nid, (x, y, z)))
-        break
+            try:
+                node_id = int(parts[0])
+                coordinates = [float(p) for p in parts[1:]]
+            except ValueError:
+                continue
+            current["nodes"].append({
+                "id": node_id,
+                "coordinates": coordinates,
+                "raw": dataline
+            })
 
-    if not nodes:
-        raise ValueError("No *NODE section found or it contains no node data.")
-    return nodes
+        blocks.append(current)
 
+    return blocks
 
 
 def read_abaqus_elements(inp_path: str) -> List[Dict]:

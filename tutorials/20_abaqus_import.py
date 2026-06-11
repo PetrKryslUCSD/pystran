@@ -7,19 +7,36 @@ Created on Mon Jun  8 17:34:32 2026
 
 import context
 from pystran import Abaqus_import
-file = 'tutorials/06_sennett_tut.inp'
+file = './06_sennett_tut.inp'
 
 nodes = Abaqus_import.read_abaqus_nodes(file)
-print(nodes)
+# print(nodes)
 
-# elements = Abaqus_import.read_abaqus_elements(file)
+for b in nodes:
+    print('Block ', b['block_id'])
+    for n in b['nodes']:
+        print(n)
+
+elements = Abaqus_import.read_abaqus_elements(file)
 # print(elements)
 
-# nsets = Abaqus_import.read_abaqus_nsets(file)
+
+for b in elements:
+    print('Block ', b['block_id'])
+    for e in b['elements']:
+        print(e)
+
+nsets = Abaqus_import.read_abaqus_nsets(file)
 # print(nsets)
 
-# bgsects = Abaqus_import.read_abaqus_beam_general_sections(file)
-# print(bgsects)
+for b in nsets:
+    print('Block ', b['block_id'])
+    print('  Name: ', b['name'])
+    for n in b['nodes']:
+        print(n)
+
+bgsects = Abaqus_import.read_abaqus_beam_general_sections(file)
+print(bgsects)
 
 # elsets = Abaqus_import.read_abaqus_elsets(file)
 # print(elsets)

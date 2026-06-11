@@ -1,10 +1,38 @@
 # -*- coding: utf-8 -*-
 """
-Import selected sections from an Abaqus input file.
+Import option blocks from an Abaqus input file.
 
 Created on Mon Jun  8 17:11:08 2026
 
 @author: Petr Krysl
+
+This section describes the syntax rules that govern an Abaqus input file.
+
+All data definitions in Abaqus are accomplished with option blocks—sets 
+of data describing a part of the problem definition. You choose those 
+options that are relevant for a particular application. Options are 
+defined by lines in the input file. Three types of input lines are 
+used in an Abaqus input file: keyword lines, data lines, and comment lines. 
+Only 7-bit ASCII characters are supported in keyword lines and data lines, 
+and a line feed is required at the end of each line in an input file.
+
+Keyword lines introduce options and often have parameters, which appear 
+as words or phrases separated by commas on the keyword line. Parameters 
+are used to define the behavior of an option. Parameters can stand 
+alone or have a value, and they may be required or optional.
+
+Data lines, which are used to provide numeric or alphanumeric entries, 
+follow most keyword lines.
+
+Any line that begins with stars in columns 1 and 2 (**) is a comment line. 
+Such lines can be placed anywhere in the file. They are ignored by 
+Abaqus, so they will be printed only in the initial listing of the file. 
+There is no restriction on how many or where such lines occur in the file.
+
+Relevant parameters and data lines (including the number of entries 
+per data line) are described in the sections of the Abaqus Keywords 
+Guide describing each option. This section describes the general 
+rules that apply to all keyword and data lines.
 """
 
 import re
@@ -12,10 +40,13 @@ from typing import List, Dict, Optional, Iterable, Tuple
 
 
 # Match a keyword line where:
-#  - group(1) = the keyword phrase (the '*' plus one or more words, e.g. '*element' or '*element output')
-#  - group(2) = the remainder (options) which starts after a comma or end of line
-# The regex allows whitespace between words in the keyword phrase and requires that the keyword phrase
-# is followed by either a comma or the end of line (possibly with trailing whitespace).
+#  - group(1) = the keyword phrase (the '*' plus one or more words, 
+#   e.g. '*ELEMENT' or '*ELEMENT OUTPUT')
+#  - group(2) = the remainder (options) which starts after a comma 
+#   or end of line
+# The regex allows whitespace between words in the keyword phrase and 
+#   requires that the keyword phrase# is followed by either a comma 
+#   or the end of line (possibly with trailing whitespace).
 _KEYWORD_RE = re.compile(r'^\s*(\*(?:[A-Za-z0-9_]+(?:\s+[A-Za-z0-9_]+)*))\s*(?:,(.*)|$)', re.IGNORECASE)
 
 # Match any section keyword
@@ -51,7 +82,7 @@ def _iter_keyword_blocks(inp_path: str):
         if kwm:
             if current_keyword is not None:
                 yield current_keyword, current_rest, current_keyword_line, current_lines
-            current_keyword = kwm.group(1).lower()
+            current_keyword = kwm.group(1).upper()
             current_rest = kwm.group(2)
             if current_rest:
                 current_rest = current_rest.strip()
@@ -90,9 +121,9 @@ def _parse_generate_line(dataline: str) -> List[int]:
 
 def read_abaqus_nodes(inp_path: str) -> List[Dict]:
     """
-    Parse *Node options from an Abaqus .inp file.
+    Read *NODE option blocks from an Abaqus .inp file.
 
-    Returns a list of dictionaries, one for each *Node block found:
+    Returns a list of dictionaries, one for each *NODE block found:
       {
         "block_id": int,         # sequential block number starting at 1
         "nodes": [               # list of elements in this block
@@ -115,7 +146,7 @@ def read_abaqus_nodes(inp_path: str) -> List[Dict]:
     block_counter = 0
 
     for kw, rest, keyword_line, lines in _iter_keyword_blocks(inp_path):
-        if kw != '*node':
+        if kw != '*NODE':
             continue
 
         block_counter += 1
@@ -151,21 +182,20 @@ def read_abaqus_nodes(inp_path: str) -> List[Dict]:
 
 def read_abaqus_elements(inp_path: str) -> List[Dict]:
     """
-    Parse *Element sections from an Abaqus .inp file.
+    Read *ELEMENT option blocks from an Abaqus .inp file.
 
-    Returns a list of dictionaries:
+    Returns a list of dictionaries, one for each *ELEMENT block found:
       {
         "block_id": int,            # sequential block number starting at 1
-        "keyword_line": str,        # the original keyword line (e.g. "*Element, type=C3D8R")
         "type": Optional[str],      # element type if present in keyword options
         "elements": [               # list of elements in this block
-            {"id": int, "nodes": [int, ...], "raw": "..."}, ...
+            {"id": int, "nodes": [int, ...]}, ...
         ]
       }
 
     Usage:
       with open('model.inp') as f:
-          blocks = parse_elements_from_inp(f)
+          blocks = read_abaqus_elements(f)
 
     Notes:
       - Stops collecting when it encounters the next keyword (line starting with '*').
@@ -176,7 +206,7 @@ def read_abaqus_elements(inp_path: str) -> List[Dict]:
     block_counter = 0
 
     for kw, rest, keyword_line, lines in _iter_keyword_blocks(inp_path):
-        if kw != '*element':
+        if kw != '*ELEMENT':
             continue
 
         block_counter += 1
@@ -184,13 +214,12 @@ def read_abaqus_elements(inp_path: str) -> List[Dict]:
         if rest:
             opts = [o.strip() for o in rest.split(',') if o.strip()]
             for o in opts:
-                if o.lower().startswith('type='):
+                if o.upper().startswith('TYPE='):
                     elem_type = o.split('=', 1)[1]
                     break
 
         current: Dict = {
             "block_id": block_counter,
-            "keyword_line": keyword_line,
             "type": elem_type,
             "elements": []
         }
@@ -210,7 +239,6 @@ def read_abaqus_elements(inp_path: str) -> List[Dict]:
             current["elements"].append({
                 "id": elem_id,
                 "nodes": nodes,
-                "raw": dataline
             })
 
         blocks.append(current)
@@ -218,28 +246,27 @@ def read_abaqus_elements(inp_path: str) -> List[Dict]:
     return blocks
 
 def _parse_keyword_options(keyword_rest: Optional[str]) -> Dict[str, str]:
-    """Parse comma-separated keyword options like 'nset=SET1, generate' -> dict."""
+    """Parse comma-separated keyword options like 'NSET=SET1, GENERATE' -> dict."""
     opts: Dict[str, str] = {}
     if not keyword_rest:
         return opts
     for part in [p.strip() for p in keyword_rest.split(',') if p.strip()]:
         if '=' in part:
             k, v = part.split('=', 1)
-            opts[k.strip().lower()] = v.strip()
+            opts[k.strip().upper()] = v.strip()
         else:
-            opts[part.strip().lower()] = ''
+            opts[part.strip().upper()] = ''
     return opts
 
 
 def read_abaqus_nsets(inp_path: str) -> List[Dict]:
     """
-    Parse all *Nset sections from an Abaqus .inp file.
+    Read all *NSET option blocks from an Abaqus .inp file.
 
-    Returns a list of dicts:
+    Returns a list of dictionaries, one for each *NSET block found:
       {
         "block_id": int,           # sequential block number starting at 1
-        "keyword_line": str,       # original keyword line
-        "name": Optional[str],     # value of NSET= option if present (lower-cased)
+        "name": Optional[str],     # value of NSET= option if present (upper-cased)
         "generate": bool,          # True if 'generate' option present
         "nodes": [int, ...]        # list of node ids included in the set
       }
@@ -248,18 +275,17 @@ def read_abaqus_nsets(inp_path: str) -> List[Dict]:
     block_counter = 0
 
     for kw, rest, keyword_line, lines in _iter_keyword_blocks(inp_path):
-        if kw != '*nset':
+        if kw != '*NSET':
             continue
 
         block_counter += 1
         opts = _parse_keyword_options(rest)
-        name = opts.get('nset') or opts.get('name') or None
+        name = opts.get('NSET') or opts.get('NAME') or None
         generate = 'generate' in opts
 
         current: Dict = {
             "block_id": block_counter,
-            "keyword_line": keyword_line,
-            "name": name.lower() if name else None,
+            "name": name.upper() if name else None,
             "generate": generate,
             "nodes": []
         }
@@ -287,13 +313,12 @@ def read_abaqus_nsets(inp_path: str) -> List[Dict]:
 
 def read_abaqus_elsets(inp_path: str) -> List[Dict]:
     """
-    Parse all *Elset sections from an Abaqus .inp file.
+    Read all *Elset option blocks from an Abaqus .inp file.
 
     Returns a list of dicts:
       {
-        "block_id": int,
-        "keyword_line": str,
-        "name": Optional[str],    # elset name lower-cased if present
+        "block_id": int,          # sequential block number starting at 1
+        "name": Optional[str],    # elset name upper-cased if present
         "generate": bool,         # True if 'generate' option present
         "elements": [int, ...]    # list of element ids in the set
       }
@@ -302,18 +327,17 @@ def read_abaqus_elsets(inp_path: str) -> List[Dict]:
     block_counter = 0
 
     for kw, rest, keyword_line, lines in _iter_keyword_blocks(inp_path):
-        if kw != '*elset':
+        if kw != '*ELSET':
             continue
 
         block_counter += 1
         opts = _parse_keyword_options(rest)
-        name = opts.get('elset') or opts.get('name') or None
+        name = opts.get('ELSET') or opts.get('NAME') or None
         generate = 'generate' in opts
 
         current: Dict = {
             "block_id": block_counter,
-            "keyword_line": keyword_line,
-            "name": name.lower() if name else None,
+            "name": name.upper() if name else None,
             "generate": generate,
             "elements": []
         }
@@ -338,56 +362,44 @@ def read_abaqus_elsets(inp_path: str) -> List[Dict]:
 
     return blocks
 
-
-def read_abaqus_elset_by_name(inp_path: str, name: str) -> Dict:
-    """
-    Return the first *Elset block whose name matches `name` (case-insensitive).
-    Raises KeyError if not found.
-    """
-    target = name.lower()
-    for blk in read_abaqus_elsets(inp_path):
-        if blk.get("name") == target:
-            return blk
-    raise KeyError(f"Elset named '{name}' not found.")
-
-
 def read_abaqus_beam_general_sections(inp_path: str) -> List[Dict]:
     """
-    Parse *Beam General sections from an Abaqus .inp file.
+    Read *BEAM GENERAL SECTION option blocks from an Abaqus .inp file.
 
     Returns a list of dicts:
       {
         "block_id": int,           # sequential block number starting at 1
-        "keyword_line": str,       # original keyword line (e.g., "*Beam Section, elset=EALL, material=STEEL")
-        "options": Dict[str,str],  # parsed keyword options (lower-cased keys)
-        "definitions": [           # list of beam property definitions found in the block
-            {
-              "raw": str,          # the raw data line (trimmed)
-              "tokens": [str,...]  # tokens split by comma/whitespace
-            }, ...
+        "options": Dict[str,str],  # parsed keyword options (upper-cased keys)
+        "datalines": [             # list of beam property data lines found in the block
+            [float, ...], ...
         ]
       }
+
+    Required parameters recognized:
+    - ELSET: identifies the element set to which the beam section applies.
+    - MATERIAL: specifies the material name for the beam section.
+    - SECTION=GENERAL: only linear response is considered here.
 
     Notes:
       - Stops collecting when the next keyword line is encountered.
       - Lines starting with '**' are ignored.
-      - Beam General block content may include element-based property assignments, orientation lines,
-        or property definitions; this function captures each non-comment line as a tokenized record.
+      - BEAM GENERAL SECTION block content may include element-based 
+        property assignments, orientation lines, or property data; 
+        this function captures each data line as a list of numbers.
     """
     sections: List[Dict] = []
     block_counter = 0
 
     for kw, rest, keyword_line, lines in _iter_keyword_blocks(inp_path):
-        if kw != '*beam general section':
+        if kw != '*BEAM GENERAL SECTION':
             continue
 
         block_counter += 1
         opts = _parse_keyword_options(rest) if rest else {}
         current: Dict = {
             "block_id": block_counter,
-            "keyword_line": keyword_line,
             "options": opts,
-            "definitions": []
+            "datalines": []
         }
 
         for line in lines:
@@ -395,14 +407,11 @@ def read_abaqus_beam_general_sections(inp_path: str) -> List[Dict]:
             if not dataline:
                 continue
 
-            tokens = [t.strip() for t in re.split(r'(?<!"),(?!")', dataline) if t.strip()]
-            if not tokens:
-                tokens = _split_tokens(dataline)
+            data = [t.strip() for t in re.split(r'(?<!"),(?!")', dataline) if t.strip()]
+            if not data:
+                data = _split_tokens(dataline)
 
-            current["definitions"].append({
-                "raw": dataline,
-                "tokens": tokens
-            })
+            current["datalines"].append(data)
 
         sections.append(current)
 
@@ -418,7 +427,7 @@ def read_abaqus_cloads(inp_path: str) -> List[Dict]:
         "block_id": int,
         "keyword_line": str,
         "node": Optional[int],       # if a single node/id is placed on the keyword line (rare)
-        "options": Dict[str,str],    # parsed keyword options (lower-cased keys)
+        "options": Dict[str,str],    # parsed keyword options (upper-cased keys)
         "loads": [                   # list of loads (node_or_nodepart, dof, value) or (node, dof, value)
             {"node": int, "dof": int, "value": float, "raw": str}, ...
         ]
@@ -434,7 +443,7 @@ def read_abaqus_cloads(inp_path: str) -> List[Dict]:
     block_counter = 0
 
     for kw, rest, keyword_line, lines in _iter_keyword_blocks(inp_path):
-        if kw != '*cload':
+        if kw != '*CLOAD':
             continue
 
         block_counter += 1

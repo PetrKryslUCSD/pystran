@@ -59,7 +59,7 @@ def _keyword_and_parameters(line: str) -> Tuple[str, Dict[str,str]]:
         for part in [p.strip() for p in rest.split(',') if p.strip()]:
             if '=' in part:
                 k, v = part.split('=', 1)
-                parameters[k.strip().upper()] = v.strip()
+                parameters[k.strip().upper()] = re.sub(r'"', '', v.strip())
             else:
                 parameters[part.strip().upper()] = ''
     return kw, parameters

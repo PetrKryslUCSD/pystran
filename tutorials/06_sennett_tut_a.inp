@@ -21,7 +21,7 @@
  1,
 *Nset, nset=Set-2
  1, 2
-*Elset, elset=Set-2
+*Elset, elset="A Set of 1"
  1,
 *Nset, nset=Set-3
  1, 2
@@ -77,6 +77,8 @@
 *Material, name=Material-Steel
 *Elastic
  2.9e+07, 0.3
+*Density
+ 0.2836
 ** ----------------------------------------------------------------
 ** 
 ** STEP: Step-statics

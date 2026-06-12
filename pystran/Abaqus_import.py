@@ -314,6 +314,51 @@ def _handle_beam_general_sections(schema: Dict, kw: str, parameters: Dict[str,st
     })
     return schema
 
+def _handle_material(schema: Dict, kw: str, parameters: Dict[str,str]):
+    buffer = schema['buffer']
+    kw_line = buffer['currentline']+1 # 1-based line number for reporting
+    # Handle parameters
+    name = parameters.get('NAME', None)
+    E = 1.0
+    nu = 0.0
+    rho = 0.0
+    buffer['currentline'] += 1
+    while buffer['currentline'] < len(buffer['lines']):
+        line = _current_line(buffer)
+        if _is_keyword_line(line):
+            kw, parameters = _keyword_and_parameters(line)
+            if kw == '*ELASTIC':
+                buffer['currentline'] += 1
+                line = _current_line(buffer)
+                try:
+                    parts = _split_tokens(line)
+                    if len(parts) >= 2:
+                        E = float(parts[0])
+                        nu = float(parts[1])
+                except ValueError:
+                    pass
+            elif kw == '*DENSITY':
+                buffer['currentline'] += 1
+                line = _current_line(buffer)
+                try:
+                    parts = _split_tokens(line)
+                    if len(parts) >= 1:
+                        rho = float(parts[0])
+                except ValueError:
+                    pass
+            else:
+                buffer['currentline'] -= 1
+                break
+        buffer['currentline'] += 1
+    schema['material_blocks'].append({
+        'kw_line': kw_line,
+        "name": name,
+        "E": E,
+        "nu": nu,
+        "rho": rho,
+    })
+    return schema
+
 _KEYWORD_HANDLERS = {
     '*NODE': _handle_nodes,
     '*ELEMENT': _handle_elements,
@@ -321,6 +366,7 @@ _KEYWORD_HANDLERS = {
     '*ELSET': _handle_elsets,
     '*BEAM GENERAL SECTION': _handle_beam_general_sections,
     '*CLOAD': _handle_cloads,
+    '*MATERIAL': _handle_material,
 }
 
 def _handler_for_keyword(kw: str):
@@ -342,6 +388,7 @@ def read_abaqus_inp(inp_path: str) -> Dict:
         'elset_blocks': [],
         'cload_blocks': [],
         'beam_general_section_blocks': [],
+        'material_blocks': [],
         }
     buffer['currentline'] = 0
     while buffer['currentline'] < len(buffer['lines']):

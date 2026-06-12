@@ -16,4 +16,6 @@ schema = Abaqus_import.read_abaqus_inp(file)
 # print(schema["nset_blocks"])
 # print(schema["elset_blocks"])
 # print(schema["cload_blocks"])
-print(schema["beam_general_section_blocks"])
+# print(schema["beam_general_section_blocks"])
+
+print(schema["material_blocks"])

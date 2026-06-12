@@ -27,137 +27,26 @@ _KEYWORD_RE = re.compile(r'^\s*(\*(?:[A-Za-z0-9_]+(?:\s+[A-Za-z0-9_]+)*))\s*(?:,
 def _split_tokens(line: str) -> List[str]:
     return [p for p in re.split(r'[\s,]+', line) if p != '']
 
-
-# def read_abaqus_beam_general_sections(inp_path: str) -> List[Dict]:
-#     """
-#     Read *BEAM GENERAL SECTION option blocks from an Abaqus .inp file.
-
-#     Returns a list of dicts:
-#       {
-#         "block_id": int,           # sequential block number starting at 1
-#         "parameters": Dict[str,str],  # parsed keyword parameters (upper-cased keys)
-#         "datalines": [             # list of beam property data lines found in the block
-#             [float, ...], ...
-#         ]
-#       }
-
-#     Required parameters recognized:
-#     - ELSET: identifies the element set to which the beam section applies.
-#     - MATERIAL: specifies the material name for the beam section.
-#     - SECTION=GENERAL: only linear response is considered here.
-
-#     Notes:
-#       - Stops collecting when the next keyword line is encountered.
-#       - Lines starting with '**' are ignored.
-#       - BEAM GENERAL SECTION block content may include element-based 
-#         property assignments, orientation lines, or property data; 
-#         this function captures each data line as a list of numbers.
-#     """
-#     sections: List[Dict] = []
-#     block_counter = 0
-
-#     for kw, rest, keyword_line, lines in _iter_keyword_blocks(inp_path):
-#         if kw != '*BEAM GENERAL SECTION':
-#             continue
-
-#         block_counter += 1
-#         params = _parse_keyword_parameters(rest) if rest else {}
-#         current: Dict = {
-#             "block_id": block_counter,
-#             "parameters": params,
-#             "datalines": []
-#         }
-
-#         for line in lines:
-#             dataline = _strip_inline_comment(line)
-#             if not dataline:
-#                 continue
-
-#             data = [t.strip() for t in re.split(r'(?<!"),(?!")', dataline) if t.strip()]
-#             if not data:
-#                 data = _split_tokens(dataline)
-
-#             current["datalines"].append(data)
-
-#         sections.append(current)
-
-#     return sections
-
-
-# def read_abaqus_cloads(inp_path: str) -> List[Dict]:
-#     """
-#     Parse all *CLOAD sections from an Abaqus .inp file.
-
-#     Returns a list of dicts:
-#       {
-#         "block_id": int,
-#         "keyword_line": str,
-#         "node": Optional[int],       # if a single node/id is placed on the keyword line (rare)
-#         "options": Dict[str,str],    # parsed keyword options (upper-cased keys)
-#         "loads": [                   # list of loads (node_or_nodepart, dof, value) or (node, dof, value)
-#             {"node": int, "dof": int, "value": float, "raw": str}, ...
-#         ]
-#       }
-
-#     Notes:
-#       - Supports keyword options like 'amplitude=AMPL1' and 'create' etc.
-#       - Lines are expected as: node, dof, magnitude
-#       - Skips comment lines starting with '**' and inline comments after '!' or '--' or ';'
-#       - Stops a block when a new keyword (line starting with '*') is encountered.
-#     """
-#     blocks: List[Dict] = []
-#     block_counter = 0
-
-#     for kw, rest, keyword_line, lines in _iter_keyword_blocks(inp_path):
-#         if kw != '*CLOAD':
-#             continue
-
-#         block_counter += 1
-#         opts = _parse_keyword_parameters(rest)
-#         current: Dict = {
-#             "block_id": block_counter,
-#             "keyword_line": keyword_line,
-#             "node": None,
-#             "options": opts,
-#             "loads": []
-#         }
-
-#         for line in lines:
-#             dataline = _strip_inline_comment(line)
-#             if not dataline:
-#                 continue
-
-#             parts = _split_tokens(dataline)
-#             if not parts:
-#                 continue
-
-#             if len(parts) < 3:
-#                 continue
-
-#             try:
-#                 node = int(parts[0])
-#                 dof = int(parts[1])
-#                 value = float(parts[2])
-#             except ValueError:
-#                 continue
-
-#             current["loads"].append({
-#                 "node": node,
-#                 "dof": dof,
-#                 "value": value,
-#                 # "raw": dataline
-#             })
-
-#         blocks.append(current)
-
-#     return blocks
-
 def _is_keyword_line(line: str):
     kwm = _KEYWORD_RE.match(line)
     return kwm
 
 def _is_comment_(line: str):
     return line.strip().startswith('**')
+
+def _skip_blank_and_comment_lines(buffer: Dict):
+    while buffer['currentline'] < len(buffer['lines']):
+        line = _current_line(buffer)
+        if _is_comment_(line) or line.strip() == '':
+            buffer['currentline'] += 1
+        else:
+            break
+
+def _current_line(buffer: Dict) -> str:
+    if buffer['currentline'] < len(buffer['lines']):
+        return buffer['lines'][buffer['currentline']]
+    else:
+        return ''
 
 def _keyword_and_parameters(line: str) -> Tuple[str, Dict[str,str]]:
     kwm = _KEYWORD_RE.match(line)
@@ -181,7 +70,7 @@ def _handle_nodes(schema: Dict, kw: str, parameters: Dict[str,str]):
     nodes = []
     buffer['currentline'] += 1
     while buffer['currentline'] < len(buffer['lines']):
-        line = buffer['lines'][buffer['currentline']]
+        line = _current_line(buffer)
         if _is_keyword_line(line):
             buffer['currentline'] -= 1
             break
@@ -219,7 +108,7 @@ def _handle_elements(schema: Dict, kw: str, parameters: Dict[str,str]):
     elements = []
     buffer['currentline'] += 1
     while buffer['currentline'] < len(buffer['lines']):
-        line = buffer['lines'][buffer['currentline']]
+        line = _current_line(buffer)
         if _is_keyword_line(line):
             buffer['currentline'] -= 1
             break
@@ -255,7 +144,7 @@ def _handle_nsets(schema: Dict, kw: str, parameters: Dict[str,str]):
     nodes = []
     buffer['currentline'] += 1
     while buffer['currentline'] < len(buffer['lines']):
-        line = buffer['lines'][buffer['currentline']]
+        line = _current_line(buffer)
         if _is_keyword_line(line):
             buffer['currentline'] -= 1
             break
@@ -293,7 +182,7 @@ def _handle_elsets(schema: Dict, kw: str, parameters: Dict[str,str]):
     elements = []
     buffer['currentline'] += 1
     while buffer['currentline'] < len(buffer['lines']):
-        line = buffer['lines'][buffer['currentline']]
+        line = _current_line(buffer)
         if _is_keyword_line(line):
             buffer['currentline'] -= 1
             break
@@ -328,7 +217,7 @@ def _handle_cloads(schema: Dict, kw: str, parameters: Dict[str,str]):
     kw_line = buffer['currentline']+1 # 1-based line number for reporting
     buffer['currentline'] += 1
     while buffer['currentline'] < len(buffer['lines']):
-        line = buffer['lines'][buffer['currentline']]
+        line = _current_line(buffer)
         if _is_keyword_line(line):
             buffer['currentline'] -= 1
             break
@@ -360,12 +249,77 @@ def _handle_cloads(schema: Dict, kw: str, parameters: Dict[str,str]):
     })
     return schema
 
+def _handle_beam_general_sections(schema: Dict, kw: str, parameters: Dict[str,str]):
+    buffer = schema['buffer']
+    kw_line = buffer['currentline']+1 # 1-based line number for reporting
+    # Handle parameters
+    elset = parameters.get('ELSET', None)
+    material = parameters.get('MATERIAL', None)
+    section = parameters.get('SECTION', None)
+    if not section == 'GENERAL':
+        raise ValueError(f"Only SECTION=GENERAL is supported in *BEAM GENERAL SECTION blocks, found: {section}")    
+    buffer['currentline'] += 1
+    while buffer['currentline'] < len(buffer['lines']):
+        line = _current_line(buffer)
+        if _is_keyword_line(line):
+            buffer['currentline'] -= 1
+            break
+        if _is_comment_(line):
+            buffer['currentline'] += 1
+            continue
+        # First the cross section properties
+        parts = _split_tokens(line)
+        if not parts:
+            buffer['currentline'] += 1
+            continue
+        try:
+            area = float(parts[0]) if len(parts) > 0 else None
+            mominertia11 = float(parts[1]) if len(parts) > 1 else None
+            mominertia12 = float(parts[2]) if len(parts) > 2 else None
+            mominertia22 = float(parts[3]) if len(parts) > 3 else None
+            torsionconst = float(parts[4]) if len(parts) > 4 else None
+        except ValueError:
+            pass
+        buffer['currentline'] += 1
+        # Is the orientation given? It is optional.
+        _skip_blank_and_comment_lines(buffer)
+        line = _current_line(buffer)
+        if _is_keyword_line(line):
+            buffer['currentline'] -= 1
+            break
+        parts = _split_tokens(line)
+        if not parts:
+            buffer['currentline'] += 1
+            continue
+        orientation = None
+        try:
+            cx = float(parts[0]) if len(parts) > 0 else None
+            cy = float(parts[1]) if len(parts) > 1 else None
+            cz = float(parts[2]) if len(parts) > 2 else None
+            orientation = (cx, cy, cz)
+        except ValueError:
+            pass
+        buffer['currentline'] += 1
+    schema['beam_general_section_blocks'].append({
+        'kw_line': kw_line,
+        "elset": elset,
+        "material": material,
+        "section": section,
+        "area": area,
+        "mominertia11": mominertia11,
+        "mominertia12": mominertia12,
+        "mominertia22": mominertia22,
+        "torsionconst": torsionconst,
+        "orientation": orientation
+    })
+    return schema
+
 _KEYWORD_HANDLERS = {
     '*NODE': _handle_nodes,
     '*ELEMENT': _handle_elements,
     '*NSET': _handle_nsets,
     '*ELSET': _handle_elsets,
-    # '*BEAM GENERAL SECTION': _handle_beam_general_sections,
+    '*BEAM GENERAL SECTION': _handle_beam_general_sections,
     '*CLOAD': _handle_cloads,
 }
 
@@ -387,10 +341,11 @@ def read_abaqus_inp(inp_path: str) -> Dict:
         'nset_blocks': [],
         'elset_blocks': [],
         'cload_blocks': [],
+        'beam_general_section_blocks': [],
         }
     buffer['currentline'] = 0
     while buffer['currentline'] < len(buffer['lines']):
-        line = buffer['lines'][buffer['currentline']]
+        line = _current_line(buffer)
         if _is_keyword_line(line):
             kw, parameters = _keyword_and_parameters(line)
             print('Line ', buffer['currentline']+1, ', Keyword: ', kw, 'Parameters: ', parameters)

@@ -9,6 +9,7 @@ import context
 from pystran import Abaqus_import
 file = './tutorials/06_sennett_tut.inp'
 file = './tutorials/06_sennett_tut_a.inp'
+file = './tutorials/06_sennett_tut_b.inp'
 
 schema = Abaqus_import.read_abaqus_inp(file)
 # print(schema["node_blocks"])
@@ -17,5 +18,6 @@ schema = Abaqus_import.read_abaqus_inp(file)
 # print(schema["elset_blocks"])
 # print(schema["cload_blocks"])
 # print(schema["beam_general_section_blocks"])
+# print(schema["material_blocks"])
 
-print(schema["material_blocks"])
+print(schema["boundary_blocks"])

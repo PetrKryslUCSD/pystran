@@ -359,23 +359,76 @@ def _handle_material(schema: Dict, kw: str, parameters: Dict[str,str]):
     })
     return schema
 
-_KEYWORD_HANDLERS = {
-    '*NODE': _handle_nodes,
-    '*ELEMENT': _handle_elements,
-    '*NSET': _handle_nsets,
-    '*ELSET': _handle_elsets,
-    '*BEAM GENERAL SECTION': _handle_beam_general_sections,
-    '*CLOAD': _handle_cloads,
-    '*MATERIAL': _handle_material,
-}
-
-def _handler_for_keyword(kw: str):
-    return _KEYWORD_HANDLERS.get(kw, None)
+def _handle_boundary(schema: Dict, kw: str, parameters: Dict[str,str]):
+    buffer = schema['buffer']
+    kw_line = buffer['currentline']+1 # 1-based line number for reporting
+    data = []
+    buffer['currentline'] += 1
+    while buffer['currentline'] < len(buffer['lines']):
+        line = _current_line(buffer)
+        if _is_keyword_line(line):
+            buffer['currentline'] -= 1
+            break
+        if _is_comment_(line):
+            buffer['currentline'] += 1
+            continue
+        parts = _split_tokens(line)
+        if not parts:
+            buffer['currentline'] += 1
+            continue
+        node_or_nset = None
+        dof = None
+        value = 0.0
+        if len(parts) >= 1:
+            try:
+                node_or_nset = int(parts[0])
+            except ValueError:
+                node_or_nset = parts[0]
+                pass
+        if len(parts) < 3:
+            try:
+                dof = int(parts[1])
+            except ValueError:
+                dof = parts[1]
+                pass
+        else:
+            try:
+                dof = (int(parts[1]), int(parts[2]))
+            except ValueError:
+                pass
+        if len(parts) > 3:
+            try:
+                value = float(parts[3]) if len(parts) > 3 else 0.0
+            except ValueError:
+                pass
+        buffer['currentline'] += 1
+    schema['boundary_blocks'].append({
+        'kw_line': kw_line,
+        "node_or_nset": node_or_nset,
+        "dof": dof,
+        "value": value
+    })
+    return schema
 
 def read_abaqus_inp(inp_path: str) -> Dict:
     """
     
     """
+      
+    _KEYWORD_HANDLERS = {
+        '*NODE': _handle_nodes,
+        '*ELEMENT': _handle_elements,
+        '*NSET': _handle_nsets,
+        '*ELSET': _handle_elsets,
+        '*BEAM GENERAL SECTION': _handle_beam_general_sections,
+        '*CLOAD': _handle_cloads,
+        '*MATERIAL': _handle_material,
+        '*BOUNDARY': _handle_boundary,
+    }
+
+    def _handler_for_keyword(kw: str):
+        return _KEYWORD_HANDLERS.get(kw, None)
+
     with open(inp_path, "r", encoding="utf-8") as f:
         lines = [line.rstrip("\n") for line in f]
     buffer = dict(lines=lines, currentline=0)
@@ -389,6 +442,7 @@ def read_abaqus_inp(inp_path: str) -> Dict:
         'cload_blocks': [],
         'beam_general_section_blocks': [],
         'material_blocks': [],
+        'boundary_blocks': [],
         }
     buffer['currentline'] = 0
     while buffer['currentline'] < len(buffer['lines']):

@@ -213,7 +213,7 @@ def member_2d_geometry(i, j):
     return e_x, e_z, h
 
 
-def member_3d_geometry(i, j, xz_vector = None):
+def member_3d_geometry(i, j, xy_vector = None, xz_vector = None):
     r"""
     Compute 3d member geometry.
 
@@ -227,6 +227,9 @@ def member_3d_geometry(i, j, xz_vector = None):
     ``xz_vector`` and :math:`e_x`. Therefore, the vector ``xz_vector`` must
     not be parallel to the member axis.
 
+    Similarly, the plane :math:`x-y` is defined by the vector ``xy_vector`` 
+    and the member axis (i.e. :math:`e_x`).
+
     The third vector, :math:`e_z`, completes the Cartesian basis.
 
     Parameters
@@ -235,12 +238,21 @@ def member_3d_geometry(i, j, xz_vector = None):
         Dictionary holding data for first joint.
     j
         Dictionary holding data for second joint.
+    xy_vector
+        The vector that defines the :math:`x-y` plane of the member-local
+        coordinate system. It does not need to be of unit length, but it must
+        not be parallel to the member axis. This vector is not defined for a
+        truss member, and will be passed in as `None`. Heuristics will be then
+        used to orient the planes.
     xz_vector
         The vector that defines the :math:`x-z` plane of the member-local
         coordinate system. It does not need to be of unit length, but it must
         not be parallel to the member axis. This vector is not defined for a
         truss member, and will be passed in as `None`. Heuristics will be then
         used to orient the planes.
+        
+        At most one of the two vectors, `xy_vector` and `xz_vector`, must be supplied. 
+        If neither is supplied, heuristics will be used to orient the planes.
 
     Returns
     -------
@@ -260,13 +272,20 @@ def member_3d_geometry(i, j, xz_vector = None):
     # we need to heuristically orient the planes. We choose the xz_vector 
     # to be along the global x axis, unless that is parallel to the beam 
     # axis, in which case we choose the global y axis.
-    if xz_vector is None or norm(xz_vector) <= 0.0:
+    if xz_vector is None and xy_vector is None:
         xz_vector = array([1.0, 0.0, 0.0])
         if abs(dot(e_x, xz_vector)) > 0.99 * norm(xz_vector):
             xz_vector = array([0.0, 1.0, 0.0])
-    if abs(dot(e_x, xz_vector)) > 0.99 * norm(xz_vector):
-        raise ZeroDivisionError(f"xz_vector must not be parallel to the ({i['jid']}, {j['jid']}) beam axis")
-    e_y = cross(xz_vector, e_x)
-    e_y = e_y / norm(e_y)
-    e_z = cross(e_x, e_y)
+    if xz_vector is not None:
+        if abs(dot(e_x, xz_vector)) > 0.99 * norm(xz_vector):
+            raise ZeroDivisionError(f"xz_vector must not be parallel to the ({i['jid']}, {j['jid']}) beam axis")
+        e_y = cross(xz_vector, e_x)
+        e_y = e_y / norm(e_y)
+        e_z = cross(e_x, e_y)
+    elif xy_vector is not None:
+        if abs(dot(e_x, xy_vector)) > 0.99 * norm(xy_vector):
+            raise ZeroDivisionError(f"xy_vector must not be parallel to the ({i['jid']}, {j['jid']}) beam axis")
+        e_z = cross(e_x, xy_vector)
+        e_z = e_z / norm(e_z)
+        e_y = cross(e_z, e_x)
     return e_x, e_y, e_z, h

@@ -120,7 +120,7 @@ def assemble_stiffness(Kg, member, i, j):
     if dim == 2:
         e_x, _, h = geometry.member_2d_geometry(i, j)
     else:
-        e_x, _, _, h = geometry.member_3d_geometry(i, j, array([]))
+        e_x, _, _, h = geometry.member_3d_geometry(i, j, None, None)
     k = rigid_link_stiffness(e_x, h, Gamma)
     dof = concatenate([i["dof"], j["dof"]])
     return assemble.assemble(Kg, dof, k)

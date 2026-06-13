@@ -90,7 +90,7 @@ connectivity = member["connectivity"]
 i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
 pystran.beam.assemble_stiffness(K1, member, i, j)
 
-e_x, e_y, e_z, h = pystran.geometry.member_3d_geometry(i, j, xz_vector)
+e_x, e_y, e_z, h = pystran.geometry.member_3d_geometry(i, j, xy_vector=None, xz_vector=xz_vector)
 
 
 # At this stage we compute the stiffness matrix of the three dimensional beam
@@ -158,7 +158,7 @@ K[8, 10] = 6 * E * Iy / h**2
 
 
 i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
-e_x, e_y, e_z, h = pystran.geometry.member_3d_geometry(i, j, xz_vector)
+e_x, e_y, e_z, h = pystran.geometry.member_3d_geometry(i, j, xy_vector=None, xz_vector=xz_vector)
 
 
 # The transformation matrix consists of four blocks $[e_x,e_y,e_z]$ on the

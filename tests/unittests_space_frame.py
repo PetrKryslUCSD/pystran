@@ -1308,10 +1308,12 @@ class UnitTestsSpaceFrames(unittest.TestCase):
         K[8, 10] = 6 * E * Iy / h**2
 
         i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
-        e_x, e_y, e_z, h = geometry.member_3d_geometry(i, j, xz_vector)
+        e_x, e_y, e_z, h = geometry.member_3d_geometry(i, j, None, xz_vector)
+   
 
         # Transformation matrix
         T = zeros(K.shape)
+     
         T[0:3, 0] = e_x
         T[0:3, 1] = e_y
         T[0:3, 2] = e_z
@@ -1321,7 +1323,8 @@ class UnitTestsSpaceFrames(unittest.TestCase):
 
         # Transform stiffness matrix from default orientation to current orientation
         K = dot(T, dot(K, T.T))
-
+        
+        
         for r in range(12):
             for c in range(12):
                 if abs(K[r, c] - K1[r, c]) > 1e-12 * (abs(K1[r, c]) + abs(K[r, c])):

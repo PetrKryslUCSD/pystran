@@ -197,7 +197,7 @@ def assemble_stiffness(Kg, member, i, j):
     if dim == 2:
         e_x, _, h = geometry.member_2d_geometry(i, j)
     else:
-        e_x, _, _, h = geometry.member_3d_geometry(i, j, array([]))
+        e_x, _, _, h = geometry.member_3d_geometry(i, j, None, None)
     k = truss_stiffness(e_x, h, E, A)
     dof = concatenate([i["dof"][0:dim], j["dof"][0:dim]])
     return assemble.assemble(Kg, dof, k)
@@ -238,7 +238,7 @@ def assemble_mass(Mg, member, i, j):
         e_x, e_z, h = geometry.member_2d_geometry(i, j)
         m = truss_2d_mass(e_x, e_z, h, rho, A)
     else:
-        e_x, e_y, e_z, h = geometry.member_3d_geometry(i, j, array([]))
+        e_x, e_y, e_z, h = geometry.member_3d_geometry(i, j, None, None)
         m = truss_3d_mass(e_x, e_y, e_z, h, rho, A)
     dim = len(e_x)
     dof = concatenate([i["dof"][0:dim], j["dof"][0:dim]])
@@ -278,7 +278,7 @@ def truss_axial_force(member, i, j, xi):
         e_x, _, h = geometry.member_2d_geometry(i, j)
         ui, uj = i["displacements"][0:2], j["displacements"][0:2]
     else:
-        e_x, _, _, h = geometry.member_3d_geometry(i, j, None)
+        e_x, _, _, h = geometry.member_3d_geometry(i, j, None, None)
         ui, uj = i["displacements"][0:3], j["displacements"][0:3]
     u = concatenate([ui, uj])
     B = truss_strain_displacement(e_x, h)
@@ -310,5 +310,5 @@ def truss_volume(member, i, j):
         _, _, h = geometry.member_2d_geometry(i, j)
         return A * h
     else:
-        _, _, _, h = geometry.member_3d_geometry(i, j, None)
+        _, _, _, h = geometry.member_3d_geometry(i, j, None, None)
         return A * h

@@ -594,7 +594,7 @@ def beam_3d_moment(member, i, j, axis, xi):
         The moment resultant.
     """
     sect = member["section"]
-    _, e_y, e_z, h = geometry.member_3d_geometry(i, j, sect["xz_vector"])
+    _, e_y, e_z, h = geometry.member_3d_geometry(i, j, sect["xy_vector"], sect["xz_vector"])
     E, Iy, Iz = sect["E"], sect["Iy"], sect["Iz"]
     ui, uj = i["displacements"], j["displacements"]
     u = concatenate([ui, uj])
@@ -637,7 +637,7 @@ def beam_3d_torsion_moment(member, i, j, xi):
         The moment resultant.
     """
     sect = member["section"]
-    e_x, _, _, h = geometry.member_3d_geometry(i, j, sect["xz_vector"])
+    e_x, _, _, h = geometry.member_3d_geometry(i, j, sect["xy_vector"], sect["xz_vector"])
     G, J = sect["G"], sect["J"]
     ui, uj = i["displacements"][3:6], j["displacements"][3:6]
     u = concatenate([ui, uj])
@@ -694,7 +694,7 @@ def _beam_2d_volume(member, i, j):
 
 def _beam_3d_volume(member, i, j):
     sect = member["section"]
-    _, _, _, h = geometry.member_3d_geometry(i, j, sect["xz_vector"])
+    _, _, _, h = geometry.member_3d_geometry(i, j, sect["xy_vector"], sect["xz_vector"])
     A = sect["A"]
     return A * h  # return the volume
 
@@ -747,11 +747,7 @@ def beam_3d_axial_force(member, i, j, xi):
         The force resultant.
     """
     sect = member["section"]
-    if 'xz_vector' in sect:
-        xz_vector = sect["xz_vector"]
-    else:
-        xz_vector = []
-    e_x, _, _, h = geometry.member_3d_geometry(i, j, xz_vector)
+    e_x, _, _, h = geometry.member_3d_geometry(i, j, sect['xy_vector'], sect['xz_vector'])
     E, A = sect["E"], sect["A"]
     ui, uj = i["displacements"][0:3], j["displacements"][0:3]
     u = concatenate([ui, uj])
@@ -787,7 +783,7 @@ def beam_3d_shear_force(member, i, j, axis, xi):
         The force resultant.
     """
     sect = member["section"]
-    _, e_y, e_z, h = geometry.member_3d_geometry(i, j, sect["xz_vector"])
+    _, e_y, e_z, h = geometry.member_3d_geometry(i, j, sect["xy_vector"], sect["xz_vector"])
     E, Iy, Iz = sect["E"], sect["Iy"], sect["Iz"]
     ui, uj = i["displacements"], j["displacements"]
     u = concatenate([ui, uj])
@@ -1015,7 +1011,7 @@ def assemble_stiffness(Kg, member, i, j):
         Kg = assemble.assemble(Kg, dof, k)
     else:
         sect = member["section"]
-        e_x, e_y, e_z, h = geometry.member_3d_geometry(i, j, sect["xz_vector"])
+        e_x, e_y, e_z, h = geometry.member_3d_geometry(i, j, sect["xy_vector"], sect["xz_vector"])
         # Add stiffness in bending.
         E, Iy, Iz = sect["E"], sect["Iy"], sect["Iz"]
         kxy, kxz = beam_3d_bending_stiffness(e_y, e_z, h, E, Iy, Iz)
@@ -1074,7 +1070,7 @@ def assemble_mass(Mg, member, i, j):
         e_x, e_z, h = geometry.member_2d_geometry(i, j)
         m = beam_2d_mass(e_x, e_z, h, rho, A)
     else:
-        e_x, e_y, e_z, h = geometry.member_3d_geometry(i, j, sect["xz_vector"])
+        e_x, e_y, e_z, h = geometry.member_3d_geometry(i, j, sect["xy_vector"], sect["xz_vector"])
         Ix = sect["Ix"]
         m = beam_3d_mass(e_x, e_y, e_z, h, rho, A, Ix)
     Mg = assemble.assemble(Mg, dof, m)

@@ -166,7 +166,8 @@ def beam_3d_section(
     Iz=0.0,
     J=0.0,
     rho=0.0,
-    xz_vector=(0, 0, 1),
+    xy_vector=None,
+    xz_vector=None,
     CTE=0.0,
 ):
     r"""
@@ -189,17 +190,22 @@ def beam_3d_section(
         Cross-sectional area.
     Ix
         Central moment of inertia of the cross-section about the local
-        :math:`x`.
+        :math:`x`. The local :math:`x` axis is the axis along the beam member, 
+        pointing from the first joint to the second joint.
     Iy
         Central moment of inertia of the cross-section about the local
-        :math:`y`.
+        :math:`y`. The first axis in the cross section.
     Iz
         Central moment of inertia of the cross-section about the local
-        :math:`z`.
+        :math:`z`. The second axis in the cross section, perpendicular to the :math:`y` axis.
     J
         St Venant torsion constant.
+    xy_vector
+        Vector that lies in the local :math:`x-y` coordinate plane. Default `None`.
+        Only one of the two vectors, `xy_vector` and `xz_vector`, can be supplied. 
     xz_vector
-        Vector that lies in the local :math:`x-z` coordinate plane.
+        Vector that lies in the local :math:`x-z` coordinate plane. Default `None`.
+        Only one of the two vectors, `xy_vector` and `xz_vector`, can be supplied. 
     CTE
         Coefficient of thermal expansion.
 
@@ -224,7 +230,14 @@ def beam_3d_section(
     s["Iy"] = Iy
     s["Iz"] = Iz
     s["J"] = J
-    s["xz_vector"] = numpy.array(xz_vector)
+    if xy_vector is not None and xz_vector is not None:
+        raise ValueError("Only one of xy_vector and xz_vector can be supplied.")
+    if xy_vector is not None:
+        xy_vector = numpy.array(xy_vector)
+    s["xy_vector"] = xy_vector
+    if xz_vector is not None:
+        xz_vector = numpy.array(xz_vector)
+    s["xz_vector"] = xz_vector
     return s
 
 

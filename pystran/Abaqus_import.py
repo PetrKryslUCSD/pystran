@@ -302,6 +302,7 @@ def _handle_beam_general_sections(schema: Dict, kw: str, parameters: Dict[str,st
         buffer['currentline'] += 1
     schema['beam_general_section_blocks'].append({
         'kw_line': kw_line,
+        "parameters": parameters,
         "elset": elset,
         "material": material,
         "section": section,
@@ -352,6 +353,7 @@ def _handle_material(schema: Dict, kw: str, parameters: Dict[str,str]):
         buffer['currentline'] += 1
     schema['material_blocks'].append({
         'kw_line': kw_line,
+        "parameters": parameters,
         "name": name,
         "E": E,
         "nu": nu,
@@ -456,3 +458,38 @@ def read_abaqus_inp(inp_path: str) -> Dict:
         buffer['currentline'] += 1
 
     return schema
+
+def inp_to_pystran(inp_path: str, out_path: str) -> Dict:
+    schema = read_abaqus_inp(inp_path)
+    with open(out_path, "w") as f:
+        f.write(f"# PyStran model generated from Abaqus input file: {inp_path}\n")
+        f.write("from numpy import array\n")
+        f.write("from numpy.linalg import norm\n")
+        f.write("import context\n")
+        f.write("from pystran import model\n")
+        f.write("from pystran import section\n")
+        f.write("from pystran import plots\n")  
+        f.write("from pystran import beam\n")  
+        f.write("m = model.create(3)\n")
+        f.write("freedoms = m['freedoms']\n")
+        for b in schema['node_blocks']:
+            f.write(f"# Joints defined at line {b['kw_line']} with parameters: {b['parameters']}\n")
+            for node in b['nodes']:
+                f.write(f"model.add_joint(m, {node['id']}, {node['coordinates']})\n")
+        for b in schema['beam_general_section_blocks']:
+            f.write(f"# Beam sections defined at line {b['kw_line']} with parameters: {b['parameters']}\n")
+            A = b['area']
+            # PyStran's beam section definition differs from the Abaqus convention.
+            # 
+            I11 = b['mominertia11']
+            I12 = b['mominertia12']
+            I22 = b['mominertia22']
+            J = b['torsionconst']
+            orientation = b['orientation']
+        for b in schema['element_blocks']:
+            f.write(f"# Members defined at line {b['kw_line']} with parameters: {b['parameters']}\n")
+            p = b['parameters']
+            if p['TYPE'] == 'B33':
+                for elem in b['elements']:
+                    f.write(f"model.add_beam_member(m, {elem['id']}, {elem['connectivity']})\n")
+        f.write("\n")

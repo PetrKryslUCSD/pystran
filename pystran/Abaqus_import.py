@@ -575,10 +575,10 @@ def inp_to_pystran(inp_path: str, out_path: str) -> Dict:
             materials[name] = dict(E=E, nu=nu, rho=rho)
         sects = {}
         for b in schema['beam_general_section_blocks']:
-            f.write(f"# Beam sections defined at line {b['kw_line']} with parameters: {b['parameters']}\n")
+            f.write(f"# Beam general section defined at line {b['kw_line']} with parameters: {b['parameters']}\n")
             A = b['area']
             # PyStran's beam section orientation differs from the Abaqus convention.
-            # Adjust.
+            # Adjust by supplying xy_vector instead of xz_vector.
             I11 = b['mominertia11']
             I12 = b['mominertia12']
             I22 = b['mominertia22']
@@ -638,8 +638,10 @@ def inp_to_pystran(inp_path: str, out_path: str) -> Dict:
                         for d in dof:
                             f.write(f"model.add_load(m['joints'][{j}], {d}, {value})\n")
             f.write(f"model.number_dofs(m)\n")
-            if sb['procedure'] == 'statics':
+            if sb['procedure'] == 'static':
                 f.write(f"model.solve_statics(m)\n")
             elif sb['procedure'] == 'frequency':
                 f.write(f"model.solve_free_vibration(m)\n")
+            else:
+                f.write(f"Unknown procedure: {sb['procedure']}\n")
         f.write("# End of Abaqus model translation\n")

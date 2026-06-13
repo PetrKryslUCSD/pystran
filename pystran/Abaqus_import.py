@@ -13,6 +13,7 @@ for details on the syntax of Abaqus input files.
 import re
 from typing import List, Dict, Optional, Iterable, Tuple
 from collections import namedtuple
+from pystran import section
 
 # Match a keyword line where:
 #  - group(1) = the keyword phrase (the '*' plus one or more words, 
@@ -461,6 +462,20 @@ def read_abaqus_inp(inp_path: str) -> Dict:
 
 def inp_to_pystran(inp_path: str, out_path: str) -> Dict:
     schema = read_abaqus_inp(inp_path)
+    def _named_elset_block(elset_name: str):
+        for b in schema['elset_blocks']:
+            if b['parameters'].get('ELSET', None) == elset_name:
+                return b
+        return None
+    def _beam_element(e: int):
+        for b in schema['element_blocks']:
+            TYPE = b['parameters'].get('TYPE', None)
+            if TYPE == 'B31' or TYPE == 'B33':
+                for element in b['elements']:
+                    if e  == element['id']:
+                        return element
+        return None
+    
     with open(out_path, "w") as f:
         f.write(f"# PyStran model generated from Abaqus input file: {inp_path}\n")
         f.write("from numpy import array\n")
@@ -476,20 +491,44 @@ def inp_to_pystran(inp_path: str, out_path: str) -> Dict:
             f.write(f"# Joints defined at line {b['kw_line']} with parameters: {b['parameters']}\n")
             for node in b['nodes']:
                 f.write(f"model.add_joint(m, {node['id']}, {node['coordinates']})\n")
+        materials = {}
+        for b in schema['material_blocks']:
+            f.write(f"# Material defined at line {b['kw_line']} with parameters: {b['parameters']}\n")
+            name = b['name']
+            E = b['E']
+            nu = b['nu']
+            rho = b['rho']
+            materials[name] = dict(E=E, nu=nu, rho=rho)
+        sects = {}
         for b in schema['beam_general_section_blocks']:
             f.write(f"# Beam sections defined at line {b['kw_line']} with parameters: {b['parameters']}\n")
             A = b['area']
-            # PyStran's beam section definition differs from the Abaqus convention.
-            # 
+            # PyStran's beam section orientation differs from the Abaqus convention.
+            # Adjust.
             I11 = b['mominertia11']
             I12 = b['mominertia12']
             I22 = b['mominertia22']
             J = b['torsionconst']
-            orientation = b['orientation']
-        for b in schema['element_blocks']:
-            f.write(f"# Members defined at line {b['kw_line']} with parameters: {b['parameters']}\n")
-            p = b['parameters']
-            if p['TYPE'] == 'B33':
-                for elem in b['elements']:
-                    f.write(f"model.add_beam_member(m, {elem['id']}, {elem['connectivity']})\n")
+            xy_vector = b['orientation']
+            if I12 != 0.0:
+                raise ValueError(f"Non-zero product of inertia (I12={I12}) is not supported in *BEAM GENERAL SECTION blocks.")
+            Iy = I11
+            Iz = I22
+            Ix = I11 + I22
+            sect_name = f'sect_{b['kw_line']}_' + str(len(sects)+1)
+            sects[b['parameters']['ELSET']] = sect_name
+            material_name = b['parameters']['MATERIAL']
+            E = materials[material_name]['E']
+            nu = materials[material_name]['nu']  
+            G = E / (2.0 * (1.0 + nu))        
+            rho = materials[material_name]['rho']          
+            f.write(f"{sect_name} = section.beam_3d_section('{sect_name}', \n")
+            f.write(f"            E={E}, G={G}, rho={rho}, \n")
+            f.write(f"            A={A}, Ix={Ix}, Iy={Iy}, Iz={Iz}, J={J}, \n")
+            f.write(f"            xy_vector={xy_vector}, xz_vector=None)\n")
+            elsetb = _named_elset_block(b['parameters']['ELSET'])
+            for e in elsetb['elements']:
+                element = _beam_element(e)
+                f.write(f"model.add_beam_member(m, {element['id']}, {element['connectivity']}, {sect_name})\n")
+        
         f.write("\n")

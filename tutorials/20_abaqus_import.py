@@ -10,6 +10,7 @@ from pystran import Abaqus_import
 file = './tutorials/06_sennett_tut.inp'
 file = './tutorials/06_sennett_tut_a.inp'
 file = './tutorials/06_sennett_tut_b.inp'
+out = './tutorials/out.py'
 
 schema = Abaqus_import.read_abaqus_inp(file)
 # print(schema["node_blocks"])
@@ -21,3 +22,6 @@ schema = Abaqus_import.read_abaqus_inp(file)
 # print(schema["material_blocks"])
 
 print(schema["boundary_blocks"])
+
+Abaqus_import.inp_to_pystran(file, out)
+                             

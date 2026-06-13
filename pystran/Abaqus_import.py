@@ -13,7 +13,7 @@ for details on the syntax of Abaqus input files.
 import re
 from typing import List, Dict, Optional, Iterable, Tuple
 from collections import namedtuple
-from pystran import section
+from pystran import model, section
 
 # Match a keyword line where:
 #  - group(1) = the keyword phrase (the '*' plus one or more words, 
@@ -65,8 +65,34 @@ def _keyword_and_parameters(line: str) -> Tuple[str, Dict[str,str]]:
                 parameters[part.strip().upper()] = ''
     return kw, parameters
 
-def _handle_nodes(schema: Dict, kw: str, parameters: Dict[str,str]):
-    buffer = schema['buffer']
+def _is_tuple_of_ints(x) -> bool:
+    return isinstance(x, tuple) and all(isinstance(i, int) for i in x)
+
+def _is_int(x) -> bool:
+    return isinstance(x, int)
+
+def _translate_dofs(dof, dim, is_beam):
+    if _is_tuple_of_ints(dof):
+        dof = [d-1 for d in range(dof[0], dof[1], 1)]
+    elif _is_int(dof):
+        dof = [dof-1]
+    else:
+        if dof == 'ENCASTRE':
+            if dim == 2:
+                if is_beam:
+                    dof = [0, 1, 2]
+                else:
+                    dof = [0, 1]
+            else:
+                if is_beam:
+                    dof = [0, 1, 2, 3, 4, 5]
+                else:
+                    dof = [0, 1, 2]
+        else:
+            raise ValueError(f"Unsupported dof specification: {dof}")
+    return dof
+
+def _handle_nodes(schema: Dict, buffer: Dict, kw: str, parameters: Dict[str,str]):
     kw_line = buffer['currentline']+1 # 1-based line number for reporting
     nodes = []
     buffer['currentline'] += 1
@@ -99,13 +125,8 @@ def _handle_nodes(schema: Dict, kw: str, parameters: Dict[str,str]):
     })
     return schema
 
-def _handle_elements(schema: Dict, kw: str, parameters: Dict[str,str]):
-    buffer = schema['buffer']
+def _handle_elements(schema: Dict, buffer: Dict, kw: str, parameters: Dict[str,str]):
     kw_line = buffer['currentline']+1 # 1-based line number for reporting
-    # Handle parameters
-    elem_type = None
-    if 'TYPE' in parameters:
-        elem_type = parameters['TYPE']
     elements = []
     buffer['currentline'] += 1
     while buffer['currentline'] < len(buffer['lines']):
@@ -137,8 +158,7 @@ def _handle_elements(schema: Dict, kw: str, parameters: Dict[str,str]):
     })
     return schema
 
-def _handle_nsets(schema: Dict, kw: str, parameters: Dict[str,str]):
-    buffer = schema['buffer']
+def _handle_nsets(schema: Dict, buffer: Dict, kw: str, parameters: Dict[str,str]):
     kw_line = buffer['currentline']+1 # 1-based line number for reporting
     # Handle parameters
     generate = parameters.get('GENERATE', None) is not None
@@ -175,8 +195,7 @@ def _handle_nsets(schema: Dict, kw: str, parameters: Dict[str,str]):
     })
     return schema
 
-def _handle_elsets(schema: Dict, kw: str, parameters: Dict[str,str]):
-    buffer = schema['buffer']
+def _handle_elsets(schema: Dict, buffer: Dict, kw: str, parameters: Dict[str,str]):
     kw_line = buffer['currentline']+1 # 1-based line number for reporting
     # Handle parameters
     generate = parameters.get('GENERATE', None) is not None
@@ -213,8 +232,7 @@ def _handle_elsets(schema: Dict, kw: str, parameters: Dict[str,str]):
     })
     return schema
 
-def _handle_cloads(schema: Dict, kw: str, parameters: Dict[str,str]):
-    buffer = schema['buffer']
+def _handle_cloads(schema: Dict, buffer: Dict, kw: str, parameters: Dict[str,str]):
     kw_line = buffer['currentline']+1 # 1-based line number for reporting
     buffer['currentline'] += 1
     while buffer['currentline'] < len(buffer['lines']):
@@ -244,14 +262,14 @@ def _handle_cloads(schema: Dict, kw: str, parameters: Dict[str,str]):
         buffer['currentline'] += 1
     schema['cload_blocks'].append({
         'kw_line': kw_line,
+        "parameters": parameters,
         "node_or_nset": node_or_nset,
         "dof": dof,
         "value": value
     })
     return schema
 
-def _handle_beam_general_sections(schema: Dict, kw: str, parameters: Dict[str,str]):
-    buffer = schema['buffer']
+def _handle_beam_general_sections(schema: Dict, buffer: Dict, kw: str, parameters: Dict[str,str]):
     kw_line = buffer['currentline']+1 # 1-based line number for reporting
     # Handle parameters
     elset = parameters.get('ELSET', None)
@@ -316,8 +334,36 @@ def _handle_beam_general_sections(schema: Dict, kw: str, parameters: Dict[str,st
     })
     return schema
 
-def _handle_material(schema: Dict, kw: str, parameters: Dict[str,str]):
-    buffer = schema['buffer']
+def _handle_step(schema: Dict, buffer: Dict, kw: str, parameters: Dict[str,str]):
+    kw_line = buffer['currentline']+1 # 1-based line number for reporting
+    step = {
+        'kw_line': kw_line,
+        "parameters": parameters,
+        'boundary_blocks': [],
+        'cload_blocks': [],
+        }
+    buffer['currentline'] += 1
+    while buffer['currentline'] < len(buffer['lines']):
+        line = _current_line(buffer)
+        if _is_keyword_line(line):
+            kw, parameters = _keyword_and_parameters(line)
+            if kw == '*BOUNDARY':
+                _handle_boundary(step, buffer, kw, parameters)
+            elif kw == '*CLOAD':
+                _handle_cloads(step, buffer, kw, parameters)
+            elif kw == '*STATIC':    
+                step['procedure'] = 'static'
+            elif kw == '*FREQUENCY':    
+                step['procedure'] = 'frequency'    
+            else:
+                buffer['currentline'] -= 1
+                break
+        buffer['currentline'] += 1
+        
+    schema['step_blocks'].append(step)
+    return schema
+
+def _handle_material(schema: Dict, buffer: Dict, kw: str, parameters: Dict[str,str]):
     kw_line = buffer['currentline']+1 # 1-based line number for reporting
     # Handle parameters
     name = parameters.get('NAME', None)
@@ -362,10 +408,8 @@ def _handle_material(schema: Dict, kw: str, parameters: Dict[str,str]):
     })
     return schema
 
-def _handle_boundary(schema: Dict, kw: str, parameters: Dict[str,str]):
-    buffer = schema['buffer']
+def _handle_boundary(schema: Dict, buffer: Dict, kw: str, parameters: Dict[str,str]):
     kw_line = buffer['currentline']+1 # 1-based line number for reporting
-    data = []
     buffer['currentline'] += 1
     while buffer['currentline'] < len(buffer['lines']):
         line = _current_line(buffer)
@@ -407,9 +451,31 @@ def _handle_boundary(schema: Dict, kw: str, parameters: Dict[str,str]):
         buffer['currentline'] += 1
     schema['boundary_blocks'].append({
         'kw_line': kw_line,
+        "parameters": parameters,
         "node_or_nset": node_or_nset,
         "dof": dof,
         "value": value
+    })
+    return schema
+
+def _handle_heading(schema: Dict, buffer: Dict, kw: str, parameters: Dict[str,str]):
+    kw_line = buffer['currentline']+1 # 1-based line number for reporting
+    text = []
+    buffer['currentline'] += 1
+    while buffer['currentline'] < len(buffer['lines']):
+        line = _current_line(buffer)
+        if _is_keyword_line(line):
+            buffer['currentline'] -= 1
+            break
+        if _is_comment_(line):
+            buffer['currentline'] += 1
+            continue
+        text.append(line)
+        buffer['currentline'] += 1
+    schema['heading_blocks'].append({
+        'kw_line': kw_line,
+        "parameters": {},
+        "text": text,
     })
     return schema
 
@@ -419,14 +485,14 @@ def read_abaqus_inp(inp_path: str) -> Dict:
     """
       
     _KEYWORD_HANDLERS = {
+        '*HEADING': _handle_heading,
         '*NODE': _handle_nodes,
         '*ELEMENT': _handle_elements,
         '*NSET': _handle_nsets,
         '*ELSET': _handle_elsets,
         '*BEAM GENERAL SECTION': _handle_beam_general_sections,
-        '*CLOAD': _handle_cloads,
         '*MATERIAL': _handle_material,
-        '*BOUNDARY': _handle_boundary,
+        '*STEP': _handle_step,
     }
 
     def _handler_for_keyword(kw: str):
@@ -438,26 +504,25 @@ def read_abaqus_inp(inp_path: str) -> Dict:
     schema = {
         "inp_path": inp_path,
         "buffer": buffer,
+        'heading_blocks': [],
         'node_blocks': [],
         'element_blocks': [],
         'nset_blocks': [],
         'elset_blocks': [],
-        'cload_blocks': [],
         'beam_general_section_blocks': [],
         'material_blocks': [],
-        'boundary_blocks': [],
+        'step_blocks': [],
         }
     buffer['currentline'] = 0
     while buffer['currentline'] < len(buffer['lines']):
         line = _current_line(buffer)
         if _is_keyword_line(line):
             kw, parameters = _keyword_and_parameters(line)
-            print('Line ', buffer['currentline']+1, ', Keyword: ', kw, 'Parameters: ', parameters)
+            print('Line ', buffer['currentline']+1, ': ', kw, parameters)
             handler = _handler_for_keyword(kw)
             if handler:
-                schema = handler(schema, kw, parameters)
+                schema = handler(schema, buffer, kw, parameters)
         buffer['currentline'] += 1
-
     return schema
 
 def inp_to_pystran(inp_path: str, out_path: str) -> Dict:
@@ -475,9 +540,16 @@ def inp_to_pystran(inp_path: str, out_path: str) -> Dict:
                     if e  == element['id']:
                         return element
         return None
-    
+    def _named_nset_block(nset_name: str):
+        for b in schema['nset_blocks']:
+            if b['parameters'].get('NSET', None) == nset_name:
+                return b
+        return None
     with open(out_path, "w") as f:
         f.write(f"# PyStran model generated from Abaqus input file: {inp_path}\n")
+        for b in schema['heading_blocks']:
+            for line in b['text']:
+                f.write(f"# {line}\n")
         f.write("from numpy import array\n")
         f.write("from numpy.linalg import norm\n")
         f.write("import context\n")
@@ -485,7 +557,9 @@ def inp_to_pystran(inp_path: str, out_path: str) -> Dict:
         f.write("from pystran import section\n")
         f.write("from pystran import plots\n")  
         f.write("from pystran import beam\n")  
-        f.write("m = model.create(3)\n")
+        dim = 3 # Assume 3D for now, as Abaqus does not have a clear 2D/3D distinction in the input file. We can determine the actual dimension from the node coordinates later if needed.
+        is_beam = True # Assume beam elements for now, as we are only handling *BEAM GENERAL SECTION blocks. We can determine the actual element types later if needed.
+        f.write(f"m = model.create({dim})\n")
         f.write("freedoms = m['freedoms']\n")
         for b in schema['node_blocks']:
             f.write(f"# Joints defined at line {b['kw_line']} with parameters: {b['parameters']}\n")
@@ -530,5 +604,40 @@ def inp_to_pystran(inp_path: str, out_path: str) -> Dict:
             for e in elsetb['elements']:
                 element = _beam_element(e)
                 f.write(f"model.add_beam_member(m, {element['id']}, {element['connectivity']}, {sect_name})\n")
-        
-        f.write("\n")
+        for b in schema['boundary_blocks']:
+            f.write(f"# Boundary conditions defined at line {b['kw_line']} with parameters: {b['parameters']}\n")
+            node_or_nset = b['node_or_nset']
+            dof = b['dof']
+            dof = _translate_dofs(dof, dim, is_beam) 
+            value = b['value']
+            if isinstance(node_or_nset, int):
+                for d in dof:
+                    f.write(f"model.add_support(m['joints'][{node_or_nset}], {d}, {value})\n")
+            else:
+                n = _named_nset_block(node_or_nset)
+                if n is None:
+                    f.write(f"# Warning: nset '{node_or_nset}' not found for boundary condition at line {b['kw_line']}\n")
+                for j in n['nodes']:
+                    for d in dof:
+                        f.write(f"model.add_support(m['joints'][{j}], {d}, {value})\n")
+        for b in schema['cload_blocks']:
+            f.write(f"# Concentrated loads defined at line {b['kw_line']} with parameters: {b['parameters']}\n")
+            node_or_nset = b['node_or_nset']
+            dof = b['dof']
+            dof = _translate_dofs(dof, dim, is_beam)
+            value = b['value']
+            if isinstance(node_or_nset, int):
+                for d in dof:
+                    f.write(f"model.add_load(m['joints'][{node_or_nset}], {d}, {value})\n")
+            else:
+                n = _named_nset_block(node_or_nset)
+                if n is None:
+                    f.write(f"# Warning: nset '{node_or_nset}' not found for concentrated load at line {b['kw_line']}\n")
+                for j in n['nodes']:
+                    for d in dof:
+                        f.write(f"model.add_load(m['joints'][{j}], {d}, {value})\n")
+        f.write(f"model.number_dofs(m)\n")
+        statics = True # For now, we will always solve statics. We can determine whether to solve statics or dynamics later based on the presence of certain keywords in the input file (e.g. *DYNAMIC).
+        if statics:
+            f.write(f"model.solve_statics(m)\n")
+        f.write("# End of Abaqus model translation\n")

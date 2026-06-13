@@ -604,40 +604,42 @@ def inp_to_pystran(inp_path: str, out_path: str) -> Dict:
             for e in elsetb['elements']:
                 element = _beam_element(e)
                 f.write(f"model.add_beam_member(m, {element['id']}, {element['connectivity']}, {sect_name})\n")
-        for b in schema['boundary_blocks']:
-            f.write(f"# Boundary conditions defined at line {b['kw_line']} with parameters: {b['parameters']}\n")
-            node_or_nset = b['node_or_nset']
-            dof = b['dof']
-            dof = _translate_dofs(dof, dim, is_beam) 
-            value = b['value']
-            if isinstance(node_or_nset, int):
-                for d in dof:
-                    f.write(f"model.add_support(m['joints'][{node_or_nset}], {d}, {value})\n")
-            else:
-                n = _named_nset_block(node_or_nset)
-                if n is None:
-                    f.write(f"# Warning: nset '{node_or_nset}' not found for boundary condition at line {b['kw_line']}\n")
-                for j in n['nodes']:
+        for sb in schema['step_blocks']:
+            for b in sb['boundary_blocks']:
+                f.write(f"# Boundary conditions defined at line {b['kw_line']} with parameters: {b['parameters']}\n")
+                node_or_nset = b['node_or_nset']
+                dof = b['dof']
+                dof = _translate_dofs(dof, dim, is_beam) 
+                value = b['value']
+                if isinstance(node_or_nset, int):
                     for d in dof:
-                        f.write(f"model.add_support(m['joints'][{j}], {d}, {value})\n")
-        for b in schema['cload_blocks']:
-            f.write(f"# Concentrated loads defined at line {b['kw_line']} with parameters: {b['parameters']}\n")
-            node_or_nset = b['node_or_nset']
-            dof = b['dof']
-            dof = _translate_dofs(dof, dim, is_beam)
-            value = b['value']
-            if isinstance(node_or_nset, int):
-                for d in dof:
-                    f.write(f"model.add_load(m['joints'][{node_or_nset}], {d}, {value})\n")
-            else:
-                n = _named_nset_block(node_or_nset)
-                if n is None:
-                    f.write(f"# Warning: nset '{node_or_nset}' not found for concentrated load at line {b['kw_line']}\n")
-                for j in n['nodes']:
+                        f.write(f"model.add_support(m['joints'][{node_or_nset}], {d}, {value})\n")
+                else:
+                    n = _named_nset_block(node_or_nset)
+                    if n is None:
+                        f.write(f"# Warning: nset '{node_or_nset}' not found for boundary condition at line {b['kw_line']}\n")
+                    for j in n['nodes']:
+                        for d in dof:
+                            f.write(f"model.add_support(m['joints'][{j}], {d}, {value})\n")
+            for b in sb['cload_blocks']:
+                f.write(f"# Concentrated loads defined at line {b['kw_line']} with parameters: {b['parameters']}\n")
+                node_or_nset = b['node_or_nset']
+                dof = b['dof']
+                dof = _translate_dofs(dof, dim, is_beam)
+                value = b['value']
+                if isinstance(node_or_nset, int):
                     for d in dof:
-                        f.write(f"model.add_load(m['joints'][{j}], {d}, {value})\n")
-        f.write(f"model.number_dofs(m)\n")
-        statics = True # For now, we will always solve statics. We can determine whether to solve statics or dynamics later based on the presence of certain keywords in the input file (e.g. *DYNAMIC).
-        if statics:
-            f.write(f"model.solve_statics(m)\n")
+                        f.write(f"model.add_load(m['joints'][{node_or_nset}], {d}, {value})\n")
+                else:
+                    n = _named_nset_block(node_or_nset)
+                    if n is None:
+                        f.write(f"# Warning: nset '{node_or_nset}' not found for concentrated load at line {b['kw_line']}\n")
+                    for j in n['nodes']:
+                        for d in dof:
+                            f.write(f"model.add_load(m['joints'][{j}], {d}, {value})\n")
+            f.write(f"model.number_dofs(m)\n")
+            if sb['procedure'] == 'statics':
+                f.write(f"model.solve_statics(m)\n")
+            elif sb['procedure'] == 'frequency':
+                f.write(f"model.solve_free_vibration(m)\n")
         f.write("# End of Abaqus model translation\n")

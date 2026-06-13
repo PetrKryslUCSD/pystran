@@ -8,20 +8,11 @@ Created on Mon Jun  8 17:34:32 2026
 import context
 from pystran import Abaqus_import
 file = './tutorials/06_sennett_tut.inp'
-file = './tutorials/06_sennett_tut_a.inp'
-file = './tutorials/06_sennett_tut_b.inp'
+# file = './tutorials/06_sennett_tut_a.inp'
+# file = './tutorials/06_sennett_tut_b.inp'
 out = './tutorials/out.py'
 
-schema = Abaqus_import.read_abaqus_inp(file)
-# print(schema["node_blocks"])
-# print(schema["element_blocks"])
-# print(schema["nset_blocks"])
-# print(schema["elset_blocks"])
-# print(schema["cload_blocks"])
-# print(schema["beam_general_section_blocks"])
-# print(schema["material_blocks"])
-
-print(schema["boundary_blocks"])
-
+# schema = Abaqus_import.read_abaqus_inp(file)
+# print(schema)
 Abaqus_import.inp_to_pystran(file, out)
                              

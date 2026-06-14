@@ -1,7 +1,7 @@
 """
 pystran - Python package for structural analysis with trusses and beams
 
-(C) 2025, Petr Krysl, pkrysl@ucsd.edu
+(C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
 # Example of a two-dimensional frame problem with thermal gradient loading
 
@@ -103,7 +103,7 @@ M_T = CTE * (Ttop - Tbot) / depth * E * I
 model.add_load(i, freedoms.UR3, -M_T)
 model.add_load(j, freedoms.UR3, +M_T)
 
-# The nodal moments can be visualized with the following plot.
+# The applied nodal moments can be visualized with the following plot.
 ax = plots.setup(m)
 plots.plot_members(m)
 ax = plots.plot_applied_moments(m, 0.0, 50)
@@ -158,7 +158,7 @@ if abs((f["Qzj"] + 1710) / 1710) > 1e-2:
 if abs((f["Myj"] + M_T) / 40171 - 1) > 1e-2:
     raise ValueError("Member 2, joint i, bending moment error")
 
-# There are diagrams below are for the discrete model that is loaded with the
+# The diagrams below are for the discrete model that is loaded with the
 # negative reactions at the fixed joints. These resultants are not combined with
 # the thermal forces, they represent the response of the frame with the nodal loads.
 

@@ -1,7 +1,7 @@
 """
 pystran - Python package for structural analysis with trusses and beams
 
-(C) 2025, Petr Krysl, pkrysl@ucsd.edu
+(C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
 # Weaver 3D frame benchmark
 
@@ -122,7 +122,8 @@ model.add_beam_member(m, 3, [2, 4], sect_2)
 
 
 # Now we can plot the geometry of the structure. We show the members, the
-# member numbers, and the orientations of the local coordinate systems.
+# member numbers, and the orientations of the local coordinate systems. 
+# Also the joint numbers are displayed.
 
 ax = plots.setup(m)
 plots.plot_members(m)
@@ -163,7 +164,7 @@ plots.show(m)
 # Now we can solve the static equilibrium of the frame. First we number the
 # degrees of freedom, and then we call the solver that will construct the
 # stiffness matrix, the right-hand side vector of applied generalized forces
-# (forces plus moments), and solve a system of equations. The solution is then
+# (forces plus moments), and solve the system of equations. The solution is then
 # distributed to the joints.
 model.number_dofs(m)
 model.solve_statics(m)
@@ -177,12 +178,12 @@ for jid in [1, 2]:
 # The displacements of the joints can be compared to the reference values.
 # These are the displacements of joint 1:
 ref1 = [0.22267, 0.00016, -0.17182, -0.00255, 0.00217, -0.00213]
-if norm(m["joints"][1]["displacements"] - ref1) > 1.0e-1 * norm(ref1):
+if norm(m["joints"][1]["displacements"] - ref1) > 1.0e-2 * norm(ref1):
     raise ValueError("Displacement calculation error")
 print("Displacement calculation OK")
 # These are the displacements of joint 2:
 ref2 = [0.22202, -0.48119, -0.70161, -0.00802, 0.00101, -0.00435]
-if norm(m["joints"][2]["displacements"] - ref2) > 1.0e-1 * norm(ref2):
+if norm(m["joints"][2]["displacements"] - ref2) > 1.0e-2 * norm(ref2):
     raise ValueError("Displacement calculation error")
 print("Displacement calculation OK")
 

@@ -293,7 +293,7 @@ class UnitTestsPlanarFrames(unittest.TestCase):
         """
         pystran - Python package for structural analysis with trusses and beams
 
-        (C) 2025, Petr Krysl, pkrysl@ucsd.edu
+        (C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
         # Two story planar frame vibration
 
@@ -382,7 +382,7 @@ class UnitTestsPlanarFrames(unittest.TestCase):
         """
         pystran - Python package for structural analysis with trusses and beams
 
-        (C) 2025, Petr Krysl, pkrysl@ucsd.edu
+        (C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
         # Natural Frequency of Mass supported by a Beam on Springs
 

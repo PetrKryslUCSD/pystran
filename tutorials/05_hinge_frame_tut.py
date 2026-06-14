@@ -1,7 +1,7 @@
 """
 pystran - Python package for structural analysis with trusses and beams
 
-(C) 2025, Petr Krysl, pkrysl@ucsd.edu
+(C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
 # Example of a frame with a hinge
 
@@ -28,10 +28,10 @@ from pystran import plots
 # US customary units, inches, pounds, seconds are assumed.
 
 # The book gives the product of the modulus of elasticity and the moment of
-# inertia as 2.9e6.
+# inertia as 2.9e8.
 E = 29e6
 I = 100.0
-A = 10.0  # cross-sectional area does not influence the results
+A = 10.0  # cross-sectional area does not influence the results (much)
 L = 10 * 12  # span in inches
 
 m = model.create(2)
@@ -45,9 +45,11 @@ model.add_joint(m, 4, [L, 0.0])
 
 # There needs to be a hinge (not transferring bending moments, but ensuring
 # continuity of displacements) at the joint 2. We add another joint, 5, at the
-# same location, and we link the degrees of freedom that needs to be the same.
+# same location.
 model.add_joint(m, 5, [0, L])
 
+# Now we link the degrees of freedom that need to be the same --
+# the translations are the same, rotations can be different.
 # We supply the list of joints that need to be linked (2 and 5), and the
 # degrees of freedom that are to be the same.
 model.add_dof_links(m, [2, 5], freedoms.U1)

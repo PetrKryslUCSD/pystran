@@ -808,7 +808,7 @@ class UnitTestsSpaceFrames(unittest.TestCase):
         """
         pystran - Python package for structural analysis with trusses and beams
 
-        (C) 2025, Petr Krysl, pkrysl@ucsd.edu
+        (C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
         # Two story 3D Frame vibration
 
@@ -949,7 +949,7 @@ class UnitTestsSpaceFrames(unittest.TestCase):
         """
         pystran - Python package for structural analysis with trusses and beams
 
-        (C) 2025, Petr Krysl, pkrysl@ucsd.edu
+        (C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
         # Spatial frame with a hinge and spring supports
 

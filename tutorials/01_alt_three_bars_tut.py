@@ -1,15 +1,15 @@
 """
 pystran - Python package for structural analysis with trusses and beams.
 
-(C) 2025, Petr Krysl, pkrysl@ucsd.edu
+(C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
 # Three-bar truss example
 
 ## Problem description:
 
 Structure consisting of three truss members. This tutorial mirrors the tutorial
-01_three_bars_tut.py, but uses the alternative (mixed) identifiers for
-creating the model.
+01_three_bars_tut.py, but uses the alternative (mixed, integers and 
+strings) identifiers for creating the model.
 
 Displacements and internal forces are provided in the verification manual.
 
@@ -31,7 +31,7 @@ from pystran import plots
 
 # Now we create the model `m`, which is a dictionary that contains all the
 # constituent parts of the system. The model is created for a planar structure
-# (2). The deformation is assumed to occur in the plane `x-z`.
+# (the 2). The deformation is assumed to occur in the plane `x-z`.
 m = model.create(2)
 freedoms = m["freedoms"]
 
@@ -46,8 +46,7 @@ model.add_joint(m, "B", [0.0, 20.0])
 model.add_joint(m, "C", [0.0, 10.0])
 model.add_joint(m, "D", (+10.0, 0.0))
 
-# For instance, the material parameters and the cross sectional area of the
-# bars.
+# The material parameters and the cross sectional area of the bars.
 E = 30000000.0
 A = 0.65700000
 
@@ -58,6 +57,8 @@ s1 = section.truss_section("steel", E, A)
 # lists of [start, end] joints. The section is also provided. Note that one
 # member is called "m1" and the other two are numbered. Also, the connectivity
 # is supplied in one case as tuple, in the other two cases as lists.
+# This is purely to show off the flexibility, there are no actual such requirements.
+
 model.add_truss_member(m, "m1", ["A", "B"], s1)
 model.add_truss_member(m, 2, ("A", "C"), s1)
 model.add_truss_member(m, 3, ["A", "D"], s1)
@@ -74,12 +75,12 @@ ax = plots.setup(m)
 plots.plot_members(m)
 plots.plot_member_orientation(m)
 plots.plot_joint_ids(m)
-plots.plot_translation_supports(m)
 ax.set_title("Structure")
 plots.show(m)
 
 # At this point we can visualize the supports. The translation supports are
-# shown with arrow heads.
+# shown with arrow heads. Only when the displacements prescribed are non zero,
+# the arrows will have visible shafts.
 ax = plots.setup(m)
 plots.plot_joint_ids(m)
 plots.plot_translation_supports(m)
@@ -90,8 +91,8 @@ plots.show(m)
 model.add_load(jA, 0, -10000.0)
 model.add_load(jA, 1, -10000.0 / 2.0)
 
-# The model is shown graphically, members are displayed with the member numbers attached.
-# The applied forces are also shown.
+# The model is shown graphically, members are displayed with the member 
+# numbers attached. The applied forces are also shown.
 plots.setup(m)
 plots.plot_members(m)
 plots.plot_applied_forces(m, 1 / 3000.0)
@@ -119,7 +120,9 @@ if norm(jA["displacements"] - [-0.0033325938, -0.001591621]) > 1.0e-3:
 print("Displacement calculation OK")
 
 # The forces in the bars can be calculated using the strain-displacement matrix
-# to compute the strain, from which we can evaluate the force.
+# to compute the strain, from which we can evaluate the force. (Note there 
+# is a function to do this, here we show how it could be done from 
+# individual components.)
 for b in m["truss_members"].values():
     connectivity = b["connectivity"]
     i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
@@ -129,7 +132,7 @@ for b in m["truss_members"].values():
     eps = dot(B, u)
     print("Bar " + str(connectivity) + " force = ", E * A * eps[0])
 
-# The forces in the bars can be simply calculated using the `truss_axial_force`
+# The same calculation, made easier with the `truss_axial_force`
 # function. That function does what was described in the loop above.
 for b in m["truss_members"].values():
     connectivity = b["connectivity"]
@@ -139,7 +142,6 @@ for b in m["truss_members"].values():
 
 # These are the reference values of the forces from the book.
 print("Reference forces: ", -0.656854250e4, -0.48528137e4, -0.15685425e4)
-
 
 # The solution is visualized with deformed shape.
 plots.setup(m)

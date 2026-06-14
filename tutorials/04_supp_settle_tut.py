@@ -1,7 +1,7 @@
 """
 pystran - Python package for structural analysis with trusses and beams
 
-(C) 2025, Petr Krysl, pkrysl@ucsd.edu
+(C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
 # Example of a support-settlement problem
 
@@ -33,7 +33,7 @@ from pystran import plots
 E = 2.9e6
 I = 1.0
 A = 1.0  # cross-sectional area does not influence the results
-L = 10 * 12  # span in inchesc
+L = 10 * 12  # span in inches
 
 # The model is created as two dimensional.
 m = model.create(2)
@@ -46,7 +46,7 @@ model.add_joint(m, 3, [2 * L, 0.0])
 # The left hand side is clamped (all degrees of freedom set to zero), the other
 # joints are simply supported.
 model.add_support(m["joints"][1], freedoms.ALL_DOFS)
-# The middle support moves down by 0.25 inches (notice the non zero value of the
+# The middle support moves down by 0.25 inches (notice the non-zero value of the
 # enforced displacement).
 model.add_support(m["joints"][2], freedoms.U2, -0.25)
 model.add_support(m["joints"][3], freedoms.U2)
@@ -61,7 +61,7 @@ model.add_beam_member(m, 2, [2, 3], s1)
 # scale doesn't work well in this case).
 ax = plots.setup(m, set_limits=True)
 plots.plot_members(m)
-plots.plot_translation_supports(m, 50)
+plots.plot_translation_supports(m, scale=50)
 ax.set_title("Supports (magnified 50x)")
 plots.show(m)
 

@@ -3,6 +3,8 @@
 Created on Mon Jun  8 17:34:32 2026
 
 @author: pkonl
+
+NOTE: WORK IN PROGRESS
 """
 
 import context

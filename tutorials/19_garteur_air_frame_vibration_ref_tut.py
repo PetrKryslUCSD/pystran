@@ -26,8 +26,9 @@ The test-bed was designed and manufactured by ONERA, France.
 ![](IMAC97photo.png)
 
 This tutorial includes also the constraining layer of the wing, which 
-was not included in the "19_garteur_air_frame_statics_ref_tut.py" tutorial.
-The effect of the constraining layer may be overestimated when computing 
+was not included in the "19_garteur_air_frame_statics_tut.py" tutorial.
+The effect of the constraining layer may be overestimated 
+(the frequencies may end up a little bit too high) when computing 
 the natural frequencies: the flexibility of the viscoelastic layer is omitted.
 
 References

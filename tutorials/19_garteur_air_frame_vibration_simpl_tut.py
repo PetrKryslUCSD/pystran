@@ -26,7 +26,7 @@ The test-bed was designed and manufactured by ONERA, France.
 ![](IMAC97photo.png)
 
 This tutorial is simplified: no damping, no constraining layer, no 
-added masses (not on the drums, no masses for connecting metal).
+added masses (not on the drums, no masses for connecting fixtures).
 
 References
 

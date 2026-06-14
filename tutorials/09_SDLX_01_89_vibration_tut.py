@@ -1,7 +1,7 @@
 """
 pystran - Python package for structural analysis with trusses and beams
 
-(C) 2025, Petr Krysl, pkrysl@ucsd.edu
+(C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
 # Two story planar frame vibration
 
@@ -32,6 +32,7 @@ B = 4.8e-3
 A = H * B
 I = H * B**3 / 12
 
+# Create the model in usual fashion.
 m = model.create(2)
 freedoms = m["freedoms"]
 
@@ -65,7 +66,8 @@ plots.show(m)
 # All members will now be refined into eight finite elements. Without the
 # refinement, the reference solutions cannot be reproduced: there simply
 # wouldn't be enough degrees of freedom. Unfortunately the reference publication
-# does not mention the numbers of finite elements used per member.
+# does not mention with how many finite elements used per member 
+# the reference solution was calculated.
 nref = 8
 for i in range(6):
     model.refine_member(m, i + 1, nref)

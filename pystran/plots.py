@@ -157,6 +157,12 @@ def setup(m, set_limits=False, fontsize=0):
     m['fig'] = fig # plotting objects saved
     if m["dim"] == 3:
         ax = fig.add_subplot(projection="3d")
+        if set_limits:
+            box = bounding_box(m)
+            cd = characteristic_dimension(m)
+            ax.set_xlim3d([box[0] - cd / 10, box[3] + cd / 10])
+            ax.set_ylim3d([box[1] - cd / 10, box[4] + cd / 10])
+            ax.set_zlim3d([box[2] - cd / 10, box[5] + cd / 10])
     else:
         ax = fig.add_subplot()
         if set_limits:
@@ -164,9 +170,25 @@ def setup(m, set_limits=False, fontsize=0):
             cd = characteristic_dimension(m)
             ax.set_xlim([box[0] - cd / 10, box[2] + cd / 10])
             ax.set_ylim([box[1] - cd / 10, box[3] + cd / 10])
+    ax.set_aspect("equal")
     m['ax'] = ax # plotting objects saved
     return ax
 
+def show(m):
+    """
+    Show the plot.
+
+    Parameters
+    ----------
+    m
+        Model dictionary.
+    """
+    if not ('fig' in m):
+        raise RuntimeError('Please first call plots.setup(m)')
+    fig = m['fig']
+    ax = m['ax'] 
+    ax.set_aspect("equal")
+    plt.show()
 
 def _area_extrema(all_members):
     min_area = numpy.inf
@@ -410,6 +432,7 @@ def _plot_member_ids_2d(m):
             i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
             ci, cj = i["coordinates"], j["coordinates"]
             xm = (ci + cj) / 2.0
+            ax.scatter(xm[0], xm[1], alpha=0)
             ax.text(xm[0], xm[1], str(jid),
                     bbox=dict(facecolor='white', boxstyle='square'))
     if "beam_members" in m:
@@ -419,6 +442,7 @@ def _plot_member_ids_2d(m):
             i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
             ci, cj = i["coordinates"], j["coordinates"]
             xm = (ci + cj) / 2.0
+            ax.scatter(xm[0], xm[1], alpha=0)
             ax.text(xm[0], xm[1], str(jid),
                     bbox=dict(facecolor='white', boxstyle='square'))
     return ax
@@ -433,6 +457,7 @@ def _plot_member_ids_3d(m):
             i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
             ci, cj = i["coordinates"], j["coordinates"]
             xm = (ci + cj) / 2.0
+            ax.scatter(xm[0], xm[1], xm[2], alpha=0)
             ax.text(xm[0], xm[1], xm[2], str(jid), 
                     bbox=dict(facecolor='white', boxstyle='square'))
     if "beam_members" in m:
@@ -442,6 +467,7 @@ def _plot_member_ids_3d(m):
             i, j = m["joints"][connectivity[0]], m["joints"][connectivity[1]]
             ci, cj = i["coordinates"], j["coordinates"]
             xm = (ci + cj) / 2.0
+            ax.scatter(xm[0], xm[1], xm[2], alpha=0)
             ax.text(xm[0], xm[1], xm[2], str(jid), 
                     bbox=dict(facecolor='white', boxstyle='square'))
     return ax
@@ -506,6 +532,10 @@ def plot_joint_ids(m, offsets = None):
     ax = m['ax']
     for j in m["joints"].values():
         if m["dim"] == 3:
+            ax.scatter(
+                j["coordinates"][0] + offsets[0],
+                j["coordinates"][1] + offsets[1],
+                j["coordinates"][2] + offsets[2], alpha=0)
             ax.text(
                 j["coordinates"][0] + offsets[0],
                 j["coordinates"][1] + offsets[1],
@@ -514,6 +544,9 @@ def plot_joint_ids(m, offsets = None):
                 bbox=dict(facecolor='white', boxstyle='circle')
             )
         else:
+            ax.scatter(
+                j["coordinates"][0] + offsets[0],
+                j["coordinates"][1] + offsets[1], alpha=0)
             ax.text(j["coordinates"][0] + offsets[0], 
                     j["coordinates"][1] + offsets[1], 
                     str(j["jid"]),
@@ -1337,58 +1370,6 @@ def plot_rotation_supports(m, scale=0.0, radius=0.0, shortest_arrow=1.0e-6):
                                 color="blue",
                             )
     return ax
-
-
-def show(m):
-    """
-    Show the plot.
-
-    Parameters
-    ----------
-    m
-        Model dictionary.
-
-    """
-    if not ('fig' in m):
-        raise RuntimeError('Please first call plots.setup(m)')
-    fig = m['fig']
-    ax = m['ax']
-    ax.set_aspect("equal")
-    box = bounding_box(m)
-    cd = characteristic_dimension(m)
-    if m["dim"] == 3:
-        ax.set_xlim([box[0] - cd / 10, box[3] + cd / 10])
-        ax.set_ylim([box[1] - cd / 10, box[4] + cd / 10])
-        ax.set_zlim([box[2] - cd / 10, box[5] + cd / 10])
-        ax.set_xlabel("X")
-        ax.set_ylabel("Y")
-        ax.set_zlabel("Z")
-    else:
-        ax.set_xlim([box[0] - cd / 10, box[2] + cd / 10])
-        ax.set_ylim([box[1] - cd / 10, box[3] + cd / 10])
-        ax.set_xlabel("X")
-        ax.set_ylabel("Z")
-    # zoom in 3d will change ticks
-    def update_ticks(ax, n_max=6):
-        dim = m['dim']
-        # set an appropriate number of major ticks for each axis based on span
-        if dim == 2:
-            for axis in (ax.xaxis, ax.yaxis,):
-                axis.set_major_locator(MaxNLocator(n_max))
-        else:
-            for axis in (ax.xaxis, ax.yaxis, ax.zaxis):
-                axis.set_major_locator(MaxNLocator(n_max))
-        fig.canvas.draw_idle()
-    
-    def on_limits_change(event_ax):
-        # event_ax is the axis object passed by the callback
-        update_ticks(ax, n_max=6)
-    # Connect per-axis limit-change callbacks
-    ax.callbacks.connect('xlim_changed', on_limits_change)
-    ax.callbacks.connect('ylim_changed', on_limits_change)
-    ax.callbacks.connect('zlim_changed', on_limits_change)
-    plt.show()
-
 
 def plot_reaction_forces(m, scale=0.0):
     """

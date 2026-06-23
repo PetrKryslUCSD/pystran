@@ -677,7 +677,7 @@ def inp_to_pystran(inp_path: str, out_path: str) -> Dict:
             Iy = I11
             Iz = I22
             Ix = I11 + I22
-            sect_name = f'sect_{b['kw_line']}_' + str(len(sects)+1)
+            sect_name = f"sect_{b['kw_line']}_" + str(len(sects)+1)
             sects[b['parameters']['ELSET']] = sect_name
             material_name = b['parameters']['MATERIAL']
             E = materials[material_name]['E']

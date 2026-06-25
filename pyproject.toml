@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pystran"
-version = "0.2.1"
+version = "0.2.3"
 authors = [
   { name="Petr Krysl", email="pkrysl@ucsd.edu" },
 ]

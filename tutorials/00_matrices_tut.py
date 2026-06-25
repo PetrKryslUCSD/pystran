@@ -16,7 +16,7 @@ import numpy
 
 # Here is a Python list:
 al = [1, 2, 3]
-# we can make and array from it:
+# we can make an (numpy) array from it:
 am = numpy.array(al)
 print(am)
 
@@ -27,7 +27,7 @@ print("A = ", A)
 # We can access the type of the elements of the matrix and its shape:
 print(f"Type ({A.dtype}) and shape ({A.shape}) of A")
 
-# Individual elements (entries) of the matrix can be accessed by their indices:
+# Individual elements (entries) of the 3x3 matrix can be accessed by their indices:
 print("Top left - A[0, 0] = ", A[0, 0])
 print("Bottom left - A[2, 0] = ", A[2, 0])
 print("Top right - A[0, 2] = ", A[0, 2])
@@ -63,12 +63,14 @@ print("Diagonal of A = ", numpy.diag(A))
 # Square matrices are often transposed:
 print("Transpose of A = ", A.T)
 
-# Matrix is symmetric if it is equal to its transpose, i.e., A - A.T is the zero matrix:
+# Matrix is symmetric if it is equal to its transpose, i.e., A - A.T 
+# is the zero matrix:
 print("A - A.T = ", A - A.T)
 # This matrix is not symmetric.
 
 # A matrix can be decomposed into its symmetric and antisymmetric part.
-# The symmetric part is (A + A.T)/2, the antisymmetric part is (A - A.T)/2.
+# The symmetric part is (A + A.T)/2, the antisymmetric 
+# part is (A - A.T)/2.
 As = (A + A.T) / 2
 Aa = (A - A.T) / 2
 print("Symmetric part of A = ", As)
@@ -96,9 +98,10 @@ with numpy.printoptions(precision=3):
 # Matrices can be multiplied by scalars.
 print("2000 * D = ", 2000 * D)
 
-# Matrices can be multiplied together if they have compatible shapes (the number
-# of columns in the first matrix matches the number of rows of the second
-# matrix). There is a function for matrix multiplication called dot.
+# Matrices can be multiplied together if they have compatible shapes 
+# (the number of columns in the first matrix matches the number of 
+# rows of the second matrix). There is a function for matrix 
+# multiplication called dot().
 F = numpy.random.rand(4, 3)
 G = numpy.random.rand(4, 3)
 print("F = ", F)
@@ -118,7 +121,7 @@ print("B = ", B)
 print("Outer product of B with itself = \n ", numpy.outer(B, B))
 
 
-# The inverse of a matrix can be computed using the function inv.
+# The inverse of a matrix can be computed using the function inv().
 K = numpy.array([[1, 2], [3, 4]])
 print("K inverse = ", numpy.linalg.inv(K))
 print("K*K inverse = ", numpy.dot(K, numpy.linalg.inv(K)))
@@ -136,7 +139,7 @@ except ValueError:
 with numpy.printoptions(precision=3):
     print("K = ", K)
 
-# We will work with partitioned matrices in pystran. Slicing can be used to
+# We will work with partitioned matrices in `pystran`. Slicing can be used to
 # extract the submatrices.
 
 # This particular matrix

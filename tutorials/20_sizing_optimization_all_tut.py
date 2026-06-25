@@ -3,11 +3,11 @@ pystran - Python package for structural analysis with trusses and beams
 
 (C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
-A 2-D truss sizing optimization.
+# A 2-D truss sizing optimization.
 
 Last updated: 06/24/26
 
-Description
+## Description
 
 Optimize the cross sectional areas of a truss structure to achieve its 
 minimum weight. Each bar can have a different cross section area.
@@ -16,7 +16,7 @@ Objective Function: mass of the structure
 
 Constraints: limit on maximum deflection
 
-References
+## References
 
 - 
 

@@ -3,13 +3,11 @@ pystran - Python package for structural analysis with trusses and beams
 
 (C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
-GARTEUR SM-AG19 Testbed: Construction of the geometry
-
-Source code: [`garteur_geometry_tut.jl`](garteur_geometry_tut.jl)
+# GARTEUR SM-AG19 Testbed: Vibration of idealized airframe, refined
 
 Last updated: 05/25/26
 
-Description
+## Description
 
 This virtual test application is based on the test article  
 used by the GARTEUR Structures & Materials Action Group 19  
@@ -31,7 +29,7 @@ The effect of the constraining layer may be overestimated
 (the frequencies may end up a little bit too high) when computing 
 the natural frequencies: the flexibility of the viscoelastic layer is omitted.
 
-References
+## References
 
 - [GARTEUR] Ground Vibration Test Techniques, compiled by A Gravelle, GARTEUR
   Structures & Materials Action Group 19 Technical report TP-115, 1999.

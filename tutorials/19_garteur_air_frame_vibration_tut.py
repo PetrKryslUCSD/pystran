@@ -3,11 +3,9 @@ pystran - Python package for structural analysis with trusses and beams
 
 (C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
-GARTEUR SM-AG19 Testbed: Construction of the geometry
+# GARTEUR SM-AG19 Testbed: Vibration of idealized airframe
 
-Source code: [`garteur_geometry_tut.jl`](garteur_geometry_tut.jl)
-
-Last updated: 05/23/26
+## Last updated: 05/23/26
 
 Description
 
@@ -24,7 +22,7 @@ The test-bed was designed and manufactured by ONERA, France.
 
 ![](IMAC97photo.png)
 
-References
+## References
 
 - [GARTEUR] Ground Vibration Test Techniques, compiled by A Gravelle, GARTEUR
   Structures & Materials Action Group 19 Technical report TP-115, 1999.

@@ -14,7 +14,9 @@ minimum weight. Each bar can have a different cross section area.
 
 Objective Function: mass of the structure
 
-Constraints: limit on maximum deflection
+Constraints: 
+    (i) limit on maximum deflection
+    (ii) limit on minimum cross-sectional area
 
 ## References
 

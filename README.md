@@ -93,6 +93,9 @@ py tutorials/01_three_bars_tut.py
 
 Or, [use Spyder](docs/spyder/spyder.md), which makes the whole process a lot easier to set up.
 
+Finally, [mybinder](https://mybinder.org/v2/gh/PetrKryslUCSD/pystran/main) is 
+a hassle-free way of running tutorials in the browser.
+
 
 ## Testing
 

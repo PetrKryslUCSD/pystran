@@ -79,6 +79,9 @@ The easiest way to run a pystran example is to download and install Spyder 6.
 
 It is also possible to run simulations using a [plain Python in a terminal](docs/terminal/terminal.md).
 
+Finally, it is also possible to run `pystran` examples etc. in [mybinder](https://mybinder.org/v2/gh/PetrKryslUCSD/pystran/main).
+It will take a minute to spin it up, but no installation is necessary. Just open a Jupyter notebook from `derivations` or `tutorials`.
+
 
 ## Tutorials
 

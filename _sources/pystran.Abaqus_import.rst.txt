@@ -1,0 +1,7 @@
+pystran.Abaqus\_import module
+=============================
+
+.. automodule:: pystran.Abaqus_import
+   :members:
+   :undoc-members:
+   :show-inheritance:

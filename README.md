@@ -64,6 +64,12 @@ in the `pystran` folder.
 
 ## Running
 
+The easiest option is to use [pystran.live](https://petrkryslucsd.github.io/pystran.live/lab/index.html?path=Welcome.ipynb).
+Just open a Jupyter notebook from the `derivations` or `tutorials` folders.
+
+It is also possible to run `pystran` examples etc. in [mybinder](https://mybinder.org/v2/gh/PetrKryslUCSD/pystran/main).
+It will take a minute to spin it up, but no installation is necessary. 
+
 This package is distributed through the official Python channels (https://pypi.org).
 Just do
 ```
@@ -72,15 +78,12 @@ pip install pystran
 
 It may also to be downloaded from GitHub as a zip file, and expanded in some convenient location. 
 
-The __`pystran` folder__ can be located by looking for this README.md file.
+The `pystran` __folder__ can be located by looking for this README.md file.
 
 The easiest way to run a pystran example is to download and install Spyder 6.
 [Detailed instructions](docs/spyder/spyder.md) are provided. 
 
 It is also possible to run simulations using a [plain Python in a terminal](docs/terminal/terminal.md).
-
-Finally, it is also possible to run `pystran` examples etc. in [mybinder](https://mybinder.org/v2/gh/PetrKryslUCSD/pystran/main).
-It will take a minute to spin it up, but no installation is necessary. Just open a Jupyter notebook from `derivations` or `tutorials`.
 
 
 ## Tutorials

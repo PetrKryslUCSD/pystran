@@ -1,11 +1,11 @@
 # %% [markdown]
-# pystran - Python package for structural analysis with trusses and beams.
+# [pystran](https://github.com/PetrKryslUCSD/pystran) - Python package for structural analysis with trusses and beams.
 # 
 # (C) 2025, Petr Krysl, pkrysl@ucsd.edu
 # `
 # # Three-bar truss example
 # 
-# ## Problem description:
+# ## Problem description
 # 
 # Structure consisting of three truss members. This tutorial mirrors the tutorial
 # `01_three_bars_tut`, but uses alternative (mixed integer and string) identifiers for

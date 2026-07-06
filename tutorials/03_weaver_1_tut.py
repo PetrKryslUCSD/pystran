@@ -1,11 +1,11 @@
 # %% [markdown]
-# pystran - Python package for structural analysis with trusses and beams
+# [pystran](https://github.com/PetrKryslUCSD/pystran) - Python package for structural analysis with trusses and beams
 # 
 # (C) 2025, Petr Krysl, pkrysl@ucsd.edu
 # 
 # # Weaver 3D frame benchmark
 # 
-# ## Problem description:
+# ## Problem description
 # 
 # This example is a 3D frame for which multiple independent solutions are
 # available in the open literature (hence, it is a benchmark).

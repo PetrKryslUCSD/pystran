@@ -1,11 +1,11 @@
 """
-pystran - Python package for structural analysis with trusses and beams
+[pystran](https://github.com/PetrKryslUCSD/pystran) - Python package for structural analysis with trusses and beams
 
 (C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
 # Continuous beam with two spans: refine a member into multiple elements
 
-## Problem description:
+## Problem description
 
 Variation on  02_continuous_beam_2_spans_consist_tut.py. The member 2 is
 **refined** into three members automatically.

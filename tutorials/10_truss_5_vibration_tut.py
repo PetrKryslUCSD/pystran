@@ -1,11 +1,11 @@
 """
-pystran - Python package for structural analysis with trusses and beams
+[pystran](https://github.com/PetrKryslUCSD/pystran) - Python package for structural analysis with trusses and beams
 
 (C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
 # Statically-determinate truss vibration
 
-## Problem description:
+## Problem description
 
 A simple truss is analyzed for free vibration. The truss is statically determinate.
 

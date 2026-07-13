@@ -1,11 +1,11 @@
 """
-pystran - Python package for structural analysis with trusses and beams
+[pystran](https://github.com/PetrKryslUCSD/pystran) - Python package for structural analysis with trusses and beams
 
 (C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
 # Two story 3D Frame vibration
 
-## Problem description:
+## Problem description
 
 Three-dimensional two story frame vibration. The frame members are automatically
 refined into multiple elements.

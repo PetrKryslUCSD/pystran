@@ -1,11 +1,11 @@
 """
-pystran - Python package for structural analysis with trusses and beams
+[pystran](https://github.com/PetrKryslUCSD/pystran) - Python package for structural analysis with trusses and beams
 
 (C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
 # Bending of a quarter circle under out-of-plane force
 
-## Problem description:
+## Problem description
 
 Fixed at the end, circular arc of 90 degrees made from hollow round section;
 elastic linear material.

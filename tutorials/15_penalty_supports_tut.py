@@ -1,11 +1,11 @@
 """
-pystran - Python package for structural analysis with trusses and beams
+[pystran](https://github.com/PetrKryslUCSD/pystran) - Python package for structural analysis with trusses and beams
 
 (C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
 # Penalty enforcement of supports
 
-## Problem description:
+## Problem description
 
 Statically determinate simply-supported truss is loaded with forces. Both the
 pin and the roller, which is on an inclined plane, are enforced using a penalty

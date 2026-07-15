@@ -1,11 +1,11 @@
 """
-pystran - Python package for structural analysis with trusses and beams
+[pystran](https://github.com/PetrKryslUCSD/pystran) - Python package for structural analysis with trusses and beams
 
 (C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
 # Spatial frame with a hinge and spring supports
 
-## Problem description:
+## Problem description
 
 Structure consisting of two L-shaped members connected by a spherical ball joint
 (hinge), and supported partially by extension and torsion springs at the two

@@ -1,11 +1,11 @@
 """
-pystran - Python package for structural analysis with trusses and beams
+[pystran](https://github.com/PetrKryslUCSD/pystran) - Python package for structural analysis with trusses and beams
 
 (C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
 # Bending of a two incompressible cantilevers rigidly linked at the free end
 
-## Problem description:
+## Problem description
 
 Two parallel cantilevers are rigidly linked at the free end.
 They bend in sync due to the rigid link.

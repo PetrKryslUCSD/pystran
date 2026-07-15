@@ -1,11 +1,11 @@
 """
-pystran - Python package for structural analysis with trusses and beams
+[pystran](https://github.com/PetrKryslUCSD/pystran) - Python package for structural analysis with trusses and beams
 
 (C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
 # Truss with a combination of loads
 
-## Problem description:
+## Problem description
 
 A truss with a combination of loads. The truss is supported at three joints, and
 one of those supports is inclined. This tutorial demonstrates how to use a

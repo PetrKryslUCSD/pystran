@@ -1,11 +1,11 @@
 """
-pystran - Python package for structural analysis with trusses and beams
+[pystran](https://github.com/PetrKryslUCSD/pystran) - Python package for structural analysis with trusses and beams
 
 (C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
 # Continuous beam with distributed loading
 
-## Problem description:
+## Problem description
 
 Continuous simply supported beam with two spans. The span on the left with
 uniform distributed loading (downwards).

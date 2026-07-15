@@ -1,11 +1,11 @@
 """
-pystran - Python package for structural analysis with trusses and beams
+[pystran](https://github.com/PetrKryslUCSD/pystran) - Python package for structural analysis with trusses and beams
 
 (C) 2025-2026, Petr Krysl, pkrysl@ucsd.edu
 
 # Natural Frequency of Mass supported by a Beam on Springs
 
-## Problem description:
+## Problem description
 
 A simple beam is supported by two spring at the endpoints. Neglecting
 the distributed mass of the beam, calculate the period of free vibration of the

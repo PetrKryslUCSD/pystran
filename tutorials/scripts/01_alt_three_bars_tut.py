@@ -1,11 +1,13 @@
 # %% [markdown]
-# [pystran](https://github.com/PetrKryslUCSD/pystran) - Python package for structural analysis with trusses and beams.
+# pystran - Python package for structural analysis with trusses and beams.
 # 
 # (C) 2025, Petr Krysl, pkrysl@ucsd.edu
 # `
 # # Three-bar truss example
 # 
-# ## Problem description
+# Last updated: 07/11/26
+# 
+# ## Problem description:
 # 
 # Structure consisting of three truss members. This tutorial mirrors the tutorial
 # `01_three_bars_tut`, but uses alternative (mixed integer and string) identifiers for
@@ -17,12 +19,17 @@
 # 
 # Three-bar example on page 32 from the book Analysis of Geometrically Nonlinear
 # Structures Second Edition by Robert Levy and William R. Spillers.
+# 
+# ## Documentation
+# 
+# [pystran docs](https://petrkryslucsd.github.io/pystran)
 
 # %% [markdown]
 # The following imports are necessary for the example to work.
 # 
 
 # %%
+import scipy
 from numpy.linalg import norm
 from numpy import concatenate, dot
 import context
@@ -52,7 +59,8 @@ freedoms = m["freedoms"]
 # 
 
 # %%
-jA = model.add_joint(m, "A", [10.0, 20.0])
+model.add_joint(m, "A", [10.0, 20.0])
+jA = m['joints']['A']
 model.add_joint(m, "B", [0.0, 20.0])
 model.add_joint(m, "C", [0.0, 10.0])
 model.add_joint(m, "D", (+10.0, 0.0))
@@ -233,5 +241,11 @@ plots.plot_members(m)
 ax = plots.plot_axial_forces(m, 1 / 3000.0)
 ax.set_title("Axial Forces")
 plots.show(m)
+
+# %% [markdown]
+# ## Conclusions
+# 
+# This is really simple example of a model of two dimensional truss. The method of setting up the problem, solving it, and extracting internal forces was presented. All of this was supplemented with plots. The variant here illustrates that we can name the joints and the members in any way we like.
+# 
 
 

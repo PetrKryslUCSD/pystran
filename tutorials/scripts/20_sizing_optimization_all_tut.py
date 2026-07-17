@@ -33,11 +33,16 @@
 # $j$ is $A_j = x_j \times \verb!INITIAL_AREA!$.
 # 
 # 
+# ## Documentation
+# 
+# [pystran docs](https://petrkryslucsd.github.io/pystran)
+# 
 
 # %% [markdown]
 # Now we describe the implementation. First we bring in the modules and functions that we will need.
 
 # %%
+import scipy
 import context
 from numpy import max, ones
 from pystran import model

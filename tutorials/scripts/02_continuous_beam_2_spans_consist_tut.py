@@ -5,6 +5,8 @@
 # 
 # # Continuous beam with two spans
 # 
+# Last updated: 07/11/26
+# 
 # ## Problem description
 # 
 # Continuous simply supported beam with two spans. The beam is loaded with
@@ -17,8 +19,13 @@
 # Introductory example 7.1 from Structural Mechanics. Analytical and Numerical
 # Approaches for Structural Analysis by Lingyi Lu, Junbo Jia, Zhuo Tang.
 # 
+# ## Documentation
+# 
+# [pystran docs](https://petrkryslucsd.github.io/pystran)
+# 
 
 # %%
+import scipy
 from numpy import dot
 from numpy.linalg import norm
 import context
@@ -200,5 +207,11 @@ plots.plot_members(m)
 ax = plots.plot_reaction_forces(m)
 ax.set_title("Reaction forces")
 plots.show(m)
+
+# %% [markdown]
+# ## Conclusions
+# 
+# In this tutorial we looked at a continuous beam. We presented the complete construction of the model, and finished with computing the reactions.
+# 
 
 

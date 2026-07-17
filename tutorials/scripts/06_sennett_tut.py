@@ -5,6 +5,8 @@
 # 
 # # Example of a three dimensional frame problem
 # 
+# Last updated: 07/11/26
+# 
 # ## Problem description:
 # 
 # Frame with three legs that are clamped, loaded by a torque.
@@ -33,6 +35,7 @@
 # We begin with the standard imports:
 
 # %%
+import scipy
 from numpy import array
 from numpy.linalg import norm
 import context
@@ -315,5 +318,10 @@ plots.plot_member_orientation(m, 20)
 ax = plots.plot_axial_forces(m, scale=0.01)
 ax.set_title("Axial forces")
 plots.show(m)
+
+# %% [markdown]
+# ## Conclusions
+# 
+# The independent solution in the reference book could be matched satisfactorily.
 
 

@@ -5,7 +5,7 @@
 # 
 # # A gentle introduction to matrices in Python
 # 
-# This tutorial should to be executed line by line.
+# This tutorial should be executed line by line.
 # 
 
 # %% [markdown]
@@ -13,6 +13,7 @@
 
 # %%
 import math
+import scipy
 import numpy
 
 # %% [markdown]
@@ -321,5 +322,4 @@ print(Kinfo.eigenvalues)
 
 # %% [markdown]
 # The matrix K is singular: look for those (practically or actually) zero eigenvalues.
-
 

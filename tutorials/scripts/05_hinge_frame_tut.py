@@ -5,6 +5,8 @@
 # 
 # # Example of a frame with a hinge
 # 
+# Last updated: 07/11/26
+# 
 # ## Problem description
 # 
 # Portal frame with a hinge at the top of the left column. The frame is loaded
@@ -24,6 +26,7 @@
 # [pystran docs](https://petrkryslucsd.github.io/pystran)
 
 # %%
+import scipy
 from numpy.linalg import norm
 import context
 from pystran import model
@@ -183,5 +186,10 @@ plots.plot_members(m)
 ax = plots.plot_shear_forces(m)
 ax.set_title("Shear forces")
 plots.show(m)
+
+# %% [markdown]
+# ## Conclusions
+# 
+# In this tutorial we show how to introduce an internal hinge (aka moment release).
 
 

@@ -5,6 +5,8 @@
 # 
 # # Three-bar truss example
 # 
+# Last updated: 07/11/26
+# 
 # ## Problem description
 # 
 # Structure consisting of three truss members.
@@ -15,6 +17,10 @@
 # 
 # Three-bar example on page 32 from the book Analysis of Geometrically Nonlinear
 # Structures Second Edition by Robert Levy and William R. Spillers.
+# 
+# ## Documentation
+# 
+# [pystran docs](https://petrkryslucsd.github.io/pystran)
 
 # %% [markdown]
 # The following imports are necessary for the example to work.
@@ -144,7 +150,7 @@ print("Free Degrees of Freedom = ", m["nfreedof"])
 # the balance of the joints.
 
 # %%
-model.solve_statics(m)1
+model.solve_statics(m)
 
 # %% [markdown]
 # The displacements at all the joints are printed..
@@ -212,5 +218,11 @@ plots.plot_members(m)
 ax = plots.plot_axial_forces(m, 1 / 3000.0)
 ax.set_title("Axial Forces")
 plots.show(m)
+
+# %% [markdown]
+# ## Conclusions
+# 
+# This is really simple example of a model of two dimensional truss. The method of setting up the problem, solving it, and extracting internal forces was presented. All of this was supplemented with plots.
+# 
 
 

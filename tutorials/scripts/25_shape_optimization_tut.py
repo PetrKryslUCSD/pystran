@@ -33,12 +33,17 @@
 # $$
 # Note: $f(x)$ is the objective function, whose argument is the vector of the design variables, $x$.
 # 
+# ## Documentation
+# 
+# [pystran docs](https://petrkryslucsd.github.io/pystran)
+# 
 # 
 
 # %% [markdown]
 # As usual, we bring in the modules and functions that we will need.
 
 # %%
+import scipy
 import context
 from math import pi
 from numpy import max, ones, zeros, inf, minimum

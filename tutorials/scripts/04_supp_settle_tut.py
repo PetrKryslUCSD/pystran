@@ -5,7 +5,9 @@
 # 
 # # Example of a support-settlement problem
 # 
-# ## Problem description
+# Last updated: 07/11/26
+# 
+# ## Problem description:
 # 
 # Statically indeterminate beam with two spans. The beam is supported at a pin
 # that settles by a given amount.
@@ -23,6 +25,7 @@
 # [pystran docs](https://petrkryslucsd.github.io/pystran)
 
 # %%
+import scipy
 import context
 from pystran import model
 from pystran import section

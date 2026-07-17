@@ -5,6 +5,8 @@
 # 
 # # Two-dimensional frame with thermal gradient loading
 # 
+# Last updated: 07/11/26
+# 
 # ## Problem description
 # 
 # Frame with two legs. The top is loaded with a thermal gradient through the depth
@@ -27,6 +29,7 @@
 # We begin with the standard imports:
 
 # %%
+import scipy
 from numpy.linalg import norm
 import context
 from pystran import model
@@ -281,5 +284,10 @@ plots.show(m)
 
 # %% [markdown]
 # To make the internal resultant diagrams complete, we would  need to add in  the internal resultants due to the thermal loading under fixed-end conditions.
+
+# %% [markdown]
+# ## Conclusions
+# 
+# `pystran` does not provide an automatic way of converting distributed loading (such as thermal gradient loadings) into nodal forces and moments: the user need to do that. Here we show how.
 
 

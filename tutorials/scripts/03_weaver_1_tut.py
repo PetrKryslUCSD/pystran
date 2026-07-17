@@ -1,9 +1,11 @@
 # %% [markdown]
-# [pystran](https://github.com/PetrKryslUCSD/pystran) - Python package for structural analysis with trusses and beams
+# pystran - Python package for structural analysis with trusses and beams
 # 
 # (C) 2025, Petr Krysl, pkrysl@ucsd.edu
 # 
 # # Weaver 3D frame benchmark
+# 
+# Last updated: 07/11/26
 # 
 # ## Problem description
 # 
@@ -33,11 +35,16 @@
 # 
 # It is accessible online via the STAAD.Pro 2023.00.03 User Manual.
 # 
+# 
+# ## Documentation
+# 
+# [pystran docs](https://petrkryslucsd.github.io/pystran)
 
 # %% [markdown]
 # We begin with the standard imports:
 
 # %%
+import scipyi
 from numpy import array
 from numpy.linalg import norm
 import context

@@ -53,6 +53,7 @@ The finite-element principles and development of the techniques is described in 
 - NumPy
 - SciPy
 - Matplotlib
+- ipympl
 
 These requirements can be easily satisfied by running the examples in the [Spyder IDE](docs/spyder/spyder.md).
 
@@ -67,9 +68,14 @@ in the `pystran` folder.
 
 The easiest option is to use [pystran.live](https://petrkryslucsd.github.io/pystran.live/lab/index.html?path=Welcome.ipynb).
 Just open a Jupyter notebook from the `derivations` or `tutorials` folders.
+However, only static figures are produced in the notebooks (JupyterLite does not handle well `ipympl`).
 
 It is also possible to run `pystran` examples etc. in [mybinder](https://mybinder.org/v2/gh/PetrKryslUCSD/pystran/main).
-It will take a minute to spin it up, but no installation is necessary. 
+It will take a minute to spin it up. It has an advantage over the previous method:
+Interactive figures are available, just put an additional line at the top of the imports:
+```
+%matplotlib widget
+```
 
 This package is distributed through the official Python channels (https://pypi.org).
 Just do
@@ -78,10 +84,9 @@ pip install pystran
 ```
 
 It may also to be downloaded from GitHub as a zip file, and expanded in some convenient location. 
-
 The `pystran` __folder__ can be located by looking for this README.md file.
 
-The easiest way to run a pystran example is to download and install Spyder 6.
+The easiest way to run a pystran example as a script is to download and install Spyder 6.
 [Detailed instructions](docs/spyder/spyder.md) are provided. 
 
 It is also possible to run simulations using a [plain Python in a terminal](docs/terminal/terminal.md).

@@ -13,7 +13,8 @@ The finite-element principles and development of the techniques is described in 
 
 ## News
 
-- 05/21/2026: Refactoring.
+- 07/16/2026: Refactor add methods.
+- 07/16/2026: Add tutorials as Jupyter notebooks.
 
 
 
@@ -120,6 +121,7 @@ of weighted-residual methods (modern finite element analysis), check out the [te
 
 ## <a name="past-news"></a>Past news
 
+- 05/21/2026: Refactoring.
 - 11/08/2025: Add publishing workflow.
 - 03/13/2025: Update documentation for the sphinx system.
 - 03/10/2025: Add rigid links and general springs.

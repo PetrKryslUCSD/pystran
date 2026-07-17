@@ -90,8 +90,7 @@ def add_joint(m, jid, coordinates, dof=None):
 
     Returns
     -------
-    dict
-        Newly created joint.
+    None
     """
     if "joints" not in m:
         m["joints"] = {}
@@ -103,7 +102,7 @@ def add_joint(m, jid, coordinates, dof=None):
     m["joints"][jid] = {"jid": jid, "coordinates": coordinates}
     if dof is not None:
         m["joints"][jid]["dof"] = array(dof, dtype=int32)
-    return m["joints"][jid]
+    return None
 
 
 def add_truss_member(m, mid, connectivity, sect):
@@ -124,8 +123,7 @@ def add_truss_member(m, mid, connectivity, sect):
 
     Returns
     -------
-    dict
-        Newly created member.
+    None
     """
     if "truss_members" not in m:
         m["truss_members"] = {}
@@ -136,7 +134,7 @@ def add_truss_member(m, mid, connectivity, sect):
         "connectivity": connectivity,
         "section": sect,
     }
-    return m["truss_members"][mid]
+    return None
 
 
 def add_beam_member(m, mid, connectivity, sect):
@@ -157,8 +155,7 @@ def add_beam_member(m, mid, connectivity, sect):
 
     Returns
     -------
-    dict
-        Newly created member.
+    None
 
     See Also
     --------
@@ -174,7 +171,7 @@ def add_beam_member(m, mid, connectivity, sect):
         "connectivity": connectivity,
         "section": sect,
     }
-    return m["beam_members"][mid]
+    return None
 
 
 def add_rigid_link_member(m, mid, connectivity, sect):
@@ -198,8 +195,7 @@ def add_rigid_link_member(m, mid, connectivity, sect):
 
     Returns
     -------
-    dict
-        Newly created member.
+    None
 
     See Also
     --------
@@ -214,7 +210,7 @@ def add_rigid_link_member(m, mid, connectivity, sect):
         "connectivity": connectivity,
         "section": sect,
     }
-    return m["rigid_link_members"][mid]
+    return None
 
 
 def add_spring_member(m, mid, connectivity, sect):
@@ -235,8 +231,7 @@ def add_spring_member(m, mid, connectivity, sect):
 
     Returns
     -------
-    dict
-        Newly created member.
+    None
 
     See Also
     --------
@@ -256,7 +251,7 @@ def add_spring_member(m, mid, connectivity, sect):
         "section": sect,
         "dofkind": dof
     }
-    return m["spring_members"][mid]
+    return None
 
 def _dof_is_int(dof):
     return isinstance(dof, Integral)
@@ -286,6 +281,7 @@ def add_support(j, dof, value=0.0):
             j["supports"][d] = value
     else:
         j["supports"][dof] = value
+    return None
 
 
 def add_load(j, dof, value):
@@ -310,6 +306,7 @@ def add_load(j, dof, value):
     if dof not in j["loads"]:
         j["loads"][dof] = 0.0
     j["loads"][dof] += value
+    return None
 
 
 def add_mass(j, dof, value):
@@ -332,6 +329,7 @@ def add_mass(j, dof, value):
     if "masses" not in j:
         j["masses"] = {}
     j["masses"][dof] = value
+    return None
 
 
 def add_dof_links(m, jids, dof):
@@ -368,7 +366,7 @@ def add_dof_links(m, jids, dof):
                 else:
                     for d in dof:
                         j1["links"][jid2].append(d)
-
+    return None
 
 def bounding_box(m):
     """
@@ -528,7 +526,7 @@ def number_dofs(m):
                     _copy_dof_num_to_linked(m, j, d, n)
                     n += 1
     m["ntotaldof"] = n
-    
+    return None
 
 def _build_stiffness_matrix(m):
     nt = m["ntotaldof"]
@@ -679,6 +677,7 @@ def solve_statics(m):
     # # Assign displacements back to joints
     for joint in m["joints"].values():
         joint["displacements"] = U[joint["dof"]]
+    return None
     
 def statics_reactions(m):
     r"""
@@ -750,6 +749,7 @@ def statics_reactions(m):
                 gr = joint["dof"][dof]
                 reactions[dof] = R[gr]
             joint["reactions"] = reactions
+    return None
 
 def solve_free_vibration(m, freqshift=0.0):
     r"""
@@ -826,7 +826,7 @@ def solve_free_vibration(m, freqshift=0.0):
     m["eigvals"] = eigvals
     m["frequencies"] = [sqrt(abs(ev)) / 2 / pi for ev in eigvals]
     m["eigvecs"] = eigvecs
-
+    return None
 
 def set_solution(m, V):
     """
@@ -864,6 +864,7 @@ def set_solution(m, V):
         raise RuntimeError("Invalid vector length")
     for joint in m["joints"].values():
         joint["displacements"] = m["U"][joint["dof"]]
+    return None
 
 def free_body_check(m):
     """
@@ -1032,6 +1033,7 @@ def refine_member(m, mid, n):
     member["descendants"] = descendants
     # Remove the old member
     del m["beam_members"][mid]
+    return None
     
 
 def remove_loads(m):

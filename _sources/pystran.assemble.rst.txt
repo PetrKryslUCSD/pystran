@@ -1,0 +1,7 @@
+pystran.assemble module
+=======================
+
+.. automodule:: pystran.assemble
+   :members:
+   :undoc-members:
+   :show-inheritance:

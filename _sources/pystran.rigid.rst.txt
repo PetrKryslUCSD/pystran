@@ -1,0 +1,7 @@
+pystran.rigid module
+====================
+
+.. automodule:: pystran.rigid
+   :members:
+   :undoc-members:
+   :show-inheritance:

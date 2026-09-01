@@ -83,7 +83,7 @@ Just do
 pip install pystran
 ```
 
-It may also to be downloaded from GitHub as a zip file, and expanded in some convenient location. 
+It may also be downloaded from GitHub as a zip file, and expanded in some convenient location. 
 The `pystran` __folder__ can be located by looking for this README.md file.
 
 The easiest way to run a pystran example as a script is to download and install Spyder 6.

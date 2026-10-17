@@ -1,6 +1,6 @@
 # Solution for the bending moment in a clamped-clamped beam
 # with a central force equivalent to a uniform distributed load
-# modeling only HALF (with a symmetry condition).
+# modeling only HALF of the beam (with a symmetry condition).
 # The beam is clamped at x=-h/2 and has a sliding clamp at x=0.
 
 from sympy import *

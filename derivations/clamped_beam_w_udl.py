@@ -1,3 +1,5 @@
+# Clamped-clamped beam with uniform distributed load.
+# Analytical solution for the deflection at the midpoint.
 from sympy import *
 import matplotlib
 

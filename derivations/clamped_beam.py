@@ -1,5 +1,6 @@
 # Solution for the bending moment in a clamped-clamped beam
-
+# loaded with uniform distributed load. The beam extends 
+# in the interval -h/2 <= x <= h/2.
 
 from sympy import *
 

@@ -75,10 +75,9 @@ def truss_2d_mass(e_x, e_z, h, rho, A):
         Member mass matrix.
     """
     xiG, WG = gauss.rule(2)
-    WG = [1, 1]
     n = len(e_x) * 2
     m = zeros((n, n))
-    for q in range(2):
+    for q in range(len(xiG)):
         N = geometry.lin_basis(xiG[q])
         Nu = array([N[0], 0.0, N[1], 0.0])
         m += rho * A * outer(Nu, Nu) * WG[q] * (h / 2)
@@ -126,7 +125,7 @@ def truss_3d_mass(e_x, e_y, e_z, h, rho, A):
     xiG, WG = gauss.rule(2)
     n = len(e_x) * 2
     m = zeros((n, n))
-    for q in range(2):
+    for q in range(len(xiG)):
         N = geometry.lin_basis(xiG[q])
         Nu = array([N[0], 0.0, 0.0, N[1], 0.0, 0.0])
         m += rho * A * outer(Nu, Nu) * WG[q] * (h / 2)

@@ -1001,14 +1001,14 @@ class UnitTestsSpaceFrames(unittest.TestCase):
         # Joints are added at their locations. The original source refers to the nodes
         # (joints) as N_A, N_B, etc. N_A and N_B are supported, N_H1 and N_H2 form the
         # two joints at the same location that are linked in a hinge.
-        jA = model.add_joint(m, "N_A", [0.0, 2.0, 1.0])
-        jB = model.add_joint(m, "N_B", [2.0, 0.0, -1.0])
+        model.add_joint(m, "N_A", [0.0, 2.0, 1.0])
+        model.add_joint(m, "N_B", [2.0, 0.0, -1.0])
         model.add_joint(m, "N_C", [0.0, 0.0, -1.0])
         model.add_joint(m, "N_D", [0.0, 0.0, +1.0])
         model.add_joint(m, "N_H1", [0.0, 0.0, 0.0])
         model.add_joint(m, "N_H2", [0.0, 0.0, 0.0])
         # The ground is represented as joint, which we will make immovable below.
-        ground = model.add_joint(m, "ground", [0.0, 0.0, 0.0])
+        model.add_joint(m, "ground", [0.0, 0.0, 0.0])
 
         # There are four beams. The cross sectional properties are the same, but the
         # beam orientations need to be different.
@@ -1052,6 +1052,8 @@ class UnitTestsSpaceFrames(unittest.TestCase):
 
         # The supports are next. The original source refers to the supports at N_A and
         # N_B.
+        jA = m['joints']['N_A']
+        jB = m['joints']['N_B']
         model.add_support(jA, freedoms.U1)
         model.add_support(jA, freedoms.U3)
         model.add_support(jA, freedoms.UR2)
@@ -1061,6 +1063,7 @@ class UnitTestsSpaceFrames(unittest.TestCase):
         model.add_support(jB, freedoms.UR1)
 
         # The ground "joint" is fully supported.
+        ground = m['joints']['ground']
         model.add_support(ground, freedoms.ALL_DOFS)
 
         # Next we add the springs to the ground. The translation and rotation spring

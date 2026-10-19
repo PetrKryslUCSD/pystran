@@ -1,0 +1,7 @@
+pystran.geometry module
+=======================
+
+.. automodule:: pystran.geometry
+   :members:
+   :undoc-members:
+   :show-inheritance:

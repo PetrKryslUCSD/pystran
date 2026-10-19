@@ -1,0 +1,7 @@
+pystran.plots module
+====================
+
+.. automodule:: pystran.plots
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+pystran.truss module
+====================
+
+.. automodule:: pystran.truss
+   :members:
+   :undoc-members:
+   :show-inheritance:
